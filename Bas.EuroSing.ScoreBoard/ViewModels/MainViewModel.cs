@@ -9,5 +9,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
     public sealed class MainViewModel : ViewModelBase
     {
+        
     }
 }

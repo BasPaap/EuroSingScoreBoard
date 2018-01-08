@@ -76,13 +76,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainView.xaml.cs">
+    <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\DesignDataService.cs" />
+    <Compile Include="Services\IDataService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ResultsControlPanelViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\VoteViewModel.cs" />
     <Compile Include="Views\ResultsControlPanelView.xaml.cs">
       <DependentUpon>ResultsControlPanelView.xaml</DependentUpon>
@@ -96,7 +100,7 @@
     <Compile Include="Views\VoteView.xaml.cs">
       <DependentUpon>VoteView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainView.xaml">
+    <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

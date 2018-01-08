@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Bas.EuroSing.ScoreBoard
+namespace Bas.EuroSing.ScoreBoard.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
