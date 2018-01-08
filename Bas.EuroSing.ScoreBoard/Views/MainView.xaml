@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard"
+        xmlns:views="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
         mc:Ignorable="d"
         Title="EuroSing Score Board" Height="350" Width="525"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
         <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" 
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
-        
+        <views:SettingsView />
     </Grid>
 </Window>

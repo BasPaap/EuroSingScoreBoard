@@ -8,6 +8,6 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding ResultsControlPanel, Source={StaticResource Locator}}">
     <Grid>
-            
+        <TextBlock Style="{StaticResource HeaderStyle}">Results</TextBlock>
     </Grid>
 </UserControl>

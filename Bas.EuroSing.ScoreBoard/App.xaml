@@ -9,5 +9,10 @@
              StartupUri="Views/MainView.xaml">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" />
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Bas.EuroSing.ScoreBoard.Views
@@ -18,7 +17,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
     /// <summary>
     /// Interaction logic for ResultsView.xaml
     /// </summary>
-    public partial class ResultsView : UserControl
+    public partial class ResultsView : Window
     {
         public ResultsView()
         {

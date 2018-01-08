@@ -25,6 +25,10 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ResultsControlPanelViewModel>();
+            SimpleIoc.Default.Register<ResultsViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<VoteViewModel>();            
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }

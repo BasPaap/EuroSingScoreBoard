@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Bas.EuroSing.ScoreBoard.Views
@@ -17,7 +18,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
     /// <summary>
     /// Interaction logic for VoteView.xaml
     /// </summary>
-    public partial class VoteView : Window
+    public partial class VoteView : UserControl
     {
         public VoteView()
         {
