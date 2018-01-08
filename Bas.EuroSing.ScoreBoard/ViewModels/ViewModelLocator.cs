@@ -28,5 +28,9 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
+        public ResultsControlPanelViewModel ResultsControlPanel { get { return ServiceLocator.Current.GetInstance<ResultsControlPanelViewModel>(); } }
+        public ResultsViewModel Results { get { return ServiceLocator.Current.GetInstance<ResultsViewModel>(); } }
+        public SettingsViewModel Settings { get { return ServiceLocator.Current.GetInstance<SettingsViewModel>(); } }
+        public VoteViewModel Vote { get { return ServiceLocator.Current.GetInstance<VoteViewModel>(); } }
     }
 }

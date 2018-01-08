@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
         mc:Ignorable="d"
-        Title="VoteView" Height="300" Width="300">
+        Title="VoteView" Height="300" Width="300"
+        DataContext="{Binding Vote, Source={StaticResource Locator}}">
     <Grid>
         
     </Grid>
