@@ -8,6 +8,7 @@
         Title="ResultsView" Height="300" Width="300"
         DataContext="{Binding Results, Source={StaticResource Locator}}">
     <Grid>
-        
+        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" 
+                      LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
     </Grid>
 </Window>

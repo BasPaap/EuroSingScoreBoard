@@ -23,5 +23,15 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             InitializeComponent();
         }
+        
+        private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
+        {
+            backgroundVideo.Play();
+        }
+
+        private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            backgroundVideo.Position = TimeSpan.FromSeconds(0);
+        }
     }
 }
