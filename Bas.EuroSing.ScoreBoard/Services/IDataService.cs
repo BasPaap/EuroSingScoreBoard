@@ -11,5 +11,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
     internal interface IDataService
     {
         Collection<Country> GetAllCountries();
+        Task<int> AddCountryAsync(Country country);
     }
 }

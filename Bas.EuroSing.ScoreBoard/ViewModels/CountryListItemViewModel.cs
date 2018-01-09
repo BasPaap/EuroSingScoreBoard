@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Bas.EuroSing.ScoreBoard.Model;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,16 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             get { return flagImage; }
             set { Set(ref flagImage, value); }
+        }
+
+        public CountryListItemViewModel()
+        {
+        }
+
+        public CountryListItemViewModel(Country country)
+        {
+            Id = country.Id;
+            Name = country.Name;
         }
     }
 }

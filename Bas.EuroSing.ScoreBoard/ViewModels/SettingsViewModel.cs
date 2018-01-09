@@ -1,4 +1,5 @@
-﻿using Bas.EuroSing.ScoreBoard.Services;
+﻿using Bas.EuroSing.ScoreBoard.Model;
+using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -14,13 +15,17 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
     internal class SettingsViewModel : ViewModelBase
     {
+        private IDataService dataService;
+
         public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
 
         public RelayCommand<DragEventArgs> DropCommand { get; set; }
         
         public SettingsViewModel(IDataService dataService)
         {
-            DropCommand = new RelayCommand<DragEventArgs>(OnDropCommand);
+            this.dataService = dataService;
+
+            DropCommand = new RelayCommand<DragEventArgs>(OnDropCommandAsync);
 
 
             //TODO: REMOVE -----------------
@@ -33,17 +38,22 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             //TODO: AAAAAAARG
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
-                                                                           select new CountryListItemViewModel() { Id = c.Id, Name = c.Name, FlagImage = bitmapImage });
+                                                                           select new CountryListItemViewModel(c) { FlagImage = bitmapImage });
         }
 
-        private void OnDropCommand(DragEventArgs e)
+        private async void OnDropCommandAsync(DragEventArgs e)
         {
             var filePaths = e.Data.GetData(DataFormats.FileDrop) as IEnumerable<string>;
 
             foreach (var filePath in filePaths)
             {
                 var countryName = Path.GetFileNameWithoutExtension(filePath);
-                InsertCountryOrdered(new CountryListItemViewModel() { Name = countryName });
+                var imageBytes = File.ReadAllBytes(filePath);
+
+                var newCountry = new Country() { Name = countryName };
+                await this.dataService.AddCountryAsync(newCountry);
+                
+                InsertCountryOrdered(new CountryListItemViewModel(newCountry));
             }
         }
 

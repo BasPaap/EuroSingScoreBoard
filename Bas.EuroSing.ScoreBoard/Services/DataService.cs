@@ -10,6 +10,11 @@ namespace Bas.EuroSing.ScoreBoard.Services
 {
     internal sealed class DataService : IDataService
     {
+        public async Task<int> AddCountryAsync(Country country)
+        {
+            throw new NotImplementedException();
+        }
+
         public Collection<Country> GetAllCountries()
         {
             return new Collection<Country>(new[] {
