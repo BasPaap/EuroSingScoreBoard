@@ -164,6 +164,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\SettingsIcon.png" />
     <Content Include="Assets\DancingStars.mov">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
