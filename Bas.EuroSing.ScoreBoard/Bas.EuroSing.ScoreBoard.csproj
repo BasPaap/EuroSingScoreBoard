@@ -172,6 +172,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\PlayIcon.png" />
     <Resource Include="Assets\icon.png" />
     <Resource Include="Assets\BackIcon.png" />
     <Content Include="Assets\Netherlands.png">

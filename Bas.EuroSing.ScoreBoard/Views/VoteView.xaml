@@ -7,15 +7,62 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Vote, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Style x:Key="ShowResultsButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#22FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/PlayIcon.png" Width="50" Margin="4" RenderOptions.BitmapScalingMode="HighQuality"  />
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#44FFFFFF"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#44FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#44FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource HeaderStyle}" Margin="55,0,0,0">Vote</TextBlock>
         <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
 
-        <ComboBox Grid.Row="1" Text="Choose a country..." ItemsSource="{Binding Countries}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding Countries}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="2">
@@ -30,5 +77,8 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         
+        <Button Grid.Row="2" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
+            Show results
+        </Button>
     </Grid>
 </UserControl>
