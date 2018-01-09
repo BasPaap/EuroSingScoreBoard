@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Settings, Source={StaticResource Locator}}">
+             DataContext="{Binding Vote, Source={StaticResource Locator}}">
     <Grid>
         <TextBlock Style="{StaticResource HeaderStyle}">Vote</TextBlock>
     </Grid>

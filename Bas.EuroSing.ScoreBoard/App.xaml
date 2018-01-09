@@ -14,5 +14,13 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        <Style x:Key="SubWindowStyle" TargetType="UserControl">
+            <Setter Property="Margin" Value="10" />            
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+
     </Application.Resources>
 </Application>

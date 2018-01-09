@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640"
-             DataContext="{Binding Settings, Source={StaticResource Locator}}">
-    <Grid Margin="10" >
+             >
+    <Grid>
         <TextBlock Style="{StaticResource HeaderStyle}">Settings</TextBlock>
     </Grid>
 </UserControl>
