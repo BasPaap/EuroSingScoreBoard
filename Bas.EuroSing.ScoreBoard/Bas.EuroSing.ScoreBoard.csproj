@@ -77,6 +77,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +166,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\DeleteIcon.png" />
+    <Resource Include="Assets\EditIcon.png" />
     <Resource Include="Assets\SettingsIcon.png" />
     <Content Include="Assets\DancingStars.mov">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

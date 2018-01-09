@@ -12,13 +12,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
     internal class ResultsControlPanelViewModel : ViewModelBase
     {
-        private bool isVisible;
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set { Set(ref isVisible, value); }
-        }
-
         public RelayCommand SettingsCommand { get; set; }
 
         public ResultsControlPanelViewModel()
