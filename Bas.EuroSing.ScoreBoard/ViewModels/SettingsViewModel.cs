@@ -59,13 +59,20 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void InsertCountryOrdered(CountryListItemViewModel newCountry)
         {
-            foreach (var country in Countries)
+            if (Countries.Count > 0)
             {
-                if (string.Compare(country.Name, newCountry.Name) == 1)
+                foreach (var country in Countries)
                 {
-                    Countries.Insert(Countries.IndexOf(country), newCountry);
-                    break;
+                    if (string.Compare(country.Name, newCountry.Name) == 1)
+                    {
+                        Countries.Insert(Countries.IndexOf(country), newCountry);
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                Countries.Add(newCountry);
             }
         }
     }

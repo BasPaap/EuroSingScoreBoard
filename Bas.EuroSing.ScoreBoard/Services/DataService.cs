@@ -12,7 +12,12 @@ namespace Bas.EuroSing.ScoreBoard.Services
     {
         public async Task<int> AddCountryAsync(Country country)
         {
-            throw new NotImplementedException();
+            var db = new ScoreBoardDbContext();
+
+            db.Countries.Add(country);
+            await db.SaveChangesAsync();
+
+            return country.Id;
         }
 
         public Collection<Country> GetAllCountries()
