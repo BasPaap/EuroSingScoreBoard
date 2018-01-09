@@ -9,5 +9,6 @@
              DataContext="{Binding ResultsControlPanel, Source={StaticResource Locator}}">
     <Grid>
         <TextBlock Style="{StaticResource HeaderStyle}">Results</TextBlock>
+        <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
     </Grid>
 </UserControl>
