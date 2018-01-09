@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
@@ -36,13 +37,37 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref flagImage, value); }
         }
 
+        private bool isInEditMode;
+
+        public bool IsInEditMode
+        {
+            get { return isInEditMode; }
+            set { Set(ref isInEditMode, value); }
+        }
+
         public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
+        public RelayCommand StopEditCommand { get; set; }
+        public RelayCommand<KeyEventArgs> KeyUpCommand { get; set; }
 
         public CountryListItemViewModel(Country country, IDataService dataService)
         {
             this.dataService = dataService;
 
             DeleteCommand = new RelayCommand(OnDeleteCommand);
+            EditCommand = new RelayCommand(() => { IsInEditMode = true; });
+            StopEditCommand = new RelayCommand(async () => 
+            {
+                IsInEditMode = false;
+                await this.dataService.ChangeCountryNameAsync(this.Id, this.Name);
+            });
+            KeyUpCommand = new RelayCommand<KeyEventArgs>((e) =>
+            {
+                if (e.Key == Key.Enter)
+                {
+                    StopEditCommand.Execute(null);
+                }
+            });
 
             Id = country.Id;
             Name = country.Name;

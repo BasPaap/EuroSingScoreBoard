@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
+             xmlns:vc="clr-namespace:Bas.EuroSing.ScoreBoard.ValueConverters"
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640"
              DataContext="{Binding Settings, Source={StaticResource Locator}}"
              AllowDrop="True">
     <UserControl.Resources>
+        <vc:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
         <Style x:Key="DeleteButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="20" />
             <Setter Property="Height" Value="20" />
@@ -133,8 +135,23 @@
                                     <ImageBrush ImageSource="{Binding FlagImage}" />
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
-                            <!--<TextBox Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="Black" FontSize="16" VerticalAlignment="Center" />-->
+                            <TextBlock Grid.Column="1" Visibility="{Binding IsInEditMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <mvvmlight:EventToCommand Command="{Binding EditCommand}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
+                            <TextBox Grid.Column="1" Visibility="{Binding IsInEditMode, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontStyle="Italic" Foreground="Black" FontSize="16" VerticalAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="LostFocus">
+                                        <mvvmlight:EventToCommand Command="{Binding StopEditCommand}" />
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="KeyUp">
+                                        <mvvmlight:EventToCommand Command="{Binding KeyUpCommand}" PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
                             <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Style="{DynamicResource DeleteButtonStyle}"/>
                         </Grid>
                     </Border>

@@ -10,7 +10,12 @@ namespace Bas.EuroSing.ScoreBoard.Services
 {
     internal sealed class DesignDataService : IDataService
     {
-        public async Task<int> AddCountryAsync(Country country)
+        public Task<int> AddCountryAsync(Country country)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ChangeCountryNameAsync(int id, string name)
         {
             throw new NotImplementedException();
         }

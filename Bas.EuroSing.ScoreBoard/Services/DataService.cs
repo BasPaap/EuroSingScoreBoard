@@ -20,6 +20,15 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return country.Id;
         }
 
+        public async Task ChangeCountryNameAsync(int id, string name)
+        {
+            var db = new ScoreBoardDbContext();
+
+            var country = db.Countries.Find(id);
+            country.Name = name;
+            await db.SaveChangesAsync();
+        }
+
         public async Task DeleteAllVotesAsync()
         {
             var db = new ScoreBoardDbContext();

@@ -83,6 +83,7 @@
     <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.Designer.cs">
       <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
