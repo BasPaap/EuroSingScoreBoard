@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard"
         xmlns:views="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
         mc:Ignorable="d"
-        Title="EuroSing Score Board" Height="350" Width="525"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        Title="EuroSing Score Board" 
+        DataContext="{Binding Main, Source={StaticResource Locator}}" Icon="/Bas.EuroSing.ScoreBoard;component/Assets/icon.png">
     <Grid>
         <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" 
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" Stretch="UniformToFill" />

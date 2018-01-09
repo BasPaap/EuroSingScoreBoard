@@ -22,9 +22,18 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             DropCommand = new RelayCommand<DragEventArgs>(OnDropCommand);
 
+
+            //TODO: REMOVE -----------------
+            System.Windows.Media.Imaging.BitmapImage bitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CreateOptions = System.Windows.Media.Imaging.BitmapCreateOptions.None;
+            bitmapImage.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+            bitmapImage.StreamSource = File.OpenRead("Assets\\Netherlands.png");
+            bitmapImage.EndInit();
+            //TODO: AAAAAAARG
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
-                                                                           select new CountryListItemViewModel() { Id = c.Id, Name = c.Name });
+                                                                           select new CountryListItemViewModel() { Id = c.Id, Name = c.Name, FlagImage = bitmapImage });
         }
 
         private void OnDropCommand(DragEventArgs e)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
@@ -18,6 +19,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return name; }
             set { Set(ref name, value); }
         }
-        
+
+        private BitmapImage flagImage;
+
+        public BitmapImage FlagImage
+        {
+            get { return flagImage; }
+            set { Set(ref flagImage, value); }
+        }
     }
 }

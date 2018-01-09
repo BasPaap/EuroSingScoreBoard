@@ -166,6 +166,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\icon.png" />
+    <Content Include="Assets\Netherlands.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\DeleteIcon.png" />
     <Resource Include="Assets\EditIcon.png" />
     <Resource Include="Assets\SettingsIcon.png" />
