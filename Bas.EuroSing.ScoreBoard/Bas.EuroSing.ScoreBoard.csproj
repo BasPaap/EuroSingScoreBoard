@@ -77,9 +77,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\Message.cs" />
-    <Compile Include="Model\Migrations\201801091528359_CreateInitialSchema.cs" />
-    <Compile Include="Model\Migrations\201801091528359_CreateInitialSchema.Designer.cs">
-      <DependentUpon>201801091528359_CreateInitialSchema.cs</DependentUpon>
+    <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.cs" />
+    <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.Designer.cs">
+      <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
@@ -149,8 +149,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Model\Migrations\201801091528359_CreateInitialSchema.resx">
-      <DependentUpon>201801091528359_CreateInitialSchema.cs</DependentUpon>
+    <EmbeddedResource Include="Model\Migrations\201801091839493_CreateInitialSchema.resx">
+      <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

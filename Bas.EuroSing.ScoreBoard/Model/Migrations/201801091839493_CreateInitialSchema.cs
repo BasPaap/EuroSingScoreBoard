@@ -13,6 +13,7 @@ namespace Bas.EuroSing.ScoreBoard.Model.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        FlagImage = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -29,7 +30,8 @@ namespace Bas.EuroSing.ScoreBoard.Model.Migrations
                 .ForeignKey("dbo.Countries", t => t.FromCountryId)
                 .ForeignKey("dbo.Countries", t => t.ToCountryId, cascadeDelete: true)
                 .Index(t => new { t.Value, t.FromCountryId }, unique: true, name: "IX_ValueAndFromCountryId")
-                .Index(t => new { t.FromCountryId, t.ToCountryId }, unique: true, name: "IX_FromCountryIdAndToCountryId");            
+                .Index(t => new { t.FromCountryId, t.ToCountryId }, unique: true, name: "IX_FromCountryIdAndToCountryId");
+            
         }
         
         public override void Down()

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             Id = country.Id;
             Name = country.Name;
+
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CreateOptions = BitmapCreateOptions.None;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
+            bitmapImage.EndInit();
+
+            FlagImage = bitmapImage;
         }
     }
 }
