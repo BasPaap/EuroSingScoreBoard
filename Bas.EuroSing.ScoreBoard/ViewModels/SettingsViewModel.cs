@@ -24,6 +24,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public RelayCommand<DragEventArgs> DropCommand { get; set; }
         public RelayCommand DeleteAllVotesCommand { get; set; }
         public RelayCommand BackCommand { get; set; }
+        public RelayCommand<int> DeleteCommand { get; set; }
 
         public SettingsViewModel(IDataService dataService)
         {
@@ -32,6 +33,16 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             DropCommand = new RelayCommand<DragEventArgs>(OnDropCommandAsync);
             DeleteAllVotesCommand = new RelayCommand(OnDeleteAllVotesCommandAsync);
             BackCommand = new RelayCommand(OnBackCommand);
+            DeleteCommand = new RelayCommand<int>((id) =>
+            {
+                this.dataService.DeleteCountryAsync(id);
+                var countryViewModel = this.Countries.SingleOrDefault(c => c.Id == id);
+
+                if (countryViewModel != null)
+                {
+                    this.Countries.Remove(countryViewModel);
+                }
+            });
 
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
@@ -62,28 +73,29 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                 var newCountry = new Country() { Name = countryName, FlagImage = imageBytes };
                 await this.dataService.AddCountryAsync(newCountry);
-                
+
                 InsertCountryOrdered(new CountryListItemViewModel(newCountry));
             }
         }
 
         private void InsertCountryOrdered(CountryListItemViewModel newCountry)
         {
-            if (Countries.Count > 0)
+            bool isInserted = false;
+            foreach (var country in Countries)
             {
-                foreach (var country in Countries)
+                if (string.Compare(country.Name, newCountry.Name) == 1)
                 {
-                    if (string.Compare(country.Name, newCountry.Name) == 1)
-                    {
-                        Countries.Insert(Countries.IndexOf(country), newCountry);
-                        break;
-                    }
+                    Countries.Insert(Countries.IndexOf(country), newCountry);
+                    isInserted = true;
+                    break;
                 }
             }
-            else
+
+            if (!isInserted)
             {
                 Countries.Add(newCountry);
             }
         }
     }
 }
+

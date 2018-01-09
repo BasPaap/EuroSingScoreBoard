@@ -131,7 +131,7 @@
                                 </Ellipse>
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <Button HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Style="{DynamicResource DeleteButtonStyle}"/>
+                            <Button HorizontalAlignment="Right" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding Id}" Style="{DynamicResource DeleteButtonStyle}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

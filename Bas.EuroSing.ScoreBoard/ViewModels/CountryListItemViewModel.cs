@@ -1,5 +1,6 @@
 ﻿using Bas.EuroSing.ScoreBoard.Model;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +30,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return flagImage; }
             set { Set(ref flagImage, value); }
         }
-
-        public CountryListItemViewModel()
-        {
-        }
-
+        
         public CountryListItemViewModel(Country country)
         {
             Id = country.Id;
@@ -47,6 +44,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             bitmapImage.EndInit();
 
             FlagImage = bitmapImage;
-        }
+        }  
     }
 }

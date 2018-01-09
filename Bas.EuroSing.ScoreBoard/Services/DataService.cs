@@ -28,6 +28,15 @@ namespace Bas.EuroSing.ScoreBoard.Services
             await db.SaveChangesAsync();
         }
 
+        public async Task DeleteCountryAsync(int id)
+        {
+            var db = new ScoreBoardDbContext();
+            var country = await db.Countries.FindAsync(id);
+            db.Countries.Remove(country);
+
+            await db.SaveChangesAsync();
+        }
+
         public Collection<Country> GetAllCountries()
         {
             var db = new ScoreBoardDbContext();

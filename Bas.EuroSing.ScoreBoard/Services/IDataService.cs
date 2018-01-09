@@ -13,5 +13,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
         Collection<Country> GetAllCountries();
         Task<int> AddCountryAsync(Country country);
         Task DeleteAllVotesAsync();
+        Task DeleteCountryAsync(int id);
     }
 }
