@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640"
-             DataContext="{Binding Settings, Source={StaticResource Locator}}">
+             DataContext="{Binding Settings, Source={StaticResource Locator}}"
+             AllowDrop="True">
     <UserControl.Resources>
         <Style x:Key="DeleteButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="20" />
@@ -98,6 +101,11 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Drop">
+            <mvvmlight:EventToCommand PassEventArgsToCommand="True" Command="{Binding DropCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -106,7 +114,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Settings</TextBlock>
         <ListView Grid.Row="1" Background="Transparent" ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch" BorderThickness="0">
-            
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
@@ -122,5 +130,6 @@
             Delete all votes
         </Button>
         <TextBlock Grid.Row="2" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom">Drop image files on this window to add countries.</TextBlock>
+
     </Grid>
 </UserControl>
