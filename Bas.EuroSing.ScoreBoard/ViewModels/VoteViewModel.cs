@@ -1,4 +1,7 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +17,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             get { return isVisible; }
             set { Set(ref isVisible, value); }
+        }
+
+        public RelayCommand SettingsCommand { get; set; }
+
+        public VoteViewModel()
+        {
+            SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
         }
     }
 }

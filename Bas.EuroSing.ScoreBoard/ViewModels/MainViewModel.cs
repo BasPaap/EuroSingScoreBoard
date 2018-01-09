@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +20,28 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         }
 
         public MainViewModel()
-        {           
+        {
+            MessengerInstance.Register<GenericMessage<Message>>(this, OnGenericMessageReceived);
             ShowView(View.Vote);
+        }
+
+        private void OnGenericMessageReceived(GenericMessage<Message> message)
+        {
+            switch (message.Content)
+            {
+                case Message.ShowSettings:
+                    ShowView(View.Settings);
+                    break;
+                case Message.ShowVoteForm:
+                    ShowView(View.Vote);
+                    break;
+                case Message.ShowResultsControlPanel:
+                    ShowView(View.ResultsControlPanel);
+                    break;
+                case Message.None:
+                default:
+                    break;
+            }
         }
 
         private void ShowView(View view)

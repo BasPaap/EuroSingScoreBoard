@@ -66,7 +66,7 @@
     </UserControl.Resources>
     <Grid>
         <TextBlock Style="{StaticResource HeaderStyle}">Vote</TextBlock>
-        <Button Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{DynamicResource SettingsButtonStyle}">
+        <Button Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Style="{DynamicResource SettingsButtonStyle}" Command="{Binding SettingsCommand}">
             <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/SettingsIcon.png" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
     </Grid>
