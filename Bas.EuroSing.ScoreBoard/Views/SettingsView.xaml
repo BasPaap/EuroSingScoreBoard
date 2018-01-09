@@ -130,12 +130,8 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="30" />
                             </Grid.ColumnDefinitions>
-                            <Ellipse Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Stroke="White" StrokeThickness="2" Height="30" Width="30" Margin="0,0,5,0">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding FlagImage}" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Grid.Column="1" Visibility="{Binding IsInEditMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center">
+                            <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                            <TextBlock Grid.Column="1" Visibility="{Binding IsInEditMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
                                         <mvvmlight:EventToCommand Command="{Binding EditCommand}" />
