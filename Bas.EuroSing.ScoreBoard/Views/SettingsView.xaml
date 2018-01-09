@@ -116,22 +116,26 @@
             <Button Command="{Binding BackCommand}" Style="{DynamicResource BackButtonStyle}" />
             <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Settings</TextBlock>
         </StackPanel>
-        
+
         <ListView Grid.Row="1" Background="Transparent" ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch" BorderThickness="0">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
                         <Grid Margin="2">
-                            <StackPanel Orientation="Horizontal">
-                                <Ellipse RenderOptions.BitmapScalingMode="HighQuality" Stroke="White" StrokeThickness="2" Height="30" Width="30" Margin="0,0,5,0">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding FlagImage}" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <Button HorizontalAlignment="Right" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding Id}" Style="{DynamicResource DeleteButtonStyle}"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Stroke="White" StrokeThickness="2" Height="30" Width="30" Margin="0,0,5,0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding FlagImage}" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
+                            <!--<TextBox Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="Black" FontSize="16" VerticalAlignment="Center" />-->
+                            <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding Id}" Style="{DynamicResource DeleteButtonStyle}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
