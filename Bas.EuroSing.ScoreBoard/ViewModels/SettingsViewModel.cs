@@ -24,7 +24,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public RelayCommand<DragEventArgs> DropCommand { get; set; }
         public RelayCommand DeleteAllVotesCommand { get; set; }
         public RelayCommand BackCommand { get; set; }
-        public RelayCommand<int> DeleteCommand { get; set; }
 
         public SettingsViewModel(IDataService dataService)
         {
@@ -33,20 +32,19 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             DropCommand = new RelayCommand<DragEventArgs>(OnDropCommandAsync);
             DeleteAllVotesCommand = new RelayCommand(OnDeleteAllVotesCommandAsync);
             BackCommand = new RelayCommand(OnBackCommand);
-            DeleteCommand = new RelayCommand<int>((id) =>
-            {
-                this.dataService.DeleteCountryAsync(id);
-                var countryViewModel = this.Countries.SingleOrDefault(c => c.Id == id);
+
+            Messenger.Default.Register<RemoveCountryMessage>(this, (message) => {
+                var countryViewModel = this.Countries.SingleOrDefault(c => c.Id == message.CountryId);
 
                 if (countryViewModel != null)
                 {
                     this.Countries.Remove(countryViewModel);
                 }
             });
-
+           
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
-                                                                           select new CountryListItemViewModel(c));
+                                                                           select new CountryListItemViewModel(c, this.dataService));
         }
 
         private void OnBackCommand()
@@ -74,7 +72,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 var newCountry = new Country() { Name = countryName, FlagImage = imageBytes };
                 await this.dataService.AddCountryAsync(newCountry);
 
-                InsertCountryOrdered(new CountryListItemViewModel(newCountry));
+                InsertCountryOrdered(new CountryListItemViewModel(newCountry, this.dataService));
             }
         }
 

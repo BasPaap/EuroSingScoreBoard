@@ -1,6 +1,9 @@
-﻿using Bas.EuroSing.ScoreBoard.Model;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using Bas.EuroSing.ScoreBoard.Model;
+using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +16,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
     internal class CountryListItemViewModel : ViewModelBase
     {
+        private IDataService dataService;
+
         public int Id { get; set; }
 
         private string name;
@@ -30,9 +35,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return flagImage; }
             set { Set(ref flagImage, value); }
         }
-        
-        public CountryListItemViewModel(Country country)
+
+        public RelayCommand DeleteCommand { get; set; }
+
+        public CountryListItemViewModel(Country country, IDataService dataService)
         {
+            this.dataService = dataService;
+
+            DeleteCommand = new RelayCommand(OnDeleteCommand);
+
             Id = country.Id;
             Name = country.Name;
 
@@ -44,6 +55,12 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             bitmapImage.EndInit();
 
             FlagImage = bitmapImage;
-        }  
+        }
+
+        private async void OnDeleteCommand()
+        {
+            Messenger.Default.Send(new RemoveCountryMessage(this.Id));
+            await this.dataService.DeleteCountryAsync(this.Id);
+        }
     }
 }

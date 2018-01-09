@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\RemoveCountryMessage.cs" />
     <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.cs" />
     <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.Designer.cs">
       <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>

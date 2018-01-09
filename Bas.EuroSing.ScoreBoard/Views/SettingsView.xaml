@@ -133,9 +133,9 @@
                                     <ImageBrush ImageSource="{Binding FlagImage}" />
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
                             <!--<TextBox Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" FontStyle="Italic" Foreground="Black" FontSize="16" VerticalAlignment="Center" />-->
-                            <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" CommandParameter="{Binding Id}" Style="{DynamicResource DeleteButtonStyle}"/>
+                            <Button Grid.Column="2" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Style="{DynamicResource DeleteButtonStyle}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
