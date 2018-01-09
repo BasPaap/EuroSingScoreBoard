@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Model\Migrations\201801091528359_CreateInitialSchema.cs" />
+    <Compile Include="Model\Migrations\201801091528359_CreateInitialSchema.Designer.cs">
+      <DependentUpon>201801091528359_CreateInitialSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -128,10 +132,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Migrations\201801081806341_InitialMigration.cs" />
-    <Compile Include="Model\Migrations\201801081806341_InitialMigration.Designer.cs">
-      <DependentUpon>201801081806341_InitialMigration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\Migrations\Configuration.cs" />
     <Compile Include="Model\Country.cs" />
     <Compile Include="Model\Points.cs" />
@@ -149,8 +149,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Model\Migrations\201801081806341_InitialMigration.resx">
-      <DependentUpon>201801081806341_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Model\Migrations\201801091528359_CreateInitialSchema.resx">
+      <DependentUpon>201801091528359_CreateInitialSchema.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -163,7 +163,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
