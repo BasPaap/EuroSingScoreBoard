@@ -16,6 +16,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public SettingsViewModel(IDataService dataService)
         {
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
+                                                                           orderby c.Name
                                                                            select new CountryListItemViewModel() { Name = c.Name });
         }
     }
