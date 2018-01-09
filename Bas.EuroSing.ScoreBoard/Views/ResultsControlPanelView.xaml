@@ -8,7 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding ResultsControlPanel, Source={StaticResource Locator}}">
     <Grid>
-        <TextBlock Style="{StaticResource HeaderStyle}">Results</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Command="{Binding BackCommand}" Style="{DynamicResource BackButtonStyle}" />
+            <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Results</TextBlock>
+        </StackPanel>
         <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
     </Grid>
 </UserControl>

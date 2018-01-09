@@ -112,7 +112,11 @@
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Settings</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Command="{Binding BackCommand}" Style="{DynamicResource BackButtonStyle}" />
+            <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Settings</TextBlock>
+        </StackPanel>
+        
         <ListView Grid.Row="1" Background="Transparent" ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch" BorderThickness="0">
 
             <ListView.ItemTemplate>

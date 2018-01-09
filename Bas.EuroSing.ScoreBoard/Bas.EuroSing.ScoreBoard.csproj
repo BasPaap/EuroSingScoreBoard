@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.cs" />
     <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.Designer.cs">
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
+    <Resource Include="Assets\BackIcon.png" />
     <Content Include="Assets\Netherlands.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

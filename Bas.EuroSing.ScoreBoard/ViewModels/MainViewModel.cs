@@ -19,10 +19,19 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             ResultsControlPanel
         }
 
+        private Stack<View> navigationStack = new Stack<View>();
+
         public MainViewModel()
         {
             MessengerInstance.Register<GenericMessage<Message>>(this, OnGenericMessageReceived);
+            MessengerInstance.Register<BackMessage>(this, OnBackMessageReceived);
             ShowView(View.Vote);
+        }
+
+        private void OnBackMessageReceived(BackMessage obj)
+        {
+            this.navigationStack.Pop();
+            ShowView(this.navigationStack.Peek(), false);
         }
 
         private void OnGenericMessageReceived(GenericMessage<Message> message)
@@ -44,8 +53,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
         }
 
-        private void ShowView(View view)
+        private void ShowView(View view, bool pushToStack = true)
         {
+            if (pushToStack)
+            {
+                this.navigationStack.Push(view);
+            }
+
             IsSettingsViewVisible = false;
             IsVoteViewVisible = false;
             IsResultsControlPanelViewVisible = false;

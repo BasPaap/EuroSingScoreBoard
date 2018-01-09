@@ -1,7 +1,9 @@
-﻿using Bas.EuroSing.ScoreBoard.Model;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +22,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
 
         public RelayCommand<DragEventArgs> DropCommand { get; set; }
-
         public RelayCommand DeleteAllVotesCommand { get; set; }
+        public RelayCommand BackCommand { get; set; }
 
         public SettingsViewModel(IDataService dataService)
         {
@@ -29,10 +31,16 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             DropCommand = new RelayCommand<DragEventArgs>(OnDropCommandAsync);
             DeleteAllVotesCommand = new RelayCommand(OnDeleteAllVotesCommandAsync);
+            BackCommand = new RelayCommand(OnBackCommand);
 
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
                                                                            select new CountryListItemViewModel(c));
+        }
+
+        private void OnBackCommand()
+        {
+            Messenger.Default.Send(new BackMessage());
         }
 
         private async void OnDeleteAllVotesCommandAsync()
