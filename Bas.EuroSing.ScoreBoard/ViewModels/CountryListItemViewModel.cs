@@ -9,6 +9,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
     internal class CountryListItemViewModel : ViewModelBase
     {
+        public int Id { get; set; }
+
         private string name;
 
         public string Name

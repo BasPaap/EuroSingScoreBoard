@@ -24,7 +24,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
-                                                                           select new CountryListItemViewModel() { Name = c.Name });
+                                                                           select new CountryListItemViewModel() { Id = c.Id, Name = c.Name });
         }
 
         private void OnDropCommand(DragEventArgs e)
@@ -34,7 +34,19 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             foreach (var filePath in filePaths)
             {
                 var countryName = Path.GetFileNameWithoutExtension(filePath);
-                Countries.Insert(1, new CountryListItemViewModel() { Name = countryName });
+                InsertCountryOrdered(new CountryListItemViewModel() { Name = countryName });
+            }
+        }
+
+        private void InsertCountryOrdered(CountryListItemViewModel newCountry)
+        {
+            foreach (var country in Countries)
+            {
+                if (string.Compare(country.Name, newCountry.Name) == 1)
+                {
+                    Countries.Insert(Countries.IndexOf(country), newCountry);
+                    break;
+                }
             }
         }
     }
