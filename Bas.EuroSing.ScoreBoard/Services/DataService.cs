@@ -12,10 +12,9 @@ namespace Bas.EuroSing.ScoreBoard.Services
     {
         public Collection<Country> GetAllCountries()
         {
-            return new Collection<Country>(new[] {
-                new Country() { Name = "Nederland" },
-                new Country() { Name = "Cyprus" }
-            });
+            var db = new ScoreBoardDbContext();
+
+            return new Collection<Country>(db.Countries.ToList());
         }
     }
 }

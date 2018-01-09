@@ -7,13 +7,13 @@ namespace Bas.EuroSing.ScoreBoard.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class CreateInitialSchema : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateInitialSchema));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801081806341_InitialMigration"; }
+            get { return "201801091528359_CreateInitialSchema"; }
         }
         
         string IMigrationMetadata.Source
