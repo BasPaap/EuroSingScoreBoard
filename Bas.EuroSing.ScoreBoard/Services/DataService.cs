@@ -20,6 +20,14 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return country.Id;
         }
 
+        public async Task DeleteAllVotesAsync()
+        {
+            var db = new ScoreBoardDbContext();
+
+            db.Points.RemoveRange(db.Points);
+            await db.SaveChangesAsync();
+        }
+
         public Collection<Country> GetAllCountries()
         {
             var db = new ScoreBoardDbContext();

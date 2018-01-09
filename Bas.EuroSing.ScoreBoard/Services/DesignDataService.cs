@@ -15,6 +15,11 @@ namespace Bas.EuroSing.ScoreBoard.Services
             throw new NotImplementedException();
         }
 
+        public Task DeleteAllVotesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public Collection<Country> GetAllCountries()
         {
             return new Collection<Country>(new[] {

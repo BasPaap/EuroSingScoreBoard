@@ -20,16 +20,27 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
 
         public RelayCommand<DragEventArgs> DropCommand { get; set; }
-        
+
+        public RelayCommand DeleteAllVotesCommand { get; set; }
+
         public SettingsViewModel(IDataService dataService)
         {
             this.dataService = dataService;
 
             DropCommand = new RelayCommand<DragEventArgs>(OnDropCommandAsync);
+            DeleteAllVotesCommand = new RelayCommand(OnDeleteAllVotesCommandAsync);
 
             Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
                                                                            select new CountryListItemViewModel(c));
+        }
+
+        private async void OnDeleteAllVotesCommandAsync()
+        {
+            if (MessageBox.Show("Are you sure you want to delete all votes?", "EuroSing 2018", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                await this.dataService.DeleteAllVotesAsync();
+            }
         }
 
         private async void OnDropCommandAsync(DragEventArgs e)

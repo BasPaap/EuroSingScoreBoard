@@ -133,7 +133,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="2" Width="170" HorizontalAlignment="Left" Style="{StaticResource DeleteAllVotesButtonStyle}">
+        <Button Grid.Row="2" Width="170" HorizontalAlignment="Left" Style="{StaticResource DeleteAllVotesButtonStyle}" Command="{Binding DeleteAllVotesCommand}">
             Delete all votes
         </Button>
         <TextBlock Grid.Row="2" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Bottom">Drop image files on this window to add countries.</TextBlock>
