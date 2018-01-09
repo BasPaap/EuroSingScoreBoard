@@ -8,7 +8,27 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Vote, Source={StaticResource Locator}}">
     <Grid>
-        <TextBlock Style="{StaticResource HeaderStyle}">Vote</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource HeaderStyle}" Margin="55,0,0,0">Vote</TextBlock>
         <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
+
+        <ComboBox Grid.Row="1" Text="Choose a country..." ItemsSource="{Binding Countries}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
     </Grid>
 </UserControl>
