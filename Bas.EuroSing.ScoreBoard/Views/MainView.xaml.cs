@@ -40,8 +40,8 @@ namespace Bas.EuroSing.ScoreBoard.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //this.resultsView.Owner = this;
-            this.resultsView.Show();
-            this.Activate();
+            //this.resultsView.Show();
+            //this.Activate();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

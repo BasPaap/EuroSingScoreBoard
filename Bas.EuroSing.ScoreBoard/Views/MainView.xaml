@@ -11,8 +11,8 @@
         Loaded="Window_Loaded"
         Closing="Window_Closing">
     <Grid>
-        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" 
-                      LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" Stretch="UniformToFill" />
+        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov"
+                      LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" Stretch="UniformToFill" Margin="0,0,-0.4,-0.4" />
         
         <views:SettingsView Style="{StaticResource SubWindowStyle}" Visibility="{Binding DataContext.IsSettingsViewVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <views:VoteView Style="{StaticResource SubWindowStyle}" Visibility="{Binding DataContext.IsVoteViewVisible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
