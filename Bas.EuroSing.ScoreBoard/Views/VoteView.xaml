@@ -115,13 +115,7 @@
                             </Grid.ColumnDefinitions>
                             <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
                             <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                            <TextBox Grid.Column="2" Text="{Binding NumPoints, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewTextInput">
-                                        <mvvmlight:EventToCommand Command="{Binding PreviewTextInputCommand}" PassEventArgsToCommand="True" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
+                            <TextBox Grid.Column="2" Text="{Binding NumPoints, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center" />
                         </Grid>
                     </Border>
                 </DataTemplate>

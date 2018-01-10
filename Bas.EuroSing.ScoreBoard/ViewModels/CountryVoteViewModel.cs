@@ -18,8 +18,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     internal class CountryVoteViewModel : ViewModelBase
     {
         private IDataService dataService;
-        private IEnumerable<int> validPoints;
-
+        
         public int Id { get; set; }
 
         private string name;
@@ -45,33 +44,39 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return numPoints; }
             set
             {
-                Set(ref numPoints, value);
+                bool isFirstTimeNumPointsIsSet = false;
+                if (numPoints == null)
+                {
+                    isFirstTimeNumPointsIsSet = true;
+                }
 
-                int pointsValue;
-                if (string.IsNullOrWhiteSpace(value) || int.TryParse(value, out pointsValue))
+                int pointValue;
+                if (string.IsNullOrWhiteSpace(value) ||
+                    (int.TryParse(value, out pointValue) && availablePoints.Contains(pointValue)))
+                {
+                    Set(ref numPoints, value);
+                }
+                else
+                {
+                    Set(ref numPoints, string.Empty);
+                }
+
+                if (!isFirstTimeNumPointsIsSet)
                 {
                     Messenger.Default.Send(new VoteCastMessage());
                 }
             }
         }
 
-        public RelayCommand<TextCompositionEventArgs> PreviewTextInputCommand { get; set; }
+        private IEnumerable<int> availablePoints;
 
-        private void OnPreviewTextInputCommand(TextCompositionEventArgs e)
-        {
-            int points;
-            e.Handled = (int.TryParse(e.Text, out points) && this.validPoints.Contains(points));
-        }
-
-        public CountryVoteViewModel(Vote vote, IDataService dataService, IEnumerable<int> validPoints)
+        public CountryVoteViewModel(Vote vote, IDataService dataService)
         {
             this.dataService = dataService;
             
             Id = vote.Id;
             Name = vote.ToCountry.Name;
             NumPoints = vote.NumPoints == 0 ? string.Empty : vote.NumPoints.ToString();
-
-            PreviewTextInputCommand = new RelayCommand<TextCompositionEventArgs>(OnPreviewTextInputCommand);
 
             if (vote.ToCountry.FlagImage != null)
             {
@@ -84,6 +89,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                 FlagImage = bitmapImage;
             }
+
+            Messenger.Default.Register<VotesToCastUpdatedMessage>(this, (message) =>
+            {
+                this.availablePoints = message.VotesToCast;
+            });
         }
     }
 }
