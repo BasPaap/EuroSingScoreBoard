@@ -177,6 +177,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Logo.png" />
     <Content Include="Assets\Wyoming.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

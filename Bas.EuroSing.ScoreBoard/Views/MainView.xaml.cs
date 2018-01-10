@@ -34,5 +34,14 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             backgroundVideo.Position = TimeSpan.FromSeconds(0);
         }
+
+        private ResultsView resultsView = new ResultsView();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //this.resultsView.Owner = this;
+            this.resultsView.Show();
+            this.Activate();
+        }
     }
 }

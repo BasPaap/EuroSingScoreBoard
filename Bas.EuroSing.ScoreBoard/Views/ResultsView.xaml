@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
         mc:Ignorable="d"
-        Title="ResultsView" Height="300" Width="300"
-        >
+        Title="ResultsView" Height="768" Width="1024"
+        WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDoubleClick="Window_MouseDoubleClick">
     <Grid>
-        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" 
+        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" Stretch="UniformToFill"
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
+        <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" />
     </Grid>
 </Window>
