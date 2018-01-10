@@ -49,6 +49,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void OnBackCommand()
         {
+            Messenger.Default.Send(new CountriesUpdatedMessage());
             Messenger.Default.Send(new BackMessage());
         }
 

@@ -37,11 +37,12 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void UpdateCountriesToVoteOn()
         {
+            CountriesToVoteOn.Clear();
+
             if (CountryIssuingVotes != null)
             {
                 var votes = this.dataService.GetVotes(CountryIssuingVotes.Id);
 
-                CountriesToVoteOn.Clear();
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
                 {
                     CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));
@@ -54,12 +55,31 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public VoteViewModel(IDataService dataService)
         {
             this.dataService = dataService;
+            Messenger.Default.Register<CountriesUpdatedMessage>(this, (m) => 
+            {
+                UpdateCountries();
+                UpdateCountriesToVoteOn();
+            });
 
             SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
             CountriesToVoteOn = new ObservableCollection<CountryVoteViewModel>();
-            Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
-                                                                           orderby c.Name
-                                                                           select new CountryListItemViewModel(c, this.dataService));
+            Countries = new ObservableCollection<CountryListItemViewModel>();
+            UpdateCountries();
+        }
+
+        private void UpdateCountries()
+        {
+            Countries.Clear();
+            var allCountries = from c in dataService.GetAllCountries()
+                               orderby c.Name
+                               select new CountryListItemViewModel(c, this.dataService);
+
+            foreach (var country in allCountries)
+            {
+                Countries.Add(country);
+            }
+
+            CountryIssuingVotes = null;
         }
     }
 }

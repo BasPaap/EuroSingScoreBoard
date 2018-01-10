@@ -78,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Messages\BackMessage.cs" />
+    <Compile Include="Messages\CountriesUpdatedMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\RemoveCountryMessage.cs" />
     <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.cs" />
