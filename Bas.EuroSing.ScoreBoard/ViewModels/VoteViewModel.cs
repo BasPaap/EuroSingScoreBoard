@@ -53,7 +53,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
                 {
-                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));                    
+                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService, this.validPoints));                    
                 }
 
                 PopulateVotesToCast();

@@ -2,6 +2,7 @@
 using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
@@ -16,6 +18,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     internal class CountryVoteViewModel : ViewModelBase
     {
         private IDataService dataService;
+        private IEnumerable<int> validPoints;
 
         public int Id { get; set; }
 
@@ -52,13 +55,23 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
         }
 
-        public CountryVoteViewModel(Vote vote, IDataService dataService)
+        public RelayCommand<TextCompositionEventArgs> PreviewTextInputCommand { get; set; }
+
+        private void OnPreviewTextInputCommand(TextCompositionEventArgs e)
+        {
+            int points;
+            e.Handled = (int.TryParse(e.Text, out points) && this.validPoints.Contains(points));
+        }
+
+        public CountryVoteViewModel(Vote vote, IDataService dataService, IEnumerable<int> validPoints)
         {
             this.dataService = dataService;
             
             Id = vote.Id;
             Name = vote.ToCountry.Name;
             NumPoints = vote.NumPoints == 0 ? string.Empty : vote.NumPoints.ToString();
+
+            PreviewTextInputCommand = new RelayCommand<TextCompositionEventArgs>(OnPreviewTextInputCommand);
 
             if (vote.ToCountry.FlagImage != null)
             {
