@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
+    <Compile Include="ViewModels\CountryVoteViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>

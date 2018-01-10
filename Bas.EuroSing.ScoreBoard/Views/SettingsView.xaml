@@ -119,8 +119,7 @@
             <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Settings</TextBlock>
         </StackPanel>
 
-        <ListView Grid.Row="1" Background="Transparent" ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch" BorderThickness="0">
-
+        <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}"  ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">

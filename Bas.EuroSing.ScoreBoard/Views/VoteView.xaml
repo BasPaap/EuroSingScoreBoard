@@ -59,24 +59,33 @@
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
+        <Image Width="35" Margin="10" Source="/Bas.EuroSing.ScoreBoard;component/Assets/icon.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock Style="{StaticResource HeaderStyle}" Margin="55,0,0,0">Vote</TextBlock>
         <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding Countries}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        
+        <StackPanel Grid.Row="1">
+            <TextBlock Style="{StaticResource LabelStyle}">Country issuing votes</TextBlock>
+
+            <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryIssuingVotes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding CountriesToVoteOn}">
+            
+        </ListView>
+
         <Button Grid.Row="2" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
             Show results
         </Button>

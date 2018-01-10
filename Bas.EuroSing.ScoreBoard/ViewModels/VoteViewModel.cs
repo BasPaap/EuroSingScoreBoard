@@ -18,9 +18,17 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         public RelayCommand SettingsCommand { get; set; }
 
-
         public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
 
+        private CountryListItemViewModel countryIssuingVotes;
+
+        public CountryListItemViewModel CountryIssuingVotes
+        {
+            get { return countryIssuingVotes; }
+            set { Set(ref countryIssuingVotes, value); }
+        }
+
+        public ObservableCollection<CountryVoteViewModel> CountriesToVoteOn { get; set; }
 
         public VoteViewModel(IDataService dataService)
         {

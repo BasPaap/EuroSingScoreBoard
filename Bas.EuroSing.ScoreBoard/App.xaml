@@ -20,6 +20,16 @@
             <Setter Property="Margin" Value="10" />
         </Style>
 
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
