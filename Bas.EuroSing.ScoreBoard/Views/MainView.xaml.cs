@@ -43,5 +43,10 @@ namespace Bas.EuroSing.ScoreBoard.Views
             this.resultsView.Show();
             this.Activate();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.resultsView.Close();
+        }
     }
 }
