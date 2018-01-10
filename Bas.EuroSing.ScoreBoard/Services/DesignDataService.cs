@@ -32,9 +32,23 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
         public Collection<Country> GetAllCountries()
         {
-            return new Collection<Country>(new[] {
+            return new Collection<Country>(new[] 
+            {
                 new Country() { Name = "Nederland" },
                 new Country() { Name = "Cyprus" }
+            });
+        }
+
+        public Collection<Vote> GetVotes(int countryIssuingVotesId)
+        {
+            return new Collection<Vote>(new[]
+            {
+                new Vote()
+                {
+                    FromCountry = new Country() { Name = "Nederland" },
+                    ToCountry = new Country() { Name = "Cyprus" },
+                    NumPoints = 12
+                }
             });
         }
     }

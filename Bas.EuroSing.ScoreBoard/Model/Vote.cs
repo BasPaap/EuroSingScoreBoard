@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Bas.EuroSing.ScoreBoard.Model
 {
-    public class Points
+    public class Vote
     {
         public int Id { get; set; }
 
-        [Index("IX_ValueAndFromCountryId", 1, IsUnique = true)]
-        public int Value { get; set; }
+        [Index("IX_NumPointsAndFromCountryId", 1, IsUnique = true)]
+        public int NumPoints { get; set; }
 
-        [Index("IX_ValueAndFromCountryId", 2, IsUnique = true)]
+        [Index("IX_NumPointsAndFromCountryId", 2, IsUnique = true)]
         [Index("IX_FromCountryIdAndToCountryId", 1, IsUnique = true)]
         public int? FromCountryId { get; set; }
         public virtual Country FromCountry { get; set; }
@@ -22,5 +22,10 @@ namespace Bas.EuroSing.ScoreBoard.Model
         [Index("IX_FromCountryIdAndToCountryId", 2, IsUnique = true)]
         public int ToCountryId { get; set; }
         public virtual Country ToCountry { get; set; }
+
+        public override string ToString()
+        {
+            return $"{{Vote}} ({NumPoints} points from {FromCountry.Name} to {ToCountry.Name}}}";
+        } 
     }
 }

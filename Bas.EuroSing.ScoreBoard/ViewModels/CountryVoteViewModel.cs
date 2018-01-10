@@ -32,19 +32,28 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return flagImage; }
             set { Set(ref flagImage, value); }
         }
-        
-        public CountryVoteViewModel(Country country, IDataService dataService)
+
+        private int numPoints;
+
+        public int NumPoints
+        {
+            get { return numPoints; }
+            set { Set(ref numPoints, value); }
+        }
+
+        public CountryVoteViewModel(Vote vote, IDataService dataService)
         {
             this.dataService = dataService;
             
-            Id = country.Id;
-            Name = country.Name;
+            Id = vote.Id;
+            Name = vote.ToCountry.Name;
+            NumPoints = vote.NumPoints;
 
             var bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.CreateOptions = BitmapCreateOptions.None;
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
+            bitmapImage.StreamSource = new MemoryStream(vote.ToCountry.FlagImage);
             bitmapImage.EndInit();
 
             FlagImage = bitmapImage;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bas.EuroSing.ScoreBoard.Model;
+using System.Diagnostics;
 
 namespace Bas.EuroSing.ScoreBoard.Services
 {
@@ -33,7 +34,7 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             var db = new ScoreBoardDbContext();
 
-            db.Points.RemoveRange(db.Points);
+            db.Votes.RemoveRange(db.Votes);
             await db.SaveChangesAsync();
         }
 
@@ -51,6 +52,38 @@ namespace Bas.EuroSing.ScoreBoard.Services
             var db = new ScoreBoardDbContext();
 
             return new Collection<Country>(db.Countries.ToList());
+        }
+
+        public Collection<Vote> GetVotes(int countryIssuingVotesId)
+        {
+            var db = new ScoreBoardDbContext();
+
+            var issuedVotes = (from v in db.Votes
+                               where v.FromCountryId == countryIssuingVotesId
+                               select v).ToList();
+
+            var countriesToIssueVotesFor = from c in db.Countries
+                                           where c.Id != countryIssuingVotesId &&
+                                                 !(issuedVotes.Select(i => i.ToCountryId).Contains(c.Id))
+                                           select c;
+
+            var votesToIssue = (from c in countriesToIssueVotesFor.ToList()
+                                select new Vote()
+                                {
+                                    FromCountryId = countryIssuingVotesId,
+                                    FromCountry = db.Countries.Find(countryIssuingVotesId),
+                                    ToCountryId = c.Id,
+                                    ToCountry = c
+                                }).ToList();
+
+            Debug.Assert(issuedVotes.Select(i => i.ToCountryId).Intersect(votesToIssue.Select(v => v.ToCountryId)).Count() == 0, "issuedVotes and votesToIssue have overlapping countries");
+            Debug.Assert(issuedVotes.Count(i => i.FromCountryId != countryIssuingVotesId) == 0, "issuedVotes contains vote from wrong country");
+            Debug.Assert(votesToIssue.Count(i => i.FromCountryId != countryIssuingVotesId) == 0, "votesToIssue contains vote from wrong country");
+            Debug.Assert(issuedVotes.Count(i => i.ToCountryId == countryIssuingVotesId) == 0, "issuedVotes contains vote to wrong country");
+            Debug.Assert(votesToIssue.Count(i => i.ToCountryId == countryIssuingVotesId) == 0, "votesToIssue contains vote to wrong country");
+            Debug.Assert(votesToIssue.Count() + issuedVotes.Count() == db.Countries.Count() - 1, "wrong amount of votes in total.");
+
+            return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
     }
 }

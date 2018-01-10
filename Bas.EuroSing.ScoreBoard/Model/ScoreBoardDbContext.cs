@@ -11,7 +11,7 @@ namespace Bas.EuroSing.ScoreBoard.Model
     public class ScoreBoardDbContext : DbContext
     {
         public DbSet<Country> Countries { get; set; }
-        public DbSet<Points> Points { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         public ScoreBoardDbContext() : base()
         {

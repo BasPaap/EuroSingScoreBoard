@@ -15,5 +15,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
         Task DeleteAllVotesAsync();
         Task DeleteCountryAsync(int id);
         Task ChangeCountryNameAsync(int id, string name);
+        Collection<Vote> GetVotes(int countryIssuingVotesId);
     }
 }

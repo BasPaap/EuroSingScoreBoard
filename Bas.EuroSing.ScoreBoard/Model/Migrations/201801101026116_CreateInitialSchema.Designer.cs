@@ -13,7 +13,7 @@ namespace Bas.EuroSing.ScoreBoard.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201801091839493_CreateInitialSchema"; }
+            get { return "201801101026116_CreateInitialSchema"; }
         }
         
         string IMigrationMetadata.Source

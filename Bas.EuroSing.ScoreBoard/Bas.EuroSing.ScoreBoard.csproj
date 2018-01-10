@@ -80,9 +80,9 @@
     <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\RemoveCountryMessage.cs" />
-    <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.cs" />
-    <Compile Include="Model\Migrations\201801091839493_CreateInitialSchema.Designer.cs">
-      <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>
+    <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.cs" />
+    <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.Designer.cs">
+      <DependentUpon>201801101026116_CreateInitialSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
@@ -139,7 +139,7 @@
   <ItemGroup>
     <Compile Include="Model\Migrations\Configuration.cs" />
     <Compile Include="Model\Country.cs" />
-    <Compile Include="Model\Points.cs" />
+    <Compile Include="Model\Vote.cs" />
     <Compile Include="Model\ScoreBoardDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -154,8 +154,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Model\Migrations\201801091839493_CreateInitialSchema.resx">
-      <DependentUpon>201801091839493_CreateInitialSchema.cs</DependentUpon>
+    <EmbeddedResource Include="Model\Migrations\201801101026116_CreateInitialSchema.resx">
+      <DependentUpon>201801101026116_CreateInitialSchema.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

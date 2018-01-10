@@ -80,11 +80,13 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
+
+            <ListView Style="{StaticResource ListViewStyle}" ItemsSource="{Binding CountriesToVoteOn}">
+
+            </ListView>
         </StackPanel>
 
-        <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" ItemsSource="{Binding CountriesToVoteOn}">
-            
-        </ListView>
 
         <Button Grid.Row="2" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
             Show results
