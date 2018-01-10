@@ -1,6 +1,8 @@
-﻿using Bas.EuroSing.ScoreBoard.Model;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +40,16 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public string NumPoints
         {
             get { return numPoints; }
-            set { Set(ref numPoints, value); }
+            set
+            {
+                Set(ref numPoints, value);
+
+                int pointsValue;
+                if (int.TryParse(value, out pointsValue))
+                {
+                    Messenger.Default.Send(new VoteCastMessage());
+                }
+            }
         }
 
         public CountryVoteViewModel(Vote vote, IDataService dataService)

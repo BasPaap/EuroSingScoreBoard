@@ -113,7 +113,7 @@
                             </Grid.ColumnDefinitions>
                             <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
                             <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                            <TextBox Grid.Column="2" Text="{Binding NumPoints}" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center" />
+                            <TextBox Grid.Column="2" Text="{Binding NumPoints, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center" />
                         </Grid>
                     </Border>
                 </DataTemplate>
