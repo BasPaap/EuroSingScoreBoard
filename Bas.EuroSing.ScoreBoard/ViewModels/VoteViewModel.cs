@@ -44,10 +44,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private void UpdateCountriesToVoteOn()
         {
             CountriesToVoteOn.Clear();
-            PopulateVotesToCast();
+            VotesToCast.Clear();
 
             if (CountryIssuingVotes != null)
             {
+                PopulateVotesToCast();
                 var votes = this.dataService.GetVotes(CountryIssuingVotes.Id);
 
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
@@ -79,8 +80,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             CountriesToVoteOn = new ObservableCollection<CountryVoteViewModel>();
             Countries = new ObservableCollection<CountryListItemViewModel>();
             VotesToCast = new ObservableCollection<int>();
-            PopulateVotesToCast();
-
+            
             SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
 
             UpdateCountries();
@@ -96,7 +96,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 CountryIssuingVotes = Countries.First();
                 UpdateCountriesToVoteOn();
             }
-
         }
         
         private void UpdateCountries()
