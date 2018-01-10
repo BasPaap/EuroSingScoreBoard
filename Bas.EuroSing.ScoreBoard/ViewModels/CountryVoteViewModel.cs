@@ -33,9 +33,9 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref flagImage, value); }
         }
 
-        private int numPoints;
+        private string numPoints;
 
-        public int NumPoints
+        public string NumPoints
         {
             get { return numPoints; }
             set { Set(ref numPoints, value); }
@@ -47,16 +47,19 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             
             Id = vote.Id;
             Name = vote.ToCountry.Name;
-            NumPoints = vote.NumPoints;
+            NumPoints = vote.NumPoints == 0 ? string.Empty : vote.NumPoints.ToString();
 
-            var bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.CreateOptions = BitmapCreateOptions.None;
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.StreamSource = new MemoryStream(vote.ToCountry.FlagImage);
-            bitmapImage.EndInit();
+            if (vote.ToCountry.FlagImage != null)
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CreateOptions = BitmapCreateOptions.None;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = new MemoryStream(vote.ToCountry.FlagImage);
+                bitmapImage.EndInit();
 
-            FlagImage = bitmapImage;
+                FlagImage = bitmapImage;
+            }
         }
     }
 }

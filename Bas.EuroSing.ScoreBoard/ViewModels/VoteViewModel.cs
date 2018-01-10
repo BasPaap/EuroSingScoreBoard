@@ -1,6 +1,7 @@
 ﻿using Bas.EuroSing.ScoreBoard.Messages;
 using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
+using EnvDTE;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -8,7 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,11 +44,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private void UpdateCountriesToVoteOn()
         {
             CountriesToVoteOn.Clear();
-            VotesToCast.Clear();
-            foreach (var value in new[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 })
-            {
-                VotesToCast.Add(value);
-            }
+            PopulateVotesToCast();
 
             if (CountryIssuingVotes != null)
             {
@@ -60,27 +61,48 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
         }
 
+        private void PopulateVotesToCast()
+        {
+            VotesToCast.Clear();
+            foreach (var value in new[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 })
+            {
+                VotesToCast.Add(value);
+            }
+        }
+
         public ObservableCollection<CountryVoteViewModel> CountriesToVoteOn { get; set; }
 
         public VoteViewModel(IDataService dataService)
         {
             this.dataService = dataService;
-            Messenger.Default.Register<CountriesUpdatedMessage>(this, (m) => 
+
+            CountriesToVoteOn = new ObservableCollection<CountryVoteViewModel>();
+            Countries = new ObservableCollection<CountryListItemViewModel>();
+            VotesToCast = new ObservableCollection<int>();
+            PopulateVotesToCast();
+
+            SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
+
+            UpdateCountries();
+
+            Messenger.Default.Register<CountriesUpdatedMessage>(this, (m) =>
             {
                 UpdateCountries();
                 UpdateCountriesToVoteOn();
             });
 
-            SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
-            CountriesToVoteOn = new ObservableCollection<CountryVoteViewModel>();
-            Countries = new ObservableCollection<CountryListItemViewModel>();
-            VotesToCast = new ObservableCollection<int>();
-            UpdateCountries();
-        }
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                CountryIssuingVotes = Countries.First();
+                UpdateCountriesToVoteOn();
+            }
 
+        }
+        
         private void UpdateCountries()
         {
             Countries.Clear();
+
             var allCountries = from c in dataService.GetAllCountries()
                                orderby c.Name
                                select new CountryListItemViewModel(c, this.dataService);
@@ -92,5 +114,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             CountryIssuingVotes = null;
         }
+
     }
 }

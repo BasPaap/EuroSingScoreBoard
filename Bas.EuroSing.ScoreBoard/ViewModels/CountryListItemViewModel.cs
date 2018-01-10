@@ -72,14 +72,17 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             Id = country.Id;
             Name = country.Name;
 
-            var bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.CreateOptions = BitmapCreateOptions.None;
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
-            bitmapImage.EndInit();
+            if (country.FlagImage != null)
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CreateOptions = BitmapCreateOptions.None;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
+                bitmapImage.EndInit();
 
-            FlagImage = bitmapImage;
+                FlagImage = bitmapImage;
+            }
         }
 
         private async void OnDeleteCommand()

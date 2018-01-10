@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,11 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             return new Collection<Country>(new[] 
             {
-                new Country() { Name = "Nederland" },
-                new Country() { Name = "Cyprus" }
+                new Country() { Id=1, Name = "Nederland" },
+                new Country() { Id=2, Name = "Cyprus" },
+                new Country() { Id=3, Name = "Hungary" },
+                new Country() { Id=4, Name = "Italy" },
+                new Country() { Id=5, Name = "Wyoming" }
             });
         }
 
@@ -45,11 +49,26 @@ namespace Bas.EuroSing.ScoreBoard.Services
             {
                 new Vote()
                 {
-                    FromCountry = new Country() { Name = "Nederland" },
-                    ToCountry = new Country() { Name = "Cyprus" },
+                    FromCountry = new Country()  { Id=2, Name = "Cyprus" },
+                    ToCountry = new Country()  { Id=1, Name = "Nederland" },
                     NumPoints = 12
-                }
+                },
+                new Vote()
+                {
+                    FromCountry = new Country()  { Id=2, Name = "Cyprus" },
+                    ToCountry = new Country()  { Id=1, Name = "Hungary" },
+                },
+                new Vote()
+                {
+                    FromCountry = new Country()  { Id=2, Name = "Cyprus" },
+                    ToCountry = new Country()  { Id=1, Name = "Italy" },
+                },
+                new Vote()
+                {
+                    FromCountry = new Country()  { Id=2, Name = "Cyprus" },
+                    ToCountry = new Country()  { Id=1, Name = "Wyoming" },
+                },
             });
-        }
+        }        
     }
 }

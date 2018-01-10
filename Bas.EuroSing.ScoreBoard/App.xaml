@@ -103,6 +103,9 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
+        <BitmapImage x:Key="WyomingFlagBitmapImage" UriSource="Assets/Wyoming.png"/>
+
+
         <Style x:Key="CountryListItemFlagStyle" TargetType="{x:Type Ellipse}">
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
             <Setter Property="Stroke" Value="White" />
@@ -112,7 +115,7 @@
             <Setter Property="Margin" Value="0,0,5,0" />
             <Setter Property="Fill">
                 <Setter.Value>
-                    <ImageBrush ImageSource="{Binding FlagImage}" />
+                    <ImageBrush ImageSource="{Binding FlagImage, TargetNullValue={StaticResource WyomingFlagBitmapImage}}" />
                 </Setter.Value>
             </Setter>
         </Style>

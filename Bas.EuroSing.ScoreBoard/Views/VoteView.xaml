@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="480" d:DesignWidth="640"
              DataContext="{Binding Vote, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <Style x:Key="ShowResultsButtonStyle" TargetType="{x:Type Button}">
@@ -56,14 +56,21 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="20" />
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <Image Width="35" Margin="10" Source="/Bas.EuroSing.ScoreBoard;component/Assets/icon.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBlock Style="{StaticResource HeaderStyle}" Margin="55,0,0,0">Vote</TextBlock>
-        <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1">
+        <Image Grid.ColumnSpan="2" Width="35" Margin="10" Source="/Bas.EuroSing.ScoreBoard;component/Assets/icon.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock Grid.ColumnSpan="2" Style="{StaticResource HeaderStyle}" Margin="55,0,0,0">Vote</TextBlock>
+        <Button Grid.ColumnSpan="2" Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource LabelStyle}">Country issuing votes</TextBlock>
 
             <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryIssuingVotes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
@@ -80,57 +87,44 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
-            <Grid Margin="10,30,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="200" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
-                    <TextBlock Style="{StaticResource LabelStyle}" HorizontalAlignment="Left" VerticalAlignment="Top">Countries to vote on</TextBlock>
-
-                    <ListView Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Stretch" ItemsSource="{Binding CountriesToVoteOn}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
-                                    <Grid Margin="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="50" />
-                                        </Grid.ColumnDefinitions>
-                                        <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
-                                        <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                                        <TextBox Grid.Column="2" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center" />
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top">Remaining votes to cast</TextBlock>
-                    <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Center" ItemsSource="{Binding VotesToCast}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#660000AA" Width="40" Height="40" Margin="0,2,0,2" BorderThickness="1" Background="#880000FF" CornerRadius="5">
-                                    <TextBlock FontSize="18" FontWeight="Bold" Foreground="White" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-            </Grid>
         </StackPanel>
 
+        <TextBlock Margin="20,0,0,0" Grid.Row="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Left" VerticalAlignment="Top">Countries to vote on</TextBlock>
 
-        <Button Grid.Row="2" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
+        <ListView Margin="20,0,0,0" Grid.Row="3" Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Stretch" ItemsSource="{Binding CountriesToVoteOn}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
+                        <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                            <TextBox Grid.Column="2" Text="{Binding NumPoints}" FontSize="18" FontWeight="Bold" Foreground="White" Background="#44FFFFFF" TextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBlock Grid.Column="1" Grid.Row="2" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Top">Remaining votes to cast</TextBlock>
+        <ListView Grid.Column="1" Grid.Row="3" Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Center" ItemsSource="{Binding VotesToCast}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#660000AA" Width="40" Height="40" Margin="0,2,0,2" BorderThickness="1" Background="#880000FF" CornerRadius="5">
+                        <TextBlock FontSize="18" FontWeight="Bold" Foreground="White" Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+
+
+        <Button Grid.ColumnSpan="2" Grid.Row="4" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
             Show results
         </Button>
     </Grid>
