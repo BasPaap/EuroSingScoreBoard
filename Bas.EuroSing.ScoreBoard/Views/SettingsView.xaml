@@ -120,6 +120,16 @@
         </StackPanel>
 
         <ListView Grid.Row="1" Style="{StaticResource ListViewStyle}"  ItemsSource="{Binding Countries}" HorizontalContentAlignment="Stretch">
+            <ListView.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Opacity" Value="0.2" />
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.4" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
