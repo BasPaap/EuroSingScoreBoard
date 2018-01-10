@@ -21,6 +21,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public RelayCommand SettingsCommand { get; set; }
 
         public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
+        public ObservableCollection<int> VotesToCast { get; set; }
 
         private CountryListItemViewModel countryIssuingVotes;
 
@@ -38,6 +39,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private void UpdateCountriesToVoteOn()
         {
             CountriesToVoteOn.Clear();
+            VotesToCast.Clear();
+            foreach (var value in new[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 })
+            {
+                VotesToCast.Add(value);
+            }
 
             if (CountryIssuingVotes != null)
             {
@@ -46,6 +52,10 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
                 {
                     CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));
+                    if (VotesToCast.Contains(vote.NumPoints))
+                    {
+                        VotesToCast.Remove(vote.NumPoints);
+                    }
                 }
             }
         }
@@ -64,6 +74,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             SettingsCommand = new RelayCommand(() => MessengerInstance.Send(new GenericMessage<Message>(Message.ShowSettings)));
             CountriesToVoteOn = new ObservableCollection<CountryVoteViewModel>();
             Countries = new ObservableCollection<CountryListItemViewModel>();
+            VotesToCast = new ObservableCollection<int>();
             UpdateCountries();
         }
 

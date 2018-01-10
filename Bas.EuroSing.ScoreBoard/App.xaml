@@ -163,14 +163,14 @@
             </Setter>
         </Style>
 
-        <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#22FFFFFF" />
+        <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#44AAAAAA" />
         <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC"/>
         <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
         <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
         <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
         <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
         <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="White"/>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="#44FFFFFF" />
+        <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="#66AAAAAA" />
         
         <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
@@ -181,7 +181,7 @@
         </LinearGradientBrush>
         <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="White"/>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#22FFFFFF" />
+        <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#44AAAAAA" />
         
         <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
         <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
@@ -301,7 +301,7 @@
                 </Grid.ColumnDefinitions>
                 <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
                     <Themes:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
-                        <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="#22FFFFFF">
+                        <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="#AA222222">
                             <ScrollViewer x:Name="DropDownScrollViewer">
                                 <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                                     <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
