@@ -48,27 +48,38 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             if (CountryIssuingVotes != null)
             {
-                PopulateVotesToCast();
                 var votes = this.dataService.GetVotes(CountryIssuingVotes.Id);
 
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
                 {
-                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));
-                    if (VotesToCast.Contains(vote.NumPoints))
-                    {
-                        VotesToCast.Remove(vote.NumPoints);
-                    }
+                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));                    
                 }
+
+                PopulateVotesToCast();
             }
         }
 
         private void PopulateVotesToCast()
         {
+            var pointsCast = new List<int>();
+
+            foreach (var country in CountriesToVoteOn)
+            {
+                int points;
+                if (int.TryParse(country.NumPoints, out points))
+                {
+                    pointsCast.Add(points);
+                }
+            }
+
             VotesToCast.Clear();
             foreach (var value in new[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 })
             {
-                VotesToCast.Add(value);
-            }
+                if (!pointsCast.Contains(value))
+                {
+                    VotesToCast.Add(value);
+                }
+            }            
         }
 
         public ObservableCollection<CountryVoteViewModel> CountriesToVoteOn { get; set; }
@@ -89,6 +100,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 UpdateCountries();
                 UpdateCountriesToVoteOn();
+            });
+
+            Messenger.Default.Register<VoteCastMessage>(this, (m) =>
+            {
+                PopulateVotesToCast();
             });
 
             if (ViewModelBase.IsInDesignModeStatic)

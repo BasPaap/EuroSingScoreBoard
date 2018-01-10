@@ -84,6 +84,7 @@
     <Compile Include="Messages\CountriesUpdatedMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\RemoveCountryMessage.cs" />
+    <Compile Include="Messages\VoteCastMessage.cs" />
     <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.cs" />
     <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.Designer.cs">
       <DependentUpon>201801101026116_CreateInitialSchema.cs</DependentUpon>
