@@ -45,7 +45,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 Set(ref numPoints, value);
 
                 int pointsValue;
-                if (int.TryParse(value, out pointsValue))
+                if (string.IsNullOrWhiteSpace(value) || int.TryParse(value, out pointsValue))
                 {
                     Messenger.Default.Send(new VoteCastMessage());
                 }

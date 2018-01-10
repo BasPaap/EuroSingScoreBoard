@@ -22,6 +22,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     internal class VoteViewModel : ViewModelBase
     {
         private IDataService dataService;
+        private List<int> validPoints = new List<int>(new int[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 });
 
         public RelayCommand SettingsCommand { get; set; }
 
@@ -66,14 +67,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             foreach (var country in CountriesToVoteOn)
             {
                 int points;
-                if (int.TryParse(country.NumPoints, out points))
+                if (int.TryParse(country.NumPoints, out points) && validPoints.Contains(points))
                 {
                     pointsCast.Add(points);
                 }
             }
 
             VotesToCast.Clear();
-            foreach (var value in new[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 })
+            foreach (var value in validPoints)
             {
                 if (!pointsCast.Contains(value))
                 {
