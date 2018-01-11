@@ -109,6 +109,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             Messenger.Default.Register<VoteCastMessage>(this, (m) =>
             {
                 PopulateVotesToCast();
+
+                CountryIssuingVotes.IsComplete = (VotesToCast.Count == 0);                
             });
 
             if (ViewModelBase.IsInDesignModeStatic)

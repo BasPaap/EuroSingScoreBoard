@@ -14,9 +14,11 @@ namespace Bas.EuroSing.ScoreBoard.Model
         [Index("IX_NumPointsAndFromCountryId", 1, IsUnique = true)]
         public int NumPoints { get; set; }
 
+        private int? fromCountryId;
+
         [Index("IX_NumPointsAndFromCountryId", 2, IsUnique = true)]
         [Index("IX_FromCountryIdAndToCountryId", 1, IsUnique = true)]
-        public int? FromCountryId { get; set; }
+        public int? FromCountryId { get { return fromCountryId; } set { fromCountryId = value; } }
         public virtual Country FromCountry { get; set; }
 
         [Index("IX_FromCountryIdAndToCountryId", 2, IsUnique = true)]

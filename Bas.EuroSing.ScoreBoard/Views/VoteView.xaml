@@ -82,9 +82,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="30" />
                             </Grid.ColumnDefinitions>
                             <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
                             <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                            <Image Visibility="{Binding IsComplete, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="2" Source="/Bas.EuroSing.ScoreBoard;component/Assets/CheckIcon.png" Height="20" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

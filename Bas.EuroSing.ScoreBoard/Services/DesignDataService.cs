@@ -71,7 +71,12 @@ namespace Bas.EuroSing.ScoreBoard.Services
             });
         }
 
-        public void SaveVote(Vote vote, string numPoints)
+        public void SaveVote(Vote vote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteVote(Vote vote)
         {
             throw new NotImplementedException();
         }

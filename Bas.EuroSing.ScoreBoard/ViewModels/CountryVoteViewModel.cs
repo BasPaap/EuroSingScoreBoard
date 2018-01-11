@@ -65,7 +65,27 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 {
                     Messenger.Default.Send(new VoteCastMessage());
 
-                    this.dataService.SaveVote(vote, NumPoints);                    
+                    var parsedPoints = int.TryParse(numPoints, out int points) ? points : 0;
+                    if (parsedPoints == 0)
+                    {
+                        var fromCountry = vote.FromCountry;
+                        var toCountry = vote.ToCountry;
+
+                        this.dataService.DeleteVote(vote);
+
+                        vote = new Vote()
+                        {
+                            FromCountry = fromCountry,
+                            FromCountryId = fromCountry.Id,
+                            ToCountry = toCountry,
+                            ToCountryId = toCountry.Id
+                        };
+                    }
+                    else
+                    {
+                        vote.NumPoints = parsedPoints;
+                        this.dataService.SaveVote(vote);
+                    }                    
                 }
             }
         }

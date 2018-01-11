@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Logo.png" />
+    <Resource Include="Assets\CheckIcon.png" />
     <Content Include="Assets\Wyoming.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

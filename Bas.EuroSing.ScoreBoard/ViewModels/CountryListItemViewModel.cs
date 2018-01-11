@@ -45,6 +45,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref isInEditMode, value); }
         }
 
+        private bool isComplete;
+
+        public bool IsComplete
+        {
+            get { return isComplete; }
+            set { Set(ref isComplete, value); }
+        }
+        
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
         public RelayCommand StopEditCommand { get; set; }

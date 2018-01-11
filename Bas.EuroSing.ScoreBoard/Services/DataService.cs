@@ -11,10 +11,9 @@ namespace Bas.EuroSing.ScoreBoard.Services
 {
     internal sealed class DataService : IDataService
     {
+        private ScoreBoardDbContext db = new ScoreBoardDbContext();
         public async Task<int> AddCountryAsync(Country country)
         {
-            var db = new ScoreBoardDbContext();
-
             db.Countries.Add(country);
             await db.SaveChangesAsync();
 
@@ -23,8 +22,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
         public async Task ChangeCountryNameAsync(int id, string name)
         {
-            var db = new ScoreBoardDbContext();
-
             var country = db.Countries.Find(id);
             country.Name = name;
             await db.SaveChangesAsync();
@@ -32,15 +29,12 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
         public async Task DeleteAllVotesAsync()
         {
-            var db = new ScoreBoardDbContext();
-
             db.Votes.RemoveRange(db.Votes);
             await db.SaveChangesAsync();
         }
 
         public async Task DeleteCountryAsync(int id)
         {
-            var db = new ScoreBoardDbContext();
             var country = await db.Countries.FindAsync(id);
             var votes = db.Votes.Where(v => v.FromCountryId == id).ToList();
 
@@ -52,15 +46,11 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
         public Collection<Country> GetAllCountries()
         {
-            var db = new ScoreBoardDbContext();
-
             return new Collection<Country>(db.Countries.ToList());
         }
 
         public Collection<Vote> GetVotes(int countryIssuingVotesId)
         {
-            var db = new ScoreBoardDbContext();
-
             var issuedVotes = (from v in db.Votes
                                where v.FromCountryId == countryIssuingVotesId
                                select v).ToList();
@@ -90,38 +80,30 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
 
-        public void SaveVote(Vote vote, string numPoints)
+        public void SaveVote(Vote vote)
         {
-            var db = new ScoreBoardDbContext();
-
-            vote.NumPoints = int.TryParse(numPoints, out int points) ? points : 0;
-
-            if (vote.Id == 0)
+            if (vote.NumPoints > 0)
             {
-                if (vote.NumPoints > 0)
+                if (vote.Id == 0)
                 {
-                    db.Countries.Attach(vote.FromCountry);  // Laat EF weten dat FromCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
-                    db.Countries.Attach(vote.ToCountry);    // Laat EF weten dat ToCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
+                    db.Countries.Attach(vote.FromCountry);
+                    db.Countries.Attach(vote.ToCountry);
                     db.Votes.Add(vote);
                 }
+
+                db.SaveChanges();
             }
-            else
+        }
+
+        public void DeleteVote(Vote vote)
+        {
+            var existingVote = db.Votes.Find(vote.Id);
+
+            if (existingVote != null)
             {
-                var existingVote = db.Votes.Find(vote.Id);
-                if (existingVote != null)
-                {
-                    db.Votes.Remove(existingVote);
-                }
-
-                if (vote.NumPoints > 0)
-                {
-                    db.Countries.Attach(vote.FromCountry);  // Laat EF weten dat FromCountry al bestaat (zodat hij 'm niet opnieuw invoeg
-                    db.Countries.Attach(vote.ToCountry);    // Laat EF weten dat ToCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
-                    db.Votes.Add(vote);
-                }
+                db.Votes.Remove(vote);
+                db.SaveChanges();
             }
-
-            db.SaveChanges();
         }
     }
 }
