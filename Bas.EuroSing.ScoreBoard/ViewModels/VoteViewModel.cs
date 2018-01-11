@@ -135,7 +135,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             if (AreAllCountriesComplete())
             {
-
+                Messenger.Default.Send(new GenericMessage<Message>(Message.ShowResultsControlPanel));
             }
             else
             {
