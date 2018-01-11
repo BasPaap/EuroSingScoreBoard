@@ -12,27 +12,17 @@
             <RowDefinition Height="60" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
             <Button Command="{Binding BackCommand}" Style="{DynamicResource BackButtonStyle}" />
             <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Results</TextBlock>
         </StackPanel>
-        <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" />
+        <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" Grid.ColumnSpan="2" />
 
-        <ComboBox Grid.Row="1" Text="Choose a country..." ItemsSource="{Binding Countries}" Height="40" VerticalAlignment="Top" Style="{DynamicResource CountryComboBoxStyle}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
 
     </Grid>
 </UserControl>
