@@ -88,8 +88,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 bitmapImage.BeginInit();
                 bitmapImage.CreateOptions = BitmapCreateOptions.None;
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.DecodePixelHeight = 30;
-                bitmapImage.DecodePixelWidth = 30;
                 bitmapImage.StreamSource = new MemoryStream(vote.ToCountry.FlagImage);
                 bitmapImage.EndInit();
 
