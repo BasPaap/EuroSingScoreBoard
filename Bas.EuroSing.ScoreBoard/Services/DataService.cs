@@ -42,6 +42,9 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             var db = new ScoreBoardDbContext();
             var country = await db.Countries.FindAsync(id);
+            var votes = db.Votes.Where(v => v.FromCountryId == id).ToList();
+
+            db.Votes.RemoveRange(votes);
             db.Countries.Remove(country);
 
             await db.SaveChangesAsync();
@@ -62,9 +65,10 @@ namespace Bas.EuroSing.ScoreBoard.Services
                                where v.FromCountryId == countryIssuingVotesId
                                select v).ToList();
 
+            var toCountryIds = issuedVotes.Select(i => i.ToCountryId).ToList();
             var countriesToIssueVotesFor = from c in db.Countries
                                            where c.Id != countryIssuingVotesId &&
-                                                 !(issuedVotes.Select(i => i.ToCountryId).Contains(c.Id))
+                                                 !toCountryIds.Contains(c.Id)
                                            select c;
 
             var votesToIssue = (from c in countriesToIssueVotesFor.ToList()

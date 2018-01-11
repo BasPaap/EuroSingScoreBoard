@@ -52,7 +52,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                 foreach (var vote in votes.OrderBy(v => v.ToCountry.Name))
                 {
-                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService));                    
+                    CountriesToVoteOn.Add(new CountryVoteViewModel(vote, this.dataService, VotesToCast));                    
                 }
 
                 PopulateVotesToCast();
@@ -102,6 +102,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 UpdateCountries();
                 UpdateCountriesToVoteOn();
+                VotesToCast.Clear();
+                Messenger.Default.Send(new VotesToCastUpdatedMessage(VotesToCast));
             });
 
             Messenger.Default.Register<VoteCastMessage>(this, (m) =>

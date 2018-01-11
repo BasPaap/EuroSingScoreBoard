@@ -52,7 +52,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 }
 
                 if (string.IsNullOrWhiteSpace(value) ||
-                    (int.TryParse(value, out int pointValue) && availablePoints.Contains(pointValue)))
+                    (int.TryParse(value, out int pointValue) && (isFirstTimeNumPointsIsSet || availablePoints.Contains(pointValue))))
                 {
                     Set(ref numPoints, value);
                 }
@@ -72,10 +72,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private IEnumerable<int> availablePoints;
 
-        public CountryVoteViewModel(Vote vote, IDataService dataService)
+        public CountryVoteViewModel(Vote vote, IDataService dataService, IEnumerable<int> availablePoints)
         {
             this.dataService = dataService;
             this.vote = vote;
+            this.availablePoints = availablePoints;
 
             Id = vote.Id;
             Name = vote.ToCountry.Name;
