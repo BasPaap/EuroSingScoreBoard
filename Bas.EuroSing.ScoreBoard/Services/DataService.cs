@@ -85,5 +85,39 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
             return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
+
+        public void SaveVote(Vote vote, string numPoints)
+        {
+            var db = new ScoreBoardDbContext();
+
+            vote.NumPoints = int.TryParse(numPoints, out int points) ? points : 0;
+
+            if (vote.Id == 0)
+            {
+                if (vote.NumPoints > 0)
+                {
+                    db.Countries.Attach(vote.FromCountry);  // Laat EF weten dat FromCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
+                    db.Countries.Attach(vote.ToCountry);    // Laat EF weten dat ToCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
+                    db.Votes.Add(vote);
+                }
+            }
+            else
+            {
+                var existingVote = db.Votes.Find(vote.Id);
+                if (existingVote != null)
+                {
+                    db.Votes.Remove(existingVote);
+                }
+
+                if (vote.NumPoints > 0)
+                {
+                    db.Countries.Attach(vote.FromCountry);  // Laat EF weten dat FromCountry al bestaat (zodat hij 'm niet opnieuw invoeg
+                    db.Countries.Attach(vote.ToCountry);    // Laat EF weten dat ToCountry al bestaat (zodat hij 'm niet opnieuw invoegt)
+                    db.Votes.Add(vote);
+                }
+            }
+
+            db.SaveChanges();
+        }
     }
 }

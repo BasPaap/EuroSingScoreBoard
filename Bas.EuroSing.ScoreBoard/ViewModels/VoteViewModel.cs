@@ -65,8 +65,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             foreach (var country in CountriesToVoteOn)
             {
-                int points;
-                if (int.TryParse(country.NumPoints, out points) &&  // If country.Numpoints contains a number and
+                if (int.TryParse(country.NumPoints, out int points) &&  // If country.Numpoints contains a number and
                     validPointValues.Contains(points))              // if the number is one of the valid point values (1-8, 10 and 12)
                 {
                     pointsCast.Add(points);

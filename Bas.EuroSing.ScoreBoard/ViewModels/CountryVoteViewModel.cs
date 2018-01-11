@@ -18,6 +18,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     internal class CountryVoteViewModel : ViewModelBase
     {
         private IDataService dataService;
+        private Vote vote;
         
         public int Id { get; set; }
 
@@ -50,9 +51,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                     isFirstTimeNumPointsIsSet = true;
                 }
 
-                int pointValue;
                 if (string.IsNullOrWhiteSpace(value) ||
-                    (int.TryParse(value, out pointValue) && availablePoints.Contains(pointValue)))
+                    (int.TryParse(value, out int pointValue) && availablePoints.Contains(pointValue)))
                 {
                     Set(ref numPoints, value);
                 }
@@ -64,6 +64,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 if (!isFirstTimeNumPointsIsSet)
                 {
                     Messenger.Default.Send(new VoteCastMessage());
+
+                    this.dataService.SaveVote(vote, NumPoints);                    
                 }
             }
         }
@@ -73,7 +75,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public CountryVoteViewModel(Vote vote, IDataService dataService)
         {
             this.dataService = dataService;
-            
+            this.vote = vote;
+
             Id = vote.Id;
             Name = vote.ToCountry.Name;
             NumPoints = vote.NumPoints == 0 ? string.Empty : vote.NumPoints.ToString();

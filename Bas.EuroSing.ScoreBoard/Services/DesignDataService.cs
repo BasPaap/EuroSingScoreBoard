@@ -69,6 +69,11 @@ namespace Bas.EuroSing.ScoreBoard.Services
                     ToCountry = new Country()  { Id=1, Name = "Wyoming" },
                 },
             });
-        }        
+        }
+
+        public void SaveVote(Vote vote, string numPoints)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
