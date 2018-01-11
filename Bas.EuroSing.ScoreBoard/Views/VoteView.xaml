@@ -152,7 +152,9 @@
 
 
 
-        <Button Grid.ColumnSpan="2" Grid.Row="4" Width="150" HorizontalAlignment="Center" Style="{StaticResource ShowResultsButtonStyle}">
+        <Button Grid.ColumnSpan="2" Grid.Row="4" Width="150" HorizontalAlignment="Center" 
+                Style="{StaticResource ShowResultsButtonStyle}" Opacity="{Binding ShowResultsButtonOpacity}" 
+                Command="{Binding ShowResultsCommand}">
             Show results
         </Button>
     </Grid>
