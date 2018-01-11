@@ -123,6 +123,8 @@
             <ListView.Resources>
                 <Style TargetType="ScrollBar">
                     <Setter Property="Opacity" Value="0.2" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="LayoutTransform">
                         <Setter.Value>
                             <ScaleTransform ScaleX="0.4" />
