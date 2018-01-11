@@ -195,9 +195,6 @@
     <Resource Include="Assets\DeleteIcon.png" />
     <Resource Include="Assets\EditIcon.png" />
     <Resource Include="Assets\SettingsIcon.png" />
-    <Content Include="Assets\DancingStars.mov">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
