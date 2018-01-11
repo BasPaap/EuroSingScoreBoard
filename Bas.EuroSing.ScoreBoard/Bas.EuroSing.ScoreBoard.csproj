@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
+    <Compile Include="ViewModels\CountryResultsViewModel.cs" />
     <Compile Include="ViewModels\CountryVoteViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -181,6 +182,10 @@
   <ItemGroup>
     <Resource Include="Assets\Logo.png" />
     <Resource Include="Assets\CheckIcon.png" />
+    <Resource Include="Assets\StepIcon.png" />
+    <Content Include="Assets\DancingStars.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Wyoming.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

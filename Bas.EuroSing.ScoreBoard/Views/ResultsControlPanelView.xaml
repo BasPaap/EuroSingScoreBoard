@@ -3,10 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="768" d:DesignWidth="1024"
              DataContext="{Binding ResultsControlPanel, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Style x:Key="ShowResultsButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="#22FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" >
+                            <Grid>
+                                <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/StepIcon.png" Width="150" Margin="4" RenderOptions.BitmapScalingMode="HighQuality" />
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#44FFFFFF"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#44FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#44FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
@@ -23,6 +71,41 @@
         </StackPanel>
         <Button Command="{Binding SettingsCommand}" Style="{DynamicResource SettingsButtonStyle}" Grid.ColumnSpan="2" />
 
+        <ListView Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle" Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Countries}">
+            <ListView.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Opacity" Value="0.2" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.4" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12" Visibility="{Binding IsInQueue, Converter={StaticResource BooleanToVisibilityConverter}}">
+                          <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                            <RadioButton Grid.Column="2" GroupName="IsSelectedRadioButtons" IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <Button  Grid.Row="1" Grid.Column="1" Width="200" Height="200" HorizontalAlignment="Center" 
+                Style="{StaticResource ShowResultsButtonStyle}" Command="{Binding NextCommand}">
+        </Button>
 
     </Grid>
 </UserControl>

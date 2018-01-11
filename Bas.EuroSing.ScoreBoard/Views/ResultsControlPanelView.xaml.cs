@@ -23,6 +23,6 @@ namespace Bas.EuroSing.ScoreBoard.Views
         public ResultsControlPanelView()
         {
             InitializeComponent();
-        }
+        }        
     }
 }
