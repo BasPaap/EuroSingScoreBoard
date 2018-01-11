@@ -58,7 +58,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public RelayCommand StopEditCommand { get; set; }
         public RelayCommand<KeyEventArgs> KeyUpCommand { get; set; }
 
-        public CountryListItemViewModel(Country country, IDataService dataService)
+        public CountryListItemViewModel(Country country, IDataService dataService, int? numValidPoints = null)
         {
             this.dataService = dataService;
 
@@ -90,6 +90,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 bitmapImage.EndInit();
 
                 FlagImage = bitmapImage;
+            }
+
+            if (numValidPoints != null)
+            {
+                IsComplete = this.dataService.GetVotes(country.Id).Count(v => v.NumPoints > 0) == numValidPoints;
             }
         }
 

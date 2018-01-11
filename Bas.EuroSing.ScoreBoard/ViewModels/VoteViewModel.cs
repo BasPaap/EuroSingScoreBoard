@@ -126,10 +126,10 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             var allCountries = from c in dataService.GetAllCountries()
                                orderby c.Name
-                               select new CountryListItemViewModel(c, this.dataService);
+                               select new CountryListItemViewModel(c, this.dataService, validPointValues.Count);
 
             foreach (var country in allCountries)
-            {
+            {                
                 Countries.Add(country);
             }
 
