@@ -23,6 +23,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private ResultsView resultsView;
 
+        private ResultsState state = ResultsState.SplashScreen;
+
         public RelayCommand NextCommand { get; set; }
 
         public ResultsControlPanelViewModel(IDataService dataService)
@@ -32,7 +34,12 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Countries = new ObservableCollection<CountryResultsViewModel>(from c in this.dataService.GetAllCountries()
                                                                           select new CountryResultsViewModel(c, this.dataService));
-            NextCommand = new RelayCommand(OnNextCommand);            
+            NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);            
+        }
+
+        private bool CanNextCommandExecute()
+        {
+            throw new NotImplementedException();
         }
 
         private void OnNextCommand()

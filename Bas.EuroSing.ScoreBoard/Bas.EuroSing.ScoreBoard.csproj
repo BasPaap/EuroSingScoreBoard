@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="ViewModels\CountryResultsViewModel.cs" />
     <Compile Include="ViewModels\CountryVoteViewModel.cs" />
+    <Compile Include="ViewModels\ResultsState.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
