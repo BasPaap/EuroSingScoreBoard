@@ -8,7 +8,7 @@
         Title="ResultsView" Height="768" Width="1024"
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDoubleClick="Window_MouseDoubleClick">
     <Grid>
-        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mov" Stretch="UniformToFill"
+        <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mp4" Stretch="UniformToFill"
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
         <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" />
     </Grid>
