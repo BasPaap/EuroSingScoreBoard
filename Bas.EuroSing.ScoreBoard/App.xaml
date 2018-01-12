@@ -31,6 +31,8 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         </Style>
 
+
+
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

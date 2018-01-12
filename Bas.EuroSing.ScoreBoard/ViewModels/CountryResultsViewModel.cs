@@ -1,6 +1,9 @@
-﻿using Bas.EuroSing.ScoreBoard.Model;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +42,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public bool IsSelected
         {
             get { return isSelected; }
-            set { Set(ref isSelected, value); }
+            set
+            {
+                Set(ref isSelected, value);
+                Messenger.Default.Send(new CountryResultClickedMessage());
+            }
         }
 
         private bool isInQueue;
@@ -50,6 +57,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref isInQueue, value); }
         }
 
+        public RelayCommand ClickCommand { get; set; }
+
         public CountryResultsViewModel(Country country, IDataService dataService)
         {
             this.dataService = dataService;
@@ -58,6 +67,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             Id = country.Id;
             Name = country.Name;
             IsInQueue = true;
+
+            ClickCommand = new RelayCommand(() => IsSelected = true );
 
             if (country.FlagImage != null)
             {

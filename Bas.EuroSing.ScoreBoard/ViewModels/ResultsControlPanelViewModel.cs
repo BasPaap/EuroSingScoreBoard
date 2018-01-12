@@ -26,6 +26,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private ResultsState state = ResultsState.SplashScreen;
 
         public RelayCommand NextCommand { get; set; }
+        public RelayCommand ClickCommand { get; set; }
 
         public ResultsControlPanelViewModel(IDataService dataService)
         {
@@ -34,18 +35,60 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Countries = new ObservableCollection<CountryResultsViewModel>(from c in this.dataService.GetAllCountries()
                                                                           select new CountryResultsViewModel(c, this.dataService));
-            NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);            
+            NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);
+
+            Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
         }
 
         private bool CanNextCommandExecute()
-        {
-            throw new NotImplementedException();
+        {   
+            if (this.state == ResultsState.None ||
+                this.state == ResultsState.SplashScreen ||
+                this.state == ResultsState.TwelvePoints ||
+                GetSelectedCountry() != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void OnNextCommand()
         {
-            resultsView = new ResultsView();
-            this.resultsView.Show();
+            SetNextState();
+            //resultsView = new ResultsView();
+            //this.resultsView.Show();
+        }
+
+        private void SetNextState()
+        {
+            this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.ScoreOverview;
+
+            if (this.state == ResultsState.ScoreOverview)
+            {
+                var selectedCountry = GetSelectedCountry();
+                if (selectedCountry != null)
+                {
+                    selectedCountry.IsSelected = false;
+                    selectedCountry.IsInQueue = false;
+
+                    if (Countries.Count(c => c.IsInQueue) > 1)
+                    {
+                        Countries.First(c => c.IsInQueue).IsSelected = true;
+                    }
+                }
+            }
+
+            NextCommand.RaiseCanExecuteChanged();
+        }
+
+        private CountryResultsViewModel GetSelectedCountry()
+        {
+            return (from c in Countries
+                    where c.IsSelected
+                    select c).FirstOrDefault();
         }
     }
 }

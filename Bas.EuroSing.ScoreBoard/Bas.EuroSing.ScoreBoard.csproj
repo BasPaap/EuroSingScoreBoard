@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\CountriesUpdatedMessage.cs" />
+    <Compile Include="Messages\CountryResultClickedMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\RemoveCountryMessage.cs" />
     <Compile Include="Messages\VoteCastMessage.cs" />

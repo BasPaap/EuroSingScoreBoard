@@ -25,7 +25,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             MessengerInstance.Register<GenericMessage<Message>>(this, OnGenericMessageReceived);
             MessengerInstance.Register<BackMessage>(this, OnBackMessageReceived);
-            ShowView(View.ResultsControlPanel);
+            ShowView(View.Vote);
         }
 
         private void OnBackMessageReceived(BackMessage obj)
