@@ -26,11 +26,32 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             InitializeComponent();
             
-
-            Messenger.Default.Register<CountryResultClickedMessage>(this, (message) =>
+            Messenger.Default.Register<ChangeStateMessage>(this, (message) =>
             {
-                bool madeIt = VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
-                Debug.WriteLine(madeIt);
+                switch (message.State)
+                {
+                    case ResultsState.SplashScreen:
+                        VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
+                        break;
+                    case ResultsState.ScoreOverview:
+                        VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
+                        break;
+                    case ResultsState.FirstGroupOfPoints:
+                        VisualStateManager.GoToElementState(grid, FirstGroupOfPoints.Name, true);
+                        break;
+                    case ResultsState.EightPoints:
+                        VisualStateManager.GoToElementState(grid, EightPoints.Name, true);
+                        break;
+                    case ResultsState.TenPoints:
+                        VisualStateManager.GoToElementState(grid, TenPoints.Name, true);
+                        break;
+                    case ResultsState.TwelvePoints:
+                        VisualStateManager.GoToElementState(grid, TwelvePoints.Name, true);
+                        break;
+                    case ResultsState.None:
+                    default:
+                        break;
+                }
             });
         }
         
@@ -38,8 +59,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             backgroundVideo.Play();
 
-            bool madeIt = VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
-            Debug.WriteLine("OK" + madeIt);
+            
         }
 
         private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)

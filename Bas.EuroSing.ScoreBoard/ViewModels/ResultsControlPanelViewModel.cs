@@ -20,7 +20,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         public ObservableCollection<CountryResultsViewModel> Countries { get; set; }
 
-        private ResultsState state = ResultsState.SplashScreen;
+        private ResultsState state = ResultsState.None;
 
         public RelayCommand NextCommand { get; set; }
         public RelayCommand ClickCommand { get; set; }
@@ -35,6 +35,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);
 
             Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
+
+            SetNextState();
         }
 
         private bool CanNextCommandExecute()
@@ -76,6 +78,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 }
             }
 
+            Messenger.Default.Send(new ChangeStateMessage(this.state));
             NextCommand.RaiseCanExecuteChanged();
         }
 
