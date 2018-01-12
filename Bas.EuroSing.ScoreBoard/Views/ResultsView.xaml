@@ -8,8 +8,54 @@
         Title="ResultsView" Height="768" Width="1024"
         WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDoubleClick="Window_MouseDoubleClick">
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition From="SplashScreen" GeneratedDuration="0"/>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="SplashScreen">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <QuinticEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="image">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <QuinticEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="image">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <QuinticEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="ScoreOverview"/>
+                <VisualState x:Name="FirstGroupOfPoints"/>
+                <VisualState x:Name="EightPoints"/>
+                <VisualState x:Name="TenPoints"/>
+                <VisualState x:Name="TwelvePoints"/>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mp4" Stretch="UniformToFill"
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
-        <Image Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" />
+        <Image x:Name="image" Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>
