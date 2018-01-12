@@ -1,6 +1,5 @@
 ﻿using Bas.EuroSing.ScoreBoard.Messages;
 using Bas.EuroSing.ScoreBoard.Services;
-using Bas.EuroSing.ScoreBoard.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -20,8 +19,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public RelayCommand SettingsCommand { get; set; }
 
         public ObservableCollection<CountryResultsViewModel> Countries { get; set; }
-
-        private ResultsView resultsView;
 
         private ResultsState state = ResultsState.SplashScreen;
 
@@ -58,8 +55,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private void OnNextCommand()
         {
             SetNextState();
-            //resultsView = new ResultsView();
-            //this.resultsView.Show();
         }
 
         private void SetNextState()

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace Bas.EuroSing.ScoreBoard.Views
     /// </summary>
     public partial class MainView : Window
     {
+        private ResultsView resultsView = new ResultsView();
+
         public MainView()
         {
             InitializeComponent();
+
+            Messenger.Default.Register<GenericMessage<Message>>(this, (message) =>
+            {
+                if (message.Content == Message.ShowResultsControlPanel)
+                {
+                    this.resultsView.Show();
+                }
+            });
         }
 
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
@@ -34,9 +46,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             backgroundVideo.Position = TimeSpan.FromSeconds(0);
         }
-
-        private ResultsView resultsView = new ResultsView();
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //this.resultsView.Owner = this;
