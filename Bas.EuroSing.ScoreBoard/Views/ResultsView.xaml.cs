@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Bas.EuroSing.ScoreBoard.Messages;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +25,21 @@ namespace Bas.EuroSing.ScoreBoard.Views
         public ResultsView()
         {
             InitializeComponent();
+            
+
+            Messenger.Default.Register<CountryResultClickedMessage>(this, (message) =>
+            {
+                bool madeIt = VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
+                Debug.WriteLine(madeIt);
+            });
         }
         
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Play();
+
+            bool madeIt = VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
+            Debug.WriteLine("OK" + madeIt);
         }
 
         private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)
