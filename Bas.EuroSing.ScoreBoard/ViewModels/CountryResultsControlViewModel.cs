@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
-    internal class CountryResultsViewModel : ViewModelBase
+    internal class CountryResultsControlViewModel : ViewModelBase
     {
         private IDataService dataService;
         private Country country;
@@ -59,7 +59,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         public RelayCommand ClickCommand { get; set; }
 
-        public CountryResultsViewModel(Country country, IDataService dataService)
+        public CountryResultsControlViewModel(Country country, IDataService dataService)
         {
             this.dataService = dataService;
             this.country = country;

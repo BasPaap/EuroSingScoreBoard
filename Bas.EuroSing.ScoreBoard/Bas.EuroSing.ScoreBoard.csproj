@@ -94,7 +94,7 @@
     </Compile>
     <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
-    <Compile Include="ViewModels\CountryResultsViewModel.cs" />
+    <Compile Include="ViewModels\CountryResultsControlViewModel.cs" />
     <Compile Include="ViewModels\CountryVoteViewModel.cs" />
     <Compile Include="Messages\ResultsState.cs" />
     <Compile Include="Views\MainView.xaml.cs">
