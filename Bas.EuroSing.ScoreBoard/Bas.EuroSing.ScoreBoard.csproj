@@ -99,6 +99,8 @@
       <DependentUpon>201801101026116_CreateInitialSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\ZeroPointsValueConverter.cs" />
+    <Compile Include="ValueConverters\ZeroPointsVisibilityValueConverter.cs" />
     <Compile Include="ViewModels\CountryListItemViewModel.cs" />
     <Compile Include="ViewModels\CountryResultsControlViewModel.cs" />
     <Compile Include="ViewModels\CountryResultsViewModel.cs" />

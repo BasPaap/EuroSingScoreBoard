@@ -24,19 +24,5 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         {
             InitializeComponent();
         }
-
-
-
-        public string CountryName
-        {
-            get { return (string)GetValue(CountryNameProperty); }
-            set { SetValue(CountryNameProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for CountryName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CountryNameProperty =
-            DependencyProperty.Register("CountryName", typeof(string), typeof(ScoreBoardItem), new PropertyMetadata(string.Empty));
-
-
     }
 }
