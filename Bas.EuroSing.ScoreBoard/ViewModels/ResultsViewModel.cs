@@ -71,14 +71,47 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void OnEntranceAnimationCompleted()
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 1; i < 8; i++)
             {
-                var vote = votesByIssuingCountry[currentCountryId.Value].OrderBy(v => v.NumPoints).ToArray()[i];
-                var country = Countries.Single(c => c.Id == vote.ToCountryId);
+                RevealPoints(i);
+            }
+        }
 
+        private void RevealPoints(int numPoints)
+        {
+            var vote = GetVoteForNumPoints(numPoints);
+            var country = GetReceivingCountryForVote(vote);
+
+            if (country != null && vote != null)
+            {
                 country.CurrentPoints = vote.NumPoints;
                 country.TotalPoints += vote.NumPoints;
             }
+        }
+
+        private CountryResultsViewModel GetReceivingCountryForVote(Vote vote)
+        {
+            return vote != null ? Countries.Single(c => c.Id == vote.ToCountryId) : null;
+        }
+
+        private Vote GetVoteForNumPoints(int numPoints)
+        {
+            int index;
+            if (numPoints < 9)
+            {
+                index = numPoints - 1;
+            }
+            else if (numPoints == 10)
+            {
+                index = 8;
+            }
+            else
+            {
+                index = 9;
+            }
+
+
+            return index >= 0 ? votesByIssuingCountry[currentCountryId.Value].OrderBy(v => v.NumPoints).ToArray()[index] : null;
         }
 
         private void OnChangeStateMessage(ChangeStateMessage message)
@@ -87,20 +120,35 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 CurrentCountryNumber++;
                 currentCountryId = message.CurrentCountry.Id;
+
+                CurrentCountryName = message.CurrentCountry.Name;
+
+                if (message.CurrentCountry.FlagImage != null)
+                {
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CreateOptions = BitmapCreateOptions.None;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = new MemoryStream(message.CurrentCountry.FlagImage);
+                    bitmapImage.EndInit();
+
+                    CurrentCountryFlagImage = bitmapImage;
+                }
             }
 
-            CurrentCountryName = message.CurrentCountry.Name;
-
-            if (message.CurrentCountry.FlagImage != null)
+            if (message.State == ResultsState.EightPoints)
             {
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = new MemoryStream(message.CurrentCountry.FlagImage);
-                bitmapImage.EndInit();
+                RevealPoints(8);
+            }            
 
-                CurrentCountryFlagImage = bitmapImage;
+            if (message.State == ResultsState.TenPoints)
+            {
+                RevealPoints(10);
+            }
+
+            if (message.State == ResultsState.TwelvePoints)
+            {
+                RevealPoints(12);
             }
         }
     }
