@@ -56,7 +56,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                         DataContext = item,
                         Opacity = 0
                     };
-                    
+                    scoreBoardItem.CurrentPointsUpdated += scoreBoard.ScoreBoardItem_CurrentPointsUpdated;
                     scoreBoard.AddScoreBoardItem(scoreBoardItem);
                 }
             }
@@ -65,6 +65,13 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 (e.OldValue as ObservableCollection<CountryResultsViewModel>).CollectionChanged -= (d as ScoreBoard).Collection_CollectionChanged;
             }
             
+        }
+
+        public event EventHandler<int> CurrentPointsUpdated;
+
+        private void ScoreBoardItem_CurrentPointsUpdated(object sender, int e)
+        {
+            CurrentPointsUpdated?.Invoke(sender, e);
         }
 
         public Storyboard EntranceStoryboard { get; set; }

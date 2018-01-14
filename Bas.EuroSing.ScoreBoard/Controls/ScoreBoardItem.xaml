@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vc="clr-namespace:Bas.EuroSing.ScoreBoard.ValueConverters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="60" d:DesignWidth="300"
@@ -59,7 +60,8 @@
                 </Grid.RenderTransform>
                 
                 <Ellipse Fill="White" Width="30" Height="30"/>
-                <TextBlock Grid.Column="1"  Text="{Binding CurrentPoints, FallbackValue=12}" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
+                <TextBlock Grid.Column="1"  Text="{Binding CurrentPoints, NotifyOnTargetUpdated=True, FallbackValue=12}" TargetUpdated="CurrentPoints_TargetUpdated" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
+
             </Grid>
             <TextBlock Grid.Column="1" Margin="-10,0,0,0" Text="{Binding TotalPoints, FallbackValue=360, Converter={StaticResource ZeroPointsValueConverter}}" Style="{StaticResource CountryListItemTextStyle}" FontWeight="Normal" FontStyle="Normal" HorizontalAlignment="Center" />
             <Ellipse Grid.Column="2" Style="{StaticResource CountryListItemFlagStyle}" />

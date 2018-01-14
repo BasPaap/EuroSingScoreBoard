@@ -95,5 +95,52 @@ namespace Bas.EuroSing.ScoreBoard.Views
         {
             (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
         }
+
+        private void scoreBoard_CurrentPointsUpdated(object sender, int e)
+        {
+            var storyboard = Resources["CurrentPointsUsedStoryboard"] as Storyboard;
+
+            Grid grid;
+            switch (e)
+            {
+                case 1:
+                    grid = grid1;
+                    break;
+                case 2:
+                    grid = grid2;
+                    break;
+                case 3:
+                    grid = grid3;
+                    break;
+                case 4:
+                    grid = grid4;
+                    break;
+                case 5:
+                    grid = grid5;
+                    break;
+                case 6:
+                    grid = grid6;
+                    break;
+                case 7:
+                    grid = grid7;
+                    break;
+                case 8:
+                    grid = grid8;
+                    break;
+                case 10:
+                    grid = grid9;
+                    break;
+                case 12:
+                    grid = grid10;
+                    break;
+                default:
+                    grid = null;
+                    break;
+            }
+
+            Storyboard.SetTarget(storyboard, grid);
+            Storyboard.SetTargetProperty(storyboard, new PropertyPath("Opacity"));
+            storyboard.Begin();
+        }
     }
 }
