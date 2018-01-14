@@ -44,8 +44,17 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref name, value); }
         }
 
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { Set(ref id, value); }
+        }
+
         public CountryResultsViewModel(Country country)
         {
+            Id = country.Id;
             Name = country.Name;
 
             if (country.FlagImage != null)

@@ -38,6 +38,10 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
 
+            if (Countries.Count > 0)
+            {
+                Countries.First().IsSelected = true;
+            }
             SetNextState();
         }
 
@@ -85,7 +89,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 }
             }
 
-            Messenger.Default.Send(new ChangeStateMessage(this.state));
+            Messenger.Default.Send(new ChangeStateMessage(this.state, dataService.GetCountry(Countries.FirstOrDefault(c => c.IsSelected).Id)));
             NextCommand.RaiseCanExecuteChanged();
         }
 

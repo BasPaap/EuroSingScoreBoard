@@ -105,5 +105,10 @@ namespace Bas.EuroSing.ScoreBoard.Services
                 db.SaveChanges();
             }
         }
+
+        public Country GetCountry(int countryId)
+        {
+            return db.Countries.Find(countryId);
+        }
     }
 }

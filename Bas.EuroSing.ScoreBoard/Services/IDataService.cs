@@ -18,5 +18,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
         Collection<Vote> GetVotes(int countryIssuingVotesId);
         void SaveVote(Vote vote);
         void DeleteVote(Vote vote);
+        Country GetCountry(int countryId);
     }
 }

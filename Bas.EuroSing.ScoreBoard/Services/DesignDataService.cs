@@ -80,5 +80,10 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             throw new NotImplementedException();
         }
+
+        public Country GetCountry(int countryId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
