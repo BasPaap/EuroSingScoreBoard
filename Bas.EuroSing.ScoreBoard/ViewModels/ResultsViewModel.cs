@@ -12,15 +12,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     internal class ResultsViewModel : ViewModelBase
     {
         private IDataService dataService;
-        public ObservableCollection<CountryListItemViewModel> Countries { get; set; }
+        public ObservableCollection<CountryResultsViewModel> Countries { get; set; }
 
         public ResultsViewModel(IDataService dataService)
         {
             this.dataService = dataService;
 
-            Countries = new ObservableCollection<CountryListItemViewModel>(from c in dataService.GetAllCountries()
+            Countries = new ObservableCollection<CountryResultsViewModel>(from c in dataService.GetAllCountries()
                                                                            orderby c.Name
-                                                                           select new CountryListItemViewModel(c, this.dataService));
+                                                                           select new CountryResultsViewModel(c));
         }
 
     }

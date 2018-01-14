@@ -24,6 +24,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         public RelayCommand NextCommand { get; set; }
         public RelayCommand ClickCommand { get; set; }
+        public RelayCommand BackCommand { get; set; }
 
         public ResultsControlPanelViewModel(IDataService dataService)
         {
@@ -33,10 +34,16 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             Countries = new ObservableCollection<CountryResultsControlViewModel>(from c in this.dataService.GetAllCountries()
                                                                           select new CountryResultsControlViewModel(c, this.dataService));
             NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);
+            BackCommand = new RelayCommand(OnBackCommand);
 
             Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
 
             SetNextState();
+        }
+
+        private void OnBackCommand()
+        {
+            Messenger.Default.Send(new BackMessage());
         }
 
         private bool CanNextCommandExecute()
