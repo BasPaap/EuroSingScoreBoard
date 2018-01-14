@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -48,9 +49,12 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
                 foreach (var item in collection)
                 {
-                    var scoreBoardItem = new ScoreBoardItem();
-                    scoreBoardItem.DataContext = item;
-                    //scoreBoardItem.SetBinding(ScoreBoardItem.CountryNameProperty, "Name");
+                    var scoreBoardItem = new ScoreBoardItem()
+                    {
+                        DataContext = item,
+                        Opacity = 0
+                    };
+                    
                     scoreBoard.AddScoreBoardItem(scoreBoardItem);
                 }
             }
@@ -61,22 +65,68 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             
         }
 
+        private Storyboard entranceStoryboard = new Storyboard();
+
         private const double itemHeight = 40.0;
         private double nextYOffset = 0;
+        private TimeSpan nextTimeSpan = TimeSpan.Zero;
         private void AddScoreBoardItem(ScoreBoardItem item)
         {
             Binding b = new Binding("ActualWidth");
             b.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor,
                                                      typeof(ScoreBoard), 1);
             item.SetBinding(ScoreBoardItem.WidthProperty, b);
+            
+            var opacityAnimation = new DoubleAnimation()
+            {
+                BeginTime = nextTimeSpan,
+                Duration = TimeSpan.FromSeconds(1.0),
+                From = 0,
+                To = 1
+            };
+            
+
+            PropertyPath propertyPath = new PropertyPath(UIElement.OpacityProperty);
+            Storyboard.SetTarget(opacityAnimation, item);
+            Storyboard.SetTargetProperty(opacityAnimation, propertyPath);
+
+            entranceStoryboard.Children.Add(opacityAnimation);
+            
+            
+
+
+
+
+            var translateYAnimation = new DoubleAnimation()
+            {
+                BeginTime = nextTimeSpan,
+                Duration = TimeSpan.FromSeconds(0.7),
+                From = nextYOffset + 180.0,
+                To = nextYOffset
+            };
+
+
+            PropertyPath propertyPath2 = new PropertyPath(Canvas.TopProperty);
+            Storyboard.SetTarget(translateYAnimation, item);
+            Storyboard.SetTargetProperty(translateYAnimation, propertyPath2);
+
+            entranceStoryboard.Children.Add(translateYAnimation);
+
 
             rootCanvas.Children.Add(item);
             Canvas.SetTop(item, nextYOffset);
+
             nextYOffset += itemHeight;
+            nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
         }
 
         private  void Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.entranceStoryboard.Begin();
         }
     }
 }

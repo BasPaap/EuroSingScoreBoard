@@ -120,7 +120,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ScoreBoard x:Name="scoreBoard" Grid.RowSpan="2" Items="{Binding Countries}" />
+            <controls:ScoreBoard x:Name="scoreBoard" Grid.RowSpan="2" Items="{Binding Countries}" Margin="20"/>
             <Image x:Name="image1" Grid.Row="0" Grid.Column="1" Source="../Assets/Wyoming.png" Margin="10,10,10,0" />
             <StackPanel x:Name="stackPanel1" Grid.Row="1" Grid.Column="1">
                 <TextBlock  Foreground="White" FontSize="48" Margin="50,30,0,10" FontWeight="Bold">
