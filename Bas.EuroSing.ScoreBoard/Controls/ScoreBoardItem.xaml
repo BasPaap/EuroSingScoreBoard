@@ -57,17 +57,7 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Grid.RenderTransform>
-                <Grid.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding CurrentPoints}" Value="0">
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard Storyboard="{StaticResource ShowCurrentPointsStoryboard}" />
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
+                
                 <Ellipse Fill="White" Width="30" Height="30"/>
                 <TextBlock Grid.Column="1"  Text="{Binding CurrentPoints, FallbackValue=12}" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
             </Grid>

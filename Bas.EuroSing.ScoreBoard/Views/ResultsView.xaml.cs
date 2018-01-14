@@ -1,4 +1,5 @@
 ﻿using Bas.EuroSing.ScoreBoard.Messages;
+using Bas.EuroSing.ScoreBoard.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
             {
                 this.WindowState = WindowState.Maximized;
             }
+        }
+
+        private void ToFirstGroupOfPointsStoryboard_Completed(object sender, EventArgs e)
+        {
+            (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
         }
     }
 }

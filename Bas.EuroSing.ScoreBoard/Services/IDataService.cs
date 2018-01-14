@@ -19,5 +19,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
         void SaveVote(Vote vote);
         void DeleteVote(Vote vote);
         Country GetCountry(int countryId);
+        Dictionary<int, IEnumerable<Vote>> GetAllVotes();
     }
 }

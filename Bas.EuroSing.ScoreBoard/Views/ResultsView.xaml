@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:Bas.EuroSing.ScoreBoard.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"   
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
+        xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
         Title="ResultsView" Height="768" Width="1024"
         WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDoubleClick="Window_MouseDoubleClick"
@@ -36,7 +38,8 @@
                         </Storyboard>
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:10" From="SplashScreen" To="FirstGroupOfPoints">
-                        <Storyboard x:Name="ToFirstGroupOfPointsStoryboard">
+                        <Storyboard x:Name="ToFirstGroupOfPointsStoryboard" Completed="ToFirstGroupOfPointsStoryboard_Completed">
+                            
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
                                     <EasingDoubleKeyFrame.EasingFunction>

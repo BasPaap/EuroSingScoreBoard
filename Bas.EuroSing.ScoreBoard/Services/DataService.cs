@@ -110,5 +110,17 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             return db.Countries.Find(countryId);
         }
+
+        public Dictionary<int, IEnumerable<Vote>> GetAllVotes()
+        {
+            var dictionary = new Dictionary<int, IEnumerable<Vote>>();
+
+            foreach (var country in db.Countries)
+            {
+                dictionary.Add(country.Id, db.Votes.Where(v => v.FromCountryId == country.Id).OrderBy(v => v.NumPoints));
+            }
+
+            return dictionary;
+        }
     }
 }

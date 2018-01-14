@@ -85,5 +85,10 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             throw new NotImplementedException();
         }
+
+        public Dictionary<int, IEnumerable<Vote>> GetAllVotes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
