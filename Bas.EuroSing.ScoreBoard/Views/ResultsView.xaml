@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Bas.EuroSing.ScoreBoard.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
         mc:Ignorable="d"
@@ -95,25 +96,12 @@
             </Image.RenderTransform>
         </Image>
 
-        <ListView ItemsSource="{Binding Countries}" Style="{StaticResource ListViewStyle}" HorizontalContentAlignment="Stretch" Width="500" HorizontalAlignment="Left" Margin="20">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12">
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="30" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="1" Style="{StaticResource CountryListItemTextStyle}" FontWeight="Normal" FontStyle="Normal" />
-                            <Ellipse Grid.Column="2" Style="{StaticResource CountryListItemFlagStyle}" />
-                            <TextBlock Grid.Column="3" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <controls:ScoreBoard Items="{Binding Countries}" />
+        </Grid>
     </Grid>
 </Window>

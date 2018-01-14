@@ -22,6 +22,5 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                                                                            orderby c.Name
                                                                            select new CountryResultsViewModel(c));
         }
-
     }
 }

@@ -59,6 +59,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,6 +80,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ScoreBoard.xaml.cs">
+      <DependentUpon>ScoreBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScoreBoardItem.xaml.cs">
+      <DependentUpon>ScoreBoardItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\ChangeStateMessage.cs" />
     <Compile Include="Messages\CountriesUpdatedMessage.cs" />
@@ -119,6 +128,14 @@
     <Compile Include="Views\VoteView.xaml.cs">
       <DependentUpon>VoteView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\ScoreBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ScoreBoardItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Bas.EuroSing.ScoreBoard.Controls
+{
+    /// <summary>
+    /// Interaction logic for ScoreBoardItem.xaml
+    /// </summary>
+    public partial class ScoreBoardItem : UserControl
+    {
+        public ScoreBoardItem()
+        {
+            InitializeComponent();
+        }
+
+
+
+        public string CountryName
+        {
+            get { return (string)GetValue(CountryNameProperty); }
+            set { SetValue(CountryNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CountryName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CountryNameProperty =
+            DependencyProperty.Register("CountryName", typeof(string), typeof(ScoreBoardItem), new PropertyMetadata(string.Empty));
+
+
+    }
+}
