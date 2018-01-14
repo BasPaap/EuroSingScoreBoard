@@ -120,8 +120,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 CurrentCountryNumber++;
                 currentCountryId = message.CurrentCountry.Id;
-
                 CurrentCountryName = message.CurrentCountry.Name;
+
+                foreach (var country in Countries)
+                {
+                    country.CurrentPoints = 0;
+                    country.RaisePropertyChanged("CurrentPoints");
+                }
 
                 if (message.CurrentCountry.FlagImage != null)
                 {
