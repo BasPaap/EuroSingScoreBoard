@@ -102,7 +102,12 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 BeginTime = nextTimeSpan,
                 Duration = TimeSpan.FromSeconds(0.7),
                 From = nextYOffset + 180.0,
-                To = nextYOffset
+                To = nextYOffset,
+                EasingFunction = new ExponentialEase()
+                {
+                    EasingMode = EasingMode.EaseOut,
+                    Exponent = 2.0
+                }
             };
 
 
