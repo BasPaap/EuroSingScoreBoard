@@ -39,17 +39,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
                         VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
                         break;
                     case ResultsState.FirstGroupOfPoints:
-                        VisualStateManager.GoToElementState(grid, FirstGroupOfPoints.Name, true);
+                        VisualStateManager.GoToElementState(grid, RevealPoints.Name, true);
                         break;
                     case ResultsState.EightPoints:
-                        VisualStateManager.GoToElementState(grid, EightPoints.Name, true);
-                        break;
                     case ResultsState.TenPoints:
-                        VisualStateManager.GoToElementState(grid, TenPoints.Name, true);
-                        break;
                     case ResultsState.TwelvePoints:
-                        VisualStateManager.GoToElementState(grid, TwelvePoints.Name, true);
-                        break;
                     case ResultsState.None:
                     default:
                         break;

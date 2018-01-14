@@ -56,6 +56,11 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                         DataContext = item,
                         Opacity = 0
                     };
+
+                    var binding = new Binding("TotalPoints");
+                    binding.Source = item;
+                    scoreBoardItem.SetBinding(ScoreBoardItem.TotalPointsProperty, binding);
+                    
                     scoreBoardItem.CurrentPointsUpdated += scoreBoard.ScoreBoardItem_CurrentPointsUpdated;
                     scoreBoard.AddScoreBoardItem(scoreBoardItem);
                 }

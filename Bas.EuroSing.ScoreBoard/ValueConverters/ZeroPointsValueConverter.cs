@@ -12,7 +12,9 @@ namespace Bas.EuroSing.ScoreBoard.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value.ToString() == "0") ? "-" : value.ToString();
+            int intValue = (int)value;
+
+            return (intValue == 0) ? "-" : intValue.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

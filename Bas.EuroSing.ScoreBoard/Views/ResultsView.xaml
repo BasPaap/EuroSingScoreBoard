@@ -37,14 +37,8 @@
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualTransition>
-                    <VisualTransition From="SplashScreen" GeneratedDuration="0:0:1">
-                        <Storyboard x:Name="SplashScreenFadeOut">
-
-                        </Storyboard>
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:10" From="SplashScreen" To="FirstGroupOfPoints">
+                    <VisualTransition GeneratedDuration="0:0:10" From="SplashScreen" To="RevealPoints">
                         <Storyboard x:Name="ToFirstGroupOfPointsStoryboard" Completed="ToFirstGroupOfPointsStoryboard_Completed">
-                            
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
                                     <EasingDoubleKeyFrame.EasingFunction>
@@ -174,10 +168,13 @@
                 </VisualStateGroup.Transitions>
                 <VisualState x:Name="SplashScreen" />
                 <VisualState x:Name="ScoreOverview" />
-                <VisualState x:Name="FirstGroupOfPoints" />
-                <VisualState x:Name="EightPoints" />
-                <VisualState x:Name="TenPoints" />
-                <VisualState x:Name="TwelvePoints" />
+                <VisualState x:Name="RevealPoints" >
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="image">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
