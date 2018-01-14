@@ -10,10 +10,10 @@ namespace Bas.EuroSing.ScoreBoard.Messages
     {
         None = 0,
         SplashScreen,
-        ScoreOverview,
         FirstGroupOfPoints,
         EightPoints,
         TenPoints,
-        TwelvePoints
+        TwelvePoints,
+        ScoreOverview
     }
 }

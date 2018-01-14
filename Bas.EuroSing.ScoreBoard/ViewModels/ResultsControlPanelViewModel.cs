@@ -68,9 +68,9 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void SetNextState()
         {
-            this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.ScoreOverview;
+            this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.FirstGroupOfPoints;
 
-            if (this.state == ResultsState.ScoreOverview)
+            if (this.state == ResultsState.TwelvePoints)
             {
                 var selectedCountry = GetSelectedCountry();
                 if (selectedCountry != null)

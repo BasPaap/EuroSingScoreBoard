@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -53,13 +54,18 @@ namespace Bas.EuroSing.ScoreBoard.Views
                         break;
                 }
             });
+
+            foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+            {
+                ToFirstGroupOfPointsStoryboard.Children.Add(animation);
+            }
         }
         
+        
+
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
         {
-            backgroundVideo.Play();
-
-            
+            backgroundVideo.Play();            
         }
 
         private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)

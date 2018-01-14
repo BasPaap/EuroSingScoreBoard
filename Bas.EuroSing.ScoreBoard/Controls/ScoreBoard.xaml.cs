@@ -26,6 +26,8 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         public ScoreBoard()
         {
             InitializeComponent();
+
+            EntranceStoryboard = new Storyboard();
         }
         
         internal ObservableCollection<CountryResultsViewModel> Items
@@ -65,11 +67,11 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             
         }
 
-        private Storyboard entranceStoryboard = new Storyboard();
+        public Storyboard EntranceStoryboard { get; set; }
 
         private const double itemHeight = 40.0;
         private double nextYOffset = 0;
-        private TimeSpan nextTimeSpan = TimeSpan.Zero;
+        private TimeSpan nextTimeSpan = TimeSpan.FromSeconds(1);
         private void AddScoreBoardItem(ScoreBoardItem item)
         {
             Binding b = new Binding("ActualWidth");
@@ -90,13 +92,9 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             Storyboard.SetTarget(opacityAnimation, item);
             Storyboard.SetTargetProperty(opacityAnimation, propertyPath);
 
-            entranceStoryboard.Children.Add(opacityAnimation);
+            EntranceStoryboard.Children.Add(opacityAnimation);
             
             
-
-
-
-
             var translateYAnimation = new DoubleAnimation()
             {
                 BeginTime = nextTimeSpan,
@@ -115,7 +113,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             Storyboard.SetTarget(translateYAnimation, item);
             Storyboard.SetTargetProperty(translateYAnimation, propertyPath2);
 
-            entranceStoryboard.Children.Add(translateYAnimation);
+            EntranceStoryboard.Children.Add(translateYAnimation);
 
 
             rootCanvas.Children.Add(item);
@@ -123,15 +121,13 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
             nextYOffset += itemHeight;
             nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
+
+            
         }
 
         private  void Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.entranceStoryboard.Begin();
-        }
+        
     }
 }
