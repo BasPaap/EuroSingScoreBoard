@@ -38,7 +38,7 @@
                         </Storyboard>
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:10" From="SplashScreen" To="RevealPoints">
-                        <Storyboard x:Name="ToFirstGroupOfPointsStoryboard" Completed="ToFirstGroupOfPointsStoryboard_Completed">
+                        <Storyboard x:Name="ToFirstGroupOfPointsStoryboard">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
                                     <EasingDoubleKeyFrame.EasingFunction>

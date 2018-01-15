@@ -84,12 +84,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
                 this.WindowState = WindowState.Maximized;
             }
         }
-
-        private void ToFirstGroupOfPointsStoryboard_Completed(object sender, EventArgs e)
-        {
-        }
-
-
+        
         private void scoreBoard_EntranceAnimationCompleted(object sender, EventArgs e)
         {
 
