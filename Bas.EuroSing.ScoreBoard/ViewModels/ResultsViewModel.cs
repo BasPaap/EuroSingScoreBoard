@@ -75,6 +75,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 RevealPoints(i);
             }
+
+            Messenger.Default.Send(new ReorderCountriesMessage());
         }
 
         private void RevealPoints(int numPoints)
@@ -139,16 +141,19 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             if (message.State == ResultsState.EightPoints)
             {
                 RevealPoints(8);
+                Messenger.Default.Send(new ReorderCountriesMessage());
             }            
 
             if (message.State == ResultsState.TenPoints)
             {
                 RevealPoints(10);
+                Messenger.Default.Send(new ReorderCountriesMessage());
             }
 
             if (message.State == ResultsState.TwelvePoints)
             {
                 RevealPoints(12);
+                Messenger.Default.Send(new ReorderCountriesMessage());
             }
         }
     }

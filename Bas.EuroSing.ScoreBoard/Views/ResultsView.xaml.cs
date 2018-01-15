@@ -53,7 +53,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
             foreach (var animation in scoreBoard.EntranceStoryboard.Children)
             {
                 ToFirstGroupOfPointsStoryboard.Children.Add(animation);
-            }
+            }            
         }
         
         
@@ -87,6 +87,17 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
         private void ToFirstGroupOfPointsStoryboard_Completed(object sender, EventArgs e)
         {
+        }
+
+
+        private void scoreBoard_EntranceAnimationCompleted(object sender, EventArgs e)
+        {
+
+            foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+            {
+                ToFirstGroupOfPointsStoryboard.Children.Remove(animation);
+            }
+
             (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
         }
 
@@ -136,5 +147,6 @@ namespace Bas.EuroSing.ScoreBoard.Views
             Storyboard.SetTargetProperty(storyboard, new PropertyPath("Opacity"));
             storyboard.Begin();
         }
+
     }
 }
