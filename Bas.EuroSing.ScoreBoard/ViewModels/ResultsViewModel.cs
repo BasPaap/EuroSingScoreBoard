@@ -67,6 +67,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                     votesByIssuingCountry = this.dataService.GetAllVotes();
                 }
             });
+
+            if (IsInDesignMode)
+            {
+                var bitmapImage = new BitmapImage(new Uri(@"C:\Users\baspa\documents\visual studio 2017\Projects\Bas.EuroSing.ScoreBoard\Bas.EuroSing.ScoreBoard\Assets\Wyoming.png"));
+                CurrentCountryFlagImage = bitmapImage;
+                CurrentCountryNumber = 7;
+                CurrentCountryName = "Wyoming";
+            }
         }
 
         private void OnEntranceAnimationCompleted()

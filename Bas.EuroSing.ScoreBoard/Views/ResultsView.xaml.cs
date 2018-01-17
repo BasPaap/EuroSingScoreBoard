@@ -38,12 +38,10 @@ namespace Bas.EuroSing.ScoreBoard.Views
                     case ResultsState.RevealCounty:
                         VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
                         break;
-                    case ResultsState.ScoreOverview:
-                        VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
-                        break;
                     case ResultsState.FirstGroupOfPoints:
                         VisualStateManager.GoToElementState(grid, RevealPoints.Name, true);
                         break;
+                    case ResultsState.ScoreOverview:
                     case ResultsState.EightPoints:
                     case ResultsState.TenPoints:
                     case ResultsState.TwelvePoints:
@@ -55,7 +53,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
             foreach (var animation in scoreBoard.EntranceStoryboard.Children)
             {
-                ToFirstGroupOfPointsStoryboard.Children.Add(animation);
+                FromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
             }            
         }
         
@@ -93,7 +91,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
             foreach (var animation in scoreBoard.EntranceStoryboard.Children)
             {
-                ToFirstGroupOfPointsStoryboard.Children.Remove(animation);
+                FromRevealCountryToRevealPointsStoryboard.Children.Remove(animation);
             }
 
             (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
@@ -146,6 +144,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
             storyboard.Begin();
         }
         
+
         private void FromSplashScreenToRevealCountryStoryboard_Completed(object sender, EventArgs e)
         {
             Messenger.Default.Send(new RevealCountryCompletedMessage());
