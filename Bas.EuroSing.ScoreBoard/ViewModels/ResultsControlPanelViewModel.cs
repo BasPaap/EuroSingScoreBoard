@@ -37,6 +37,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             BackCommand = new RelayCommand(OnBackCommand);
 
             Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
+            Messenger.Default.Register<RevealCountryCompletedMessage>(this, (message) => SetNextState());
 
             if (Countries.Count > 0)
             {

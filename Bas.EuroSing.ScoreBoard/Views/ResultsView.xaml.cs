@@ -35,6 +35,9 @@ namespace Bas.EuroSing.ScoreBoard.Views
                     case ResultsState.SplashScreen:
                         VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
                         break;
+                    case ResultsState.RevealCounty:
+                        VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
+                        break;
                     case ResultsState.ScoreOverview:
                         VisualStateManager.GoToElementState(grid, ScoreOverview.Name, true);
                         break;
@@ -142,6 +145,10 @@ namespace Bas.EuroSing.ScoreBoard.Views
             Storyboard.SetTargetProperty(storyboard, new PropertyPath("Opacity"));
             storyboard.Begin();
         }
-
+        
+        private void FromSplashScreenToRevealCountryStoryboard_Completed(object sender, EventArgs e)
+        {
+            Messenger.Default.Send(new RevealCountryCompletedMessage());
+        }
     }
 }

@@ -14,7 +14,7 @@
         DataContext="{Binding Results, Source={StaticResource Locator}}" >
     <Window.Resources>
         <Storyboard x:Key="CurrentPointsUsedStoryboard">
-            <DoubleAnimation From="1" To="0.1" Duration="0:0:1"   />
+            <DoubleAnimation From="1" To="0" Duration="0:0:1" />
         </Storyboard>
     </Window.Resources>
     <Grid x:Name="grid">
@@ -23,37 +23,37 @@
                 <VisualStateGroup.Transitions>
                     <VisualTransition To="SplashScreen" GeneratedDuration="0:0:0">
                         <Storyboard x:Name="HideAll">
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoard">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
                             </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="image1">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="flagImage">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
                             </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel1">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="votingCountryStackPanel">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:10" From="SplashScreen" To="RevealPoints">
                         <Storyboard x:Name="ToFirstGroupOfPointsStoryboard">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="logoImage">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <QuinticEase EasingMode="EaseIn"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="image">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="logoImage">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <QuinticEase EasingMode="EaseIn"/>
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="image">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="logoImage">
                                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
                                     <EasingDoubleKeyFrame.EasingFunction>
                                         <QuinticEase EasingMode="EaseIn"/>
@@ -61,7 +61,7 @@
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
 
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                             </ObjectAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1">
@@ -114,7 +114,7 @@
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="image1">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="flagImage">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="300"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0">
@@ -123,7 +123,7 @@
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="image1">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="flagImage">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="1">
@@ -132,7 +132,7 @@
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="textBlock">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="countryNameTextBlock">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="100"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="70">
                                     <EasingDoubleKeyFrame.EasingFunction>
@@ -141,17 +141,17 @@
                                 </EasingDoubleKeyFrame>
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="countryNameTextBlock">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel2">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="numCountriesVotingStackPanel">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
                             </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="stackPanel2">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="numCountriesVotingStackPanel">
                                 <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="70"/>
                                 <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0">
@@ -163,24 +163,320 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoard">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                             </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1.9" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualTransition>
+                    <VisualTransition From="SplashScreen" To="RevealCountry">
+                        <Storyboard x:Name="FromSplashScreenToRevealCountryStoryboard" Completed="FromSplashScreenToRevealCountryStoryboard_Completed">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="logoImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <QuinticEase EasingMode="EaseIn"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="logoImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <QuinticEase EasingMode="EaseIn"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="10"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="logoImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="10">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <QuinticEase EasingMode="EaseIn"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="10"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RevealCountryGrid">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1.5" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="revealCountryTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="0.5">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="revealCountryFlagImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.185"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseOut" Amplitude="0.4"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="0.5">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="revealCountryFlagImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="800"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="-1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseOut" Amplitude="0.4"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="-850">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="revealCountryFlagImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1.1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="1.1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="revealCountryFlagImage">
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1.1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="1.1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="revealCountryTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="700"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="-800">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="revealCountryTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="1.1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="1.1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="revealCountryTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="1.1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="1.1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="revealCountryTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:5.1" Value="-15">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BackEase EasingMode="EaseIn" Amplitude="0.5"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="logoImage">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{x:Static Visibility.Visible}"/>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:5.1" Value="{x:Static Visibility.Collapsed}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualTransition>
+                    <VisualTransition From="RevealCountry" To="RevealPoints">
+                        <Storyboard x:Name="FromRevealCountryToRevealPointsStoryboard">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid2">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid3">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid4">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid5">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid6">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid7">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid8">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid9">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid10">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="flagImage">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="300"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseOut" Exponent="3"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="flagImage">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseOut" Exponent="3"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="countryNameTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="100"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="70">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseOut" Exponent="3"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="countryNameTextBlock">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="numCountriesVotingStackPanel">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="numCountriesVotingStackPanel">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="70"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <ExponentialEase EasingMode="EaseOut" Exponent="3"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoard">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:1.9" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="votingCountryStackPanel">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="SplashScreen" />
-                <VisualState x:Name="ScoreOverview" />
-                <VisualState x:Name="RevealPoints" >
+                <VisualState x:Name="SplashScreen" >
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="image">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RevealCountryGrid">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
+                <VisualState x:Name="RevealCountry">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="logoImage">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask)" Storyboard.TargetName="revealCountryFlagImage">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Null}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="ScoreOverview" >
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="logoImage">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="RevealPoints" >
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="logoImage">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="pointsStackPanel">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scoreBoardGrid">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
         <MediaElement x:Name="backgroundVideo" Source="Assets/DancingStars.mp4" Stretch="UniformToFill"
                       LoadedBehavior="Manual" Loaded="backgroundVideo_Loaded" MediaEnded="backgroundVideo_MediaEnded" />
-        <Image x:Name="image" Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" RenderTransformOrigin="0.5,0.5" >
+        <Image x:Name="logoImage" Source="/Bas.EuroSing.ScoreBoard;component/Assets/Logo.png" Stretch="None" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -191,7 +487,7 @@
             </Image.RenderTransform>
         </Image>
 
-        <Grid>
+        <Grid x:Name="scoreBoardGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -201,7 +497,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <controls:ScoreBoard EntranceAnimationCompleted="scoreBoard_EntranceAnimationCompleted" x:Name="scoreBoard" Grid.RowSpan="2" Items="{Binding Countries}" Margin="20" CurrentPointsUpdated="scoreBoard_CurrentPointsUpdated"/>
-            <Image x:Name="image1" Grid.Row="0" Grid.Column="1" Source="{Binding CurrentCountryFlagImage}" Margin="10,10,10,0" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="flagImage" Grid.Row="0" Grid.Column="1" Source="{Binding CurrentCountryFlagImage}" Margin="10,10,10,0" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -211,8 +507,8 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <StackPanel x:Name="stackPanel1" Grid.Row="1" Grid.Column="1">
-                <TextBlock x:Name="textBlock" Text="{Binding CurrentCountryName}" Foreground="White" FontSize="48" Margin="50,30,0,10" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <StackPanel x:Name="votingCountryStackPanel" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+                <TextBlock x:Name="countryNameTextBlock" Text="{Binding CurrentCountryName}" Foreground="White" FontSize="48" Margin="50,30,0,10" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -221,9 +517,9 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </TextBlock.RenderTransform>
-                
+
                 </TextBlock>
-                <StackPanel x:Name="stackPanel2" Orientation="Horizontal" Margin="50,0,0,0" RenderTransformOrigin="0.5,0.5">
+                <StackPanel x:Name="numCountriesVotingStackPanel" Orientation="Horizontal" Margin="50,0,0,0" RenderTransformOrigin="0.5,0.5">
                     <StackPanel.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -234,13 +530,13 @@
                     </StackPanel.RenderTransform>
                     <TextBlock Foreground="White" Margin="0,0,5,0" FontSize="18" Text="{Binding CurrentCountryNumber}" />
                     <TextBlock Foreground="White" Margin="0,0,5,0" FontSize="18">OF</TextBlock>
-                    <TextBlock Foreground="White" Margin="0,0,5,0" FontSize="18" Text="{Binding Countries.Count}" /> 
+                    <TextBlock Foreground="White" Margin="0,0,5,0" FontSize="18" Text="{Binding Countries.Count}" />
                     <TextBlock Foreground="White" FontSize="18">COUNTRIES VOTING</TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>
 
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40,20,20,10">
+        <StackPanel x:Name="pointsStackPanel" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40,20,20,10" Visibility="Collapsed">
             <Grid x:Name="grid1" Margin="10" Tag="1">
                 <Ellipse Fill="White" Width="30" Height="30"/>
                 <TextBlock Text="1" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
@@ -282,5 +578,30 @@
                 <TextBlock Text="12" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
             </Grid>
         </StackPanel>
+
+        <Grid x:Name="RevealCountryGrid" Visibility="Collapsed">
+            <Image x:Name="revealCountryFlagImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="../Assets/Wyoming.png" RenderTransformOrigin="0.5,0.5" Height="400" Margin="0,0,0,180" >
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+            <TextBlock x:Name="revealCountryTextBlock" Text="Wyoming" Foreground="White" FontSize="72" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,375,0,0" >
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+        </Grid>
     </Grid>
 </Window>

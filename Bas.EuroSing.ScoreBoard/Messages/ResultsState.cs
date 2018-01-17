@@ -10,6 +10,7 @@ namespace Bas.EuroSing.ScoreBoard.Messages
     {
         None = 0,
         SplashScreen,
+        RevealCounty,
         FirstGroupOfPoints,
         EightPoints,
         TenPoints,
