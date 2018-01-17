@@ -146,7 +146,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
 
             if (message.State == ResultsState.FirstGroupOfPoints)
-            { 
+            {
                 foreach (var country in Countries)
                 {
                     country.CurrentPoints = 0;

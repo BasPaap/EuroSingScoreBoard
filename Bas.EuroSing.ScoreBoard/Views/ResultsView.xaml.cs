@@ -36,6 +36,18 @@ namespace Bas.EuroSing.ScoreBoard.Views
                         VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
                         break;
                     case ResultsState.RevealCountry:
+                        foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+                        {
+                            FromRevealCountryToRevealPointsStoryboard.Children.Remove(animation);
+                        }
+
+                        scoreBoard.ResetScoreBoardItemAnimations();
+
+                        foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+                        {
+                            FromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
+                        }
+                        
                         VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
                         break;
                     case ResultsState.FirstGroupOfPoints:
@@ -88,12 +100,6 @@ namespace Bas.EuroSing.ScoreBoard.Views
         
         private void scoreBoard_EntranceAnimationCompleted(object sender, EventArgs e)
         {
-
-            foreach (var animation in scoreBoard.EntranceStoryboard.Children)
-            {
-                FromRevealCountryToRevealPointsStoryboard.Children.Remove(animation);
-            }
-
             (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
         }
 

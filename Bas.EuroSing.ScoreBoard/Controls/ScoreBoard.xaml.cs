@@ -31,13 +31,14 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             InitializeComponent();
 
             EntranceStoryboard = new Storyboard();
-            Messenger.Default.Register<ReorderCountriesMessage>(this, OnReorderCountriesMessage);
+            Messenger.Default.Register<ReorderCountriesMessage>(this, (message) => ReorderCountries());
         }
 
 
-        private void OnReorderCountriesMessage(ReorderCountriesMessage message)
+        private void ReorderCountries(bool skipAnimation = false)
         {
             var orderedItems = Items.OrderByDescending(i => i.TotalPoints).ThenBy(i => i.Name).ToList();
+            var duration = skipAnimation ? TimeSpan.Zero : TimeSpan.FromSeconds(1.0);
 
             var reorderStoryboard = new Storyboard();
             foreach (var scoreBoardItem in rootCanvas.Children.OfType<ScoreBoardItem>())
@@ -45,9 +46,9 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 var viewModel = scoreBoardItem.DataContext as CountryResultsViewModel;
                 var newIndex = orderedItems.IndexOf(orderedItems.Single(i => i.Id == viewModel.Id));
 
-                var reorderAnimation = new DoubleAnimation(Canvas.GetTop(scoreBoardItem), newIndex * itemHeight, TimeSpan.FromSeconds(1.0))
+                var reorderAnimation = new DoubleAnimation(Canvas.GetTop(scoreBoardItem), newIndex * itemHeight, duration)
                 {
-                    BeginTime = TimeSpan.FromSeconds(1.0),
+                    BeginTime = duration,
                     FillBehavior = FillBehavior.Stop,
                     EasingFunction = new CubicEase()
                     {
@@ -96,7 +97,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 }
             }
         }
-
+        
         public event EventHandler EntranceAnimationCompleted;
         public event EventHandler<int> CurrentPointsUpdated;
 
@@ -119,9 +120,35 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                                                      typeof(ScoreBoard), 1);
             item.SetBinding(ScoreBoardItem.WidthProperty, widthBinding);
 
+            //SetAnimationForScoreBoardItem(item, nextYOffset, nextTimeSpan);
+
+            rootCanvas.Children.Add(item);
+            Canvas.SetTop(item, nextYOffset);
+            nextYOffset += itemHeight;
+            nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
+        }
+
+        public void ResetScoreBoardItemAnimations()
+        {
+            EntranceStoryboard.Children.Clear();
+
+            var yOffset = 0.0;
+            var timeSpan = TimeSpan.FromSeconds(1.0);
+
+            foreach (var item in rootCanvas.Children.OfType<ScoreBoardItem>().OrderBy(s => Canvas.GetTop(s))) 
+            {                
+                SetAnimationForScoreBoardItem(item, yOffset, timeSpan);
+
+                yOffset += itemHeight;
+                timeSpan += TimeSpan.FromSeconds(0.1);
+            }
+        }
+
+        private void SetAnimationForScoreBoardItem(ScoreBoardItem item, double yOffset, TimeSpan timeSpan)
+        {
             var opacityAnimation = new DoubleAnimation()
             {
-                BeginTime = nextTimeSpan,
+                BeginTime = timeSpan,
                 Duration = TimeSpan.FromSeconds(1.0),
                 From = 0,
                 To = 1
@@ -130,13 +157,13 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             Storyboard.SetTarget(opacityAnimation, item);
             Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
             EntranceStoryboard.Children.Add(opacityAnimation);
-            
+
             var translateYAnimation = new DoubleAnimation()
             {
-                BeginTime = nextTimeSpan,
+                BeginTime = timeSpan,
                 Duration = TimeSpan.FromSeconds(0.7),
-                From = nextYOffset + 180.0,
-                To = nextYOffset,
+                From = yOffset + 180.0,
+                To = yOffset,
                 FillBehavior = FillBehavior.Stop, // Deze moet op stop staan omdat we anders na de animatie de Canvas.Top property niet meer kunnen setten
                 EasingFunction = new ExponentialEase()
                 {
@@ -163,11 +190,6 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             Storyboard.SetTarget(translateYAnimation, item);
             Storyboard.SetTargetProperty(translateYAnimation, new PropertyPath(Canvas.TopProperty));
             EntranceStoryboard.Children.Add(translateYAnimation);
-            
-            rootCanvas.Children.Add(item);
-            Canvas.SetTop(item, nextYOffset);
-            nextYOffset += itemHeight;
-            nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
         }
 
         private void HoldEndPosition(object sender)
