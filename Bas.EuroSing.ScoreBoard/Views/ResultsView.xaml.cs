@@ -35,7 +35,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
                     case ResultsState.SplashScreen:
                         VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
                         break;
-                    case ResultsState.RevealCounty:
+                    case ResultsState.RevealCountry:
                         VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
                         break;
                     case ResultsState.FirstGroupOfPoints:

@@ -126,17 +126,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private void OnChangeStateMessage(ChangeStateMessage message)
         {
-            if (message.State == ResultsState.FirstGroupOfPoints)
+            if (message.State == ResultsState.RevealCountry)
             {
                 CurrentCountryNumber++;
                 currentCountryId = message.CurrentCountry.Id;
                 CurrentCountryName = message.CurrentCountry.Name;
-
-                foreach (var country in Countries)
-                {
-                    country.CurrentPoints = 0;
-                    country.RaisePropertyChanged("CurrentPoints");
-                }
 
                 if (message.CurrentCountry.FlagImage != null)
                 {
@@ -149,6 +143,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                     CurrentCountryFlagImage = bitmapImage;
                 }
+            }
+
+            if (message.State == ResultsState.FirstGroupOfPoints)
+            { 
+                foreach (var country in Countries)
+                {
+                    country.CurrentPoints = 0;
+                    country.RaisePropertyChanged("CurrentPoints");
+                }                
             }
 
             if (message.State == ResultsState.EightPoints)
