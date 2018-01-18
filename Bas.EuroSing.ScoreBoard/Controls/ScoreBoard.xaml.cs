@@ -55,10 +55,11 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                         EasingMode = EasingMode.EaseOut
                     }
                 };
-                reorderAnimation.Completed += (sender, e) => HoldEndPosition(sender);
+                reorderAnimation.Completed += (sender, e) => { Debug.Write("Hold on reorder"); HoldEndPosition(sender); }; 
                 Storyboard.SetTarget(reorderAnimation, scoreBoardItem);
                 Storyboard.SetTargetProperty(reorderAnimation, new PropertyPath(Canvas.TopProperty));
                 reorderStoryboard.Children.Add(reorderAnimation);
+                Debug.WriteLine($"Reordering {viewModel.Name}({viewModel.TotalPoints} points, position {Canvas.GetTop(scoreBoardItem)}) from {reorderAnimation.From} to {reorderAnimation.To}");
             }
             reorderStoryboard.Begin();
         }
@@ -80,16 +81,16 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             {
                 var collection = (ObservableCollection<CountryResultsViewModel>)e.NewValue;
 
-                foreach (var item in collection)
+                foreach (var countryResultsViewModel in collection)
                 {
                     var scoreBoardItem = new ScoreBoardItem()
                     {
-                        DataContext = item,
+                        DataContext = countryResultsViewModel,
                         Opacity = 0
                     };
 
                     var binding = new Binding("TotalPoints");
-                    binding.Source = item;
+                    binding.Source = countryResultsViewModel;
                     scoreBoardItem.SetBinding(ScoreBoardItem.TotalPointsProperty, binding);
 
                     scoreBoardItem.CurrentPointsUpdated += scoreBoard.ScoreBoardItem_CurrentPointsUpdated;
@@ -124,6 +125,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
             rootCanvas.Children.Add(item);
             Canvas.SetTop(item, nextYOffset);
+            Debug.WriteLine($"AddItem: Canvas.SetTop({(item.DataContext as CountryResultsViewModel).Name}, {nextYOffset});");
             nextYOffset += itemHeight;
             nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
         }
@@ -146,6 +148,18 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
         private void SetAnimationForScoreBoardItem(ScoreBoardItem item, double yOffset, TimeSpan timeSpan)
         {
+            var initialOpacityAnimation = new DoubleAnimation()
+            {
+                BeginTime = TimeSpan.Zero,
+                Duration = TimeSpan.Zero,
+                To = 0
+            };
+
+            Storyboard.SetTarget(initialOpacityAnimation, item);
+            Storyboard.SetTargetProperty(initialOpacityAnimation, new PropertyPath(UIElement.OpacityProperty));
+            EntranceStoryboard.Children.Add(initialOpacityAnimation);
+
+
             var opacityAnimation = new DoubleAnimation()
             {
                 BeginTime = timeSpan,
@@ -173,23 +187,28 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             };
 
             // Aan het eind van de animatie wordt de toppositie weer gereset, omdat fillbehavior op stop moet staan.
+            Debug.WriteLine("-------- Setting completed event");
             translateYAnimation.Completed += (sender, e) =>
             {
+                Debug.Write("Hold on enter");
                 HoldEndPosition(sender);
 
                 // We houden bij hoeveel ScoreboardItem-animaties er al geweest zijn. Als ze allemaal geweest zijn vuren we een event af
                 // zodat Scoreboard weet dat hij het signaal kan sturen dat de animatie voltooid is.
                 numAnimationsCompleted++;
 
-                if (numAnimationsCompleted == EntranceStoryboard.Children.Count / 2) // Het aantal animaties moet door twee gedeeld worden omdat we voor elk storyboarditem zowel een opacity als een translate-animatie hebben.
+                if (numAnimationsCompleted == EntranceStoryboard.Children.Count / 3) // Het aantal animaties moet door twee gedeeld worden omdat we voor elk storyboarditem zowel een opacity als een translate-animatie hebben.
                 {
                     EntranceAnimationCompleted?.Invoke(this, EventArgs.Empty);
+                    numAnimationsCompleted = 0;
                 }
             };
 
             Storyboard.SetTarget(translateYAnimation, item);
             Storyboard.SetTargetProperty(translateYAnimation, new PropertyPath(Canvas.TopProperty));
             EntranceStoryboard.Children.Add(translateYAnimation);
+
+            Debug.WriteLine($"ENTERING {(item.DataContext as CountryResultsViewModel).Name}({((item.DataContext as CountryResultsViewModel)).TotalPoints} points, position {Canvas.GetTop(item)}) from {translateYAnimation.From} to {translateYAnimation.To}");
         }
 
         private void HoldEndPosition(object sender)
@@ -197,6 +216,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             var animation = (sender as AnimationClock).Timeline as DoubleAnimation;
             var animationTarget = Storyboard.GetTarget(animation) as ScoreBoardItem;
             Canvas.SetTop(animationTarget, animation.To.Value);
+            Debug.WriteLine($"HoldEnd: Canvas.SetTop({(animationTarget.DataContext as CountryResultsViewModel).Name}, {animation.To.Value});");
         }
     }
 }

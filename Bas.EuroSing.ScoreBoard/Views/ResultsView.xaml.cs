@@ -27,9 +27,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
         public ResultsView()
         {
             InitializeComponent();
-            
+                        
             Messenger.Default.Register<ChangeStateMessage>(this, (message) =>
             {
+                var FromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
+
                 switch (message.State)
                 {
                     case ResultsState.SplashScreen:
@@ -51,7 +53,12 @@ namespace Bas.EuroSing.ScoreBoard.Views
                         VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
                         break;
                     case ResultsState.FirstGroupOfPoints:
-                        VisualStateManager.GoToElementState(grid, RevealPoints.Name, true);
+                        VisualStateManager.GoToElementState(grid, RevealPoints.Name, false);
+
+                        FromRevealCountryToRevealPointsStoryboard.BeginTime = TimeSpan.Zero;
+                        //Storyboard.SetTarget(FromRevealCountryToRevealPointsStoryboard, grid);
+                        FromRevealCountryToRevealPointsStoryboard.Begin();
+
                         break;
                     case ResultsState.ScoreOverview:
                     case ResultsState.EightPoints:
@@ -65,12 +72,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
             foreach (var animation in scoreBoard.EntranceStoryboard.Children)
             {
+                var FromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
                 FromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
             }            
         }
         
-        
-
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Play();            
@@ -154,6 +160,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
         private void FromSplashScreenToRevealCountryStoryboard_Completed(object sender, EventArgs e)
         {
             Messenger.Default.Send(new RevealCountryCompletedMessage());
+        }
+
+        private void FromRevealCountryToRevealPointsStoryboard_Completed(object sender, EventArgs e)
+        {
+            Debug.WriteLine($"FromRevCToRevP ({(sender as ClockGroup).Children.Count} children) completed.");
         }
     }
 }
