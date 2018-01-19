@@ -61,6 +61,8 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
                         break;
                     case ResultsState.RevealWinner:
+                        VisualStateManager.GoToElementState(grid, RevealWinner.Name, true);
+                        break;
                     case ResultsState.EightPoints:
                     case ResultsState.TenPoints:
                     case ResultsState.TwelvePoints:
@@ -165,6 +167,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
         private void FromRevealCountryToRevealPointsStoryboard_Completed(object sender, EventArgs e)
         {
             Debug.WriteLine($"FromRevCToRevP ({(sender as ClockGroup).Children.Count} children) completed.");
+        }
+
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -103,7 +103,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                     this.currentlyRevealedCountry.IsSelected = false;
                     this.currentlyRevealedCountry.IsInQueue = false;
 
-                    if (Countries.Count(c => c.IsInQueue) > 1)
+                    if (Countries.Count(c => c.IsInQueue) > 0)
                     {
                         Countries.First(c => c.IsInQueue).IsSelected = true;
                     }
