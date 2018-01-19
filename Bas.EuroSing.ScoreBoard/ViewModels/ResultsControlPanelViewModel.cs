@@ -83,7 +83,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             if (this.state == ResultsState.RevealCountry)
             {
-                this.currentlyRevealedCountry = GetSelectedCountry();
+                if (Countries.Count(c => c.IsInQueue) > 0)
+                {
+                    this.currentlyRevealedCountry = GetSelectedCountry();
+                }
+                else
+                {
+                    this.state = ResultsState.RevealWinner;
+                }
             }
 
             if (this.state == ResultsState.TwelvePoints)
@@ -103,7 +110,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 }
             }
 
-            Messenger.Default.Send(new ChangeStateMessage(this.state, dataService.GetCountry(Countries.FirstOrDefault(c => c.IsSelected).Id)));
+            var selectedCountryId = Countries.FirstOrDefault(c => c.IsSelected)?.Id;
+            Model.Country nextCountry = null; 
+            if (selectedCountryId.HasValue)
+            {
+                nextCountry = dataService.GetCountry(selectedCountryId.Value);
+            }
+            
+            Messenger.Default.Send(new ChangeStateMessage(this.state, nextCountry));
             NextCommand.RaiseCanExecuteChanged();
         }
 

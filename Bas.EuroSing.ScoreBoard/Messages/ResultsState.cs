@@ -15,6 +15,6 @@ namespace Bas.EuroSing.ScoreBoard.Messages
         EightPoints,
         TenPoints,
         TwelvePoints,
-        ScoreOverview
+        RevealWinner
     }
 }

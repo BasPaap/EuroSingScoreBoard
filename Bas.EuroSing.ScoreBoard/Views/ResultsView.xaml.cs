@@ -60,7 +60,7 @@ namespace Bas.EuroSing.ScoreBoard.Views
                         FromRevealCountryToRevealPointsStoryboard.Begin();
 
                         break;
-                    case ResultsState.ScoreOverview:
+                    case ResultsState.RevealWinner:
                     case ResultsState.EightPoints:
                     case ResultsState.TenPoints:
                     case ResultsState.TwelvePoints:

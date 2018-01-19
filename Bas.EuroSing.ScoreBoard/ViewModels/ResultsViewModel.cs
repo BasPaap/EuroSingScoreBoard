@@ -60,6 +60,30 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref nextCountryFlagImage, value); }
         }
 
+        private BitmapImage winningCountryFlagImage;
+
+        public BitmapImage WinningCountryFlagImage
+        {
+            get { return winningCountryFlagImage; }
+            set { Set(ref winningCountryFlagImage, value); }
+        }
+
+        private string winningCountryName;
+
+        public string WinningCountryName
+        {
+            get { return winningCountryName; }
+            set { Set(ref winningCountryName, value); }
+        }
+
+        private string winningCountryPointsText;
+
+        public string WinningCountryPointsText
+        {
+            get { return winningCountryPointsText; }
+            set { Set(ref winningCountryPointsText, value); }
+        }
+
         private Dictionary<int, IEnumerable<Vote>> votesByIssuingCountry;
 
         private int? currentCountryId;
@@ -99,6 +123,9 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 CurrentCountryFlagImage = bitmapImage;
                 CurrentCountryNumber = 7;
                 CurrentCountryName = "Wyoming";
+                WinningCountryFlagImage = bitmapImage;
+                WinningCountryName = "Wyoming";
+                WinningCountryPointsText = "1138 points";
             }
         }
 
@@ -197,6 +224,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             {
                 RevealPoints(12);
                 Messenger.Default.Send(new ReorderCountriesMessage());
+            }
+
+            if (message.State == ResultsState.RevealWinner)
+            {
+                var winner = Countries.OrderByDescending(c => c.TotalPoints).First();
+
+                WinningCountryName = winner.Name;
+                WinningCountryFlagImage = winner.FlagImage;
+                WinningCountryPointsText = $"{winner.TotalPoints} points";
             }
         }
     }
