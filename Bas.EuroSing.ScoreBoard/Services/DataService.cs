@@ -122,5 +122,34 @@ namespace Bas.EuroSing.ScoreBoard.Services
 
             return dictionary;
         }
+
+        
+        public Collection<Country> GetCountriesToGiveVotesTo(int countryIssuingVotesId, int numPoints)
+        {
+            //if (cacheCountryId != id)
+            //{
+
+            var issuedVotes = GetIssuedVotes(countryIssuingVotesId);
+
+            var votedForCountryIds = issuedVotes.Select(v => v.ToCountryId);
+            var currentVote = issuedVotes.SingleOrDefault(v => v.NumPoints == numPoints);
+            var countries = (from c in db.Countries
+                            where c.Id != countryIssuingVotesId &&
+                                  !votedForCountryIds.Contains(c.Id)                             
+                            orderby c.Name
+                            select c).ToList();
+
+            if (currentVote != null)
+            {
+                countries.Add(currentVote.ToCountry);
+            }
+
+            return new Collection<Country>(countries);
+        }
+
+        public Collection<Vote> GetIssuedVotes(int countryIssuingVotesId)
+        {
+            return new Collection<Vote>(db.Votes.Where(v => v.FromCountryId == countryIssuingVotesId).ToList());
+        }
     }
 }

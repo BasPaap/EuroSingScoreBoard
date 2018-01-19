@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,46 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         public RelayCommand ClickCommand { get; set; }
 
+        public ObservableCollection<CountryListItemViewModel> CountriesToGiveEightPointsTo { get; set; }
+        public ObservableCollection<CountryListItemViewModel> CountriesToGiveTenPointsTo { get; set; }
+        public ObservableCollection<CountryListItemViewModel> CountriesToGiveTwelvePointsTo { get; set; }
+
+        private CountryListItemViewModel eightPointsVote;
+
+        public CountryListItemViewModel EightPointsVote
+        {
+            get { return eightPointsVote; }
+            set
+            {
+                Set(ref eightPointsVote, value);
+                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+            }
+        }
+
+        private CountryListItemViewModel tenPointsVote;
+
+        public CountryListItemViewModel TenPointsVote
+        {
+            get { return tenPointsVote; }
+            set
+            {
+                Set(ref tenPointsVote, value);
+                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+            }
+        }
+
+        private CountryListItemViewModel twelvePointsVote;
+
+        public CountryListItemViewModel TwelvePointsVote
+        {
+            get { return twelvePointsVote; }
+            set
+            {
+                Set(ref twelvePointsVote, value);
+                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+            }
+        }
+
         public CountryResultsControlViewModel(Country country, IDataService dataService)
         {
             this.dataService = dataService;
@@ -82,6 +123,37 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 FlagImage = bitmapImage;
             }
 
+            var votes = dataService.GetIssuedVotes(country.Id);
+            var eightPoints = votes.FirstOrDefault(v => v.NumPoints == 8);
+            var tenPoints = votes.FirstOrDefault(v => v.NumPoints == 10);
+            var twelvePoints = votes.FirstOrDefault(v => v.NumPoints == 12);
+
+            EightPointsVote = eightPoints != null ? new CountryListItemViewModel(eightPoints.ToCountry, dataService) : null;
+            TenPointsVote = tenPoints != null ? new CountryListItemViewModel(tenPoints.ToCountry, dataService) : null;
+            TwelvePointsVote = twelvePoints != null ? new CountryListItemViewModel(twelvePoints.ToCountry, dataService) : null;
+
+            Messenger.Default.Register<UpdateCountriesToGivePointsToMessage>(this, Id, OnUpdateCountriesToGivePointsTo);
+            OnUpdateCountriesToGivePointsTo(null);
+        }
+
+        private void OnUpdateCountriesToGivePointsTo(UpdateCountriesToGivePointsToMessage message)
+        {
+            CountriesToGiveEightPointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(8));
+
+            CountriesToGiveTenPointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(10));
+
+            CountriesToGiveTwelvePointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(12));
+        }
+
+        private List<CountryListItemViewModel> GetCountriesToGivePointsTo(int numPoints)
+        {
+            Collection<Country> countries = dataService.GetCountriesToGiveVotesTo(Id, numPoints );
+
+            var countryViewmodels = from c in countries
+                                    where c.Id != this.Id
+                                    select new CountryListItemViewModel(c, dataService);
+
+            return new List<CountryListItemViewModel>(countryViewmodels);
         }
     }
 }

@@ -95,6 +95,7 @@
     <Compile Include="Messages\ReorderCountriesMessage.cs" />
     <Compile Include="Messages\RevealCountryCompletedMessage.cs" />
     <Compile Include="Messages\SetNextCountryMessage.cs" />
+    <Compile Include="Messages\UpdateCountriesToGivePointsToMessage.cs" />
     <Compile Include="Messages\VoteCastMessage.cs" />
     <Compile Include="Messages\VotesToCastUpdatedMessage.cs" />
     <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.cs" />

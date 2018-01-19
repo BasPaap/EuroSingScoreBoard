@@ -20,5 +20,7 @@ namespace Bas.EuroSing.ScoreBoard.Services
         void DeleteVote(Vote vote);
         Country GetCountry(int countryId);
         Dictionary<int, IEnumerable<Vote>> GetAllVotes();
+        Collection<Country> GetCountriesToGiveVotesTo(int id, int numPoints);
+        Collection<Vote> GetIssuedVotes(int countryIssuingVotesId);
     }
 }

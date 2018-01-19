@@ -90,5 +90,20 @@ namespace Bas.EuroSing.ScoreBoard.Services
         {
             throw new NotImplementedException();
         }
+
+        public Collection<Country> GetCountriesToGiveVotesTo(int id, int numPoints)
+        {
+            return new Collection<Country>(new[]
+            {
+                new Country() { Id = 1, Name = "Nederland" },
+                new Country() { Id = 2, Name = "Cyprus" },
+                new Country() { Id = 3, Name = "Hungary" }
+            });
+        }
+
+        public Collection<Vote> GetIssuedVotes(int countryIssuingVotesId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvmlight="http://www.galasoft.ch/mvvmlight"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
@@ -55,6 +56,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="CountryDropDownItemTemplate">
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
+                <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
+                <Image Visibility="{Binding IsComplete, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="2" Source="/Bas.EuroSing.ScoreBoard;component/Assets/CheckIcon.png" Height="20" VerticalAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -109,19 +123,25 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
                             <Ellipse Grid.Column="0" Style="{StaticResource CountryListItemFlagStyle}" />
                             <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
-                            <Viewbox Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30">
+                            <ComboBox Grid.Column="2" Width="65" Template="{DynamicResource ComboBoxTemplate}" ItemTemplate="{StaticResource CountryDropDownItemTemplate}" ItemsSource="{Binding CountriesToGiveEightPointsTo}" SelectedItem="{Binding EightPointsVote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox Grid.Column="3" Width="65" Template="{DynamicResource ComboBoxTemplate}" ItemTemplate="{StaticResource CountryDropDownItemTemplate}" ItemsSource="{Binding CountriesToGiveTenPointsTo}" SelectedItem="{Binding TenPointsVote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox Grid.Column="4" Width="65" Template="{DynamicResource ComboBoxTemplate}" ItemTemplate="{StaticResource CountryDropDownItemTemplate}" ItemsSource="{Binding CountriesToGiveTwelvePointsTo}" SelectedItem="{Binding TwelvePointsVote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Viewbox Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30">
                                 <RadioButton GroupName="IsSelectedRadioButtons" IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Viewbox>                            
+                            </Viewbox>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <!--<ComboBox Template="{DynamicResource ComboBoxTemplate}" />-->
 
         <Button  Grid.Row="1" Grid.Column="1" Width="200" Height="200" HorizontalAlignment="Center" 
                 Style="{StaticResource ShowResultsButtonStyle}" Command="{Binding NextCommand}">
