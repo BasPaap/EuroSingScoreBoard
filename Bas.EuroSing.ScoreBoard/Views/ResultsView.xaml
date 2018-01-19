@@ -557,6 +557,14 @@
                                     </EasingDoubleKeyFrame.EasingFunction>
                                 </EasingDoubleKeyFrame>
                             </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="scoreBoard">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-50"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="scoreBoard">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-1000"/>
+                            </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualTransition>
 
@@ -632,7 +640,16 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:ScoreBoard  EntranceAnimationCompleted="scoreBoard_EntranceAnimationCompleted" x:Name="scoreBoard" Grid.RowSpan="2" Items="{Binding Countries}" Margin="20" CurrentPointsUpdated="scoreBoard_CurrentPointsUpdated" />
+            <controls:ScoreBoard  EntranceAnimationCompleted="scoreBoard_EntranceAnimationCompleted" x:Name="scoreBoard" Grid.RowSpan="2" Items="{Binding Countries}" Margin="20" CurrentPointsUpdated="scoreBoard_CurrentPointsUpdated" RenderTransformOrigin="0.5,0.5" >
+                <controls:ScoreBoard.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </controls:ScoreBoard.RenderTransform>
+            </controls:ScoreBoard>
             <Image x:Name="flagImage" Grid.Row="0" Grid.Column="1" Source="{Binding CurrentCountryFlagImage}" Margin="10,10,10,0" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
