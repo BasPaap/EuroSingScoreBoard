@@ -44,6 +44,22 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             set { Set(ref currentCountryFlagImage, value); }
         }
 
+        private string nextCountryName;
+
+        public string NextCountryName
+        {
+            get { return nextCountryName; }
+            set { Set(ref nextCountryName, value); }
+        }
+        
+        private BitmapImage nextCountryFlagImage;
+
+        public BitmapImage NextCountryFlagImage
+        {
+            get { return nextCountryFlagImage; }
+            set { Set(ref nextCountryFlagImage, value); }
+        }
+
         private Dictionary<int, IEnumerable<Vote>> votesByIssuingCountry;
 
         private int? currentCountryId;
@@ -60,6 +76,15 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             EntranceAnimationCompletedCommand = new RelayCommand(OnEntranceAnimationCompleted);
             Messenger.Default.Register<ChangeStateMessage>(this, OnChangeStateMessage);
+            Messenger.Default.Register<SetNextCountryMessage>(this, (message) =>
+            {
+                if (message.Country != null)
+                {
+                    NextCountryFlagImage = message.Country.FlagImage;
+                    NextCountryName = message.Country.Name;
+                }
+            });
+
             Messenger.Default.Register<GenericMessage<Message>>(this, (message) =>
             {
                 if (message.Content == Message.ShowResultsControlPanel)
@@ -128,6 +153,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             if (message.State == ResultsState.RevealCountry)
             {
+
+            }
+
+            if (message.State == ResultsState.FirstGroupOfPoints)
+            {
                 CurrentCountryNumber++;
                 currentCountryId = message.CurrentCountry.Id;
                 CurrentCountryName = message.CurrentCountry.Name;
@@ -143,10 +173,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                     CurrentCountryFlagImage = bitmapImage;
                 }
-            }
 
-            if (message.State == ResultsState.FirstGroupOfPoints)
-            {
                 foreach (var country in Countries)
                 {
                     country.CurrentPoints = 0;

@@ -797,7 +797,7 @@
 
 
         <Grid x:Name="RevealCountryGrid" >
-            <Image x:Name="revealCountryFlagImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding CurrentCountryFlagImage}" RenderTransformOrigin="0.5,0.5" Height="400" Margin="0,0,0,180" >
+            <Image x:Name="revealCountryFlagImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding NextCountryFlagImage}" RenderTransformOrigin="0.5,0.5" Height="400" Margin="0,0,0,180" >
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -808,7 +808,7 @@
                 </Image.RenderTransform>
             </Image>
 
-            <TextBlock x:Name="revealCountryTextBlock" Text="{Binding CurrentCountryName}" Foreground="White" FontSize="72" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,375,0,0" >
+            <TextBlock x:Name="revealCountryTextBlock" Text="{Binding NextCountryName}" Foreground="White" FontSize="72" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,375,0,0" >
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

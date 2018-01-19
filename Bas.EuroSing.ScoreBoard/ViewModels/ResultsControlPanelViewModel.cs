@@ -36,7 +36,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);
             BackCommand = new RelayCommand(OnBackCommand);
 
-            Messenger.Default.Register<CountryResultClickedMessage>(this, (message) => NextCommand.RaiseCanExecuteChanged());
+            Messenger.Default.Register<CountryResultClickedMessage>(this, (message) =>
+            {
+                NextCommand.RaiseCanExecuteChanged();
+                Messenger.Default.Send(new SetNextCountryMessage(GetSelectedCountry()));
+            });
             Messenger.Default.Register<RevealCountryCompletedMessage>(this, (message) => SetNextState());
 
             if (Countries.Count > 0)
@@ -71,17 +75,26 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             SetNextState();
         }
 
+        public CountryResultsControlViewModel currentlyRevealedCountry;
+
         private void SetNextState()
         {
             this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.RevealCountry;
 
+            if (this.state == ResultsState.RevealCountry)
+            {
+                this.currentlyRevealedCountry = GetSelectedCountry();
+            }
+
             if (this.state == ResultsState.TwelvePoints)
             {
-                var selectedCountry = GetSelectedCountry();
-                if (selectedCountry != null)
+                // Dit klopt dus niet, want je kan inmiddels een ander land geselecteerd hebben. Zodra je naar REvealcountry gaat 
+                // moet het onthulde land vastgelegd worden, en -die- moet hier verwijderd worden.
+                                
+                if (this.currentlyRevealedCountry != null)
                 {
-                    selectedCountry.IsSelected = false;
-                    selectedCountry.IsInQueue = false;
+                    this.currentlyRevealedCountry.IsSelected = false;
+                    this.currentlyRevealedCountry.IsInQueue = false;
 
                     if (Countries.Count(c => c.IsInQueue) > 1)
                     {
