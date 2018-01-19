@@ -126,9 +126,6 @@ namespace Bas.EuroSing.ScoreBoard.Services
         
         public Collection<Country> GetCountriesToGiveVotesTo(int countryIssuingVotesId, int numPoints)
         {
-            //if (cacheCountryId != id)
-            //{
-
             var issuedVotes = GetIssuedVotes(countryIssuingVotesId);
 
             var votedForCountryIds = issuedVotes.Select(v => v.ToCountryId);

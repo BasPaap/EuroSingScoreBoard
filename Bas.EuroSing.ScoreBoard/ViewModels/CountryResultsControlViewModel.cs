@@ -71,8 +71,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return eightPointsVote; }
             set
             {
+                var oldValue = eightPointsVote;
                 Set(ref eightPointsVote, value);
-                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+                
+                if (oldValue == null)
+                {
+                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+                }
             }
         }
 
@@ -83,8 +88,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return tenPointsVote; }
             set
             {
+                var oldValue = tenPointsVote;
                 Set(ref tenPointsVote, value);
-                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+
+                if (oldValue == null)
+                {
+                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
+                }
             }
         }
 
@@ -95,8 +105,13 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return twelvePointsVote; }
             set
             {
+                var oldValue = twelvePointsVote;
                 Set(ref twelvePointsVote, value);
-                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+
+                if (oldValue == null)
+                {
+                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
+                }
             }
         }
 
@@ -128,12 +143,14 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             var tenPoints = votes.FirstOrDefault(v => v.NumPoints == 10);
             var twelvePoints = votes.FirstOrDefault(v => v.NumPoints == 12);
 
-            EightPointsVote = eightPoints != null ? new CountryListItemViewModel(eightPoints.ToCountry, dataService) : null;
-            TenPointsVote = tenPoints != null ? new CountryListItemViewModel(tenPoints.ToCountry, dataService) : null;
-            TwelvePointsVote = twelvePoints != null ? new CountryListItemViewModel(twelvePoints.ToCountry, dataService) : null;
+            OnUpdateCountriesToGivePointsTo(null);
+
+            EightPointsVote = eightPoints != null ? CountriesToGiveEightPointsTo.First(c => c.Id == eightPoints.ToCountryId) : null;
+            TenPointsVote = tenPoints != null ? CountriesToGiveTenPointsTo.First(c => c.Id == tenPoints.ToCountryId) : null;
+            TwelvePointsVote = twelvePoints != null ? CountriesToGiveTwelvePointsTo.First(c => c.Id == twelvePoints.ToCountryId) : null;
 
             Messenger.Default.Register<UpdateCountriesToGivePointsToMessage>(this, Id, OnUpdateCountriesToGivePointsTo);
-            OnUpdateCountriesToGivePointsTo(null);
+            
         }
 
         private void OnUpdateCountriesToGivePointsTo(UpdateCountriesToGivePointsToMessage message)
