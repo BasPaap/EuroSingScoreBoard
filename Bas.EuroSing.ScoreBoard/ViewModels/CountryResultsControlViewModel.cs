@@ -20,6 +20,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private IDataService dataService;
         private Country country;
 
+        private bool isReadyForLateVotes = false;
+
         public int Id { get; set; }
 
         private string name;
@@ -66,28 +68,48 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private CountryListItemViewModel eightPointsVote;
 
+        
         public CountryListItemViewModel EightPointsVote
         {
             get { return eightPointsVote; }
             set
             {
+                
                 var oldValue = eightPointsVote;
                 Set(ref eightPointsVote, value);
-                
+
                 if (oldValue == null)
                 {
                     Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
                 }
+                else
+                { 
+                    
+                }
+
+                if (isReadyForLateVotes)
+                {
+                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 8));
+                }
+                //var vote = new Vote()
+                //{
+                //    FromCountryId = Id,
+                //    ToCountryId = eightPointsVote.Id,
+                //    NumPoints = 8
+                //};
+
+                //dataService.SaveVote(vote, true);
             }
         }
 
         private CountryListItemViewModel tenPointsVote;
-
+        
         public CountryListItemViewModel TenPointsVote
         {
             get { return tenPointsVote; }
             set
             {
+
                 var oldValue = tenPointsVote;
                 Set(ref tenPointsVote, value);
 
@@ -95,16 +117,38 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 {
                     Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
                 }
+                else
+                {
+
+                }
+
+                if (isReadyForLateVotes)
+                {
+
+                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 10));
+                }
+
+                //var vote = new Vote()
+                //{
+                //    FromCountryId = Id,
+                //    ToCountryId = tenPointsVote.Id,
+                //    NumPoints = 10
+                //};
+
+                //dataService.SaveVote(vote, true);
             }
         }
 
         private CountryListItemViewModel twelvePointsVote;
+        
 
         public CountryListItemViewModel TwelvePointsVote
         {
             get { return twelvePointsVote; }
             set
             {
+                
+
                 var oldValue = twelvePointsVote;
                 Set(ref twelvePointsVote, value);
 
@@ -112,6 +156,25 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 {
                     Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
                 }
+                else
+                {
+
+                }
+
+
+                if (isReadyForLateVotes)
+                {
+                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 12));
+
+                }
+                //var vote = new Vote()
+                //{
+                //    FromCountryId = Id,
+                //    ToCountryId = twelvePointsVote.Id,
+                //    NumPoints = 12
+                //};
+
+                //dataService.SaveVote(vote, true);
             }
         }
 
@@ -149,8 +212,18 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             TenPointsVote = tenPoints != null ? CountriesToGiveTenPointsTo.First(c => c.Id == tenPoints.ToCountryId) : null;
             TwelvePointsVote = twelvePoints != null ? CountriesToGiveTwelvePointsTo.First(c => c.Id == twelvePoints.ToCountryId) : null;
 
+            Messenger.Default.Register<ReadyForLateVotesMessage>(this, (message) => this.isReadyForLateVotes = true);
             Messenger.Default.Register<UpdateCountriesToGivePointsToMessage>(this, Id, OnUpdateCountriesToGivePointsTo);
-            
+            Messenger.Default.Register<VoteCastMessage>(this, (message) =>
+            {
+                if (message.CountryId == Id)
+                {
+                    OnUpdateCountriesToGivePointsTo(null);
+                    EightPointsVote = eightPoints != null ? CountriesToGiveEightPointsTo.First(c => c.Id == eightPoints.ToCountryId) : null;
+                    TenPointsVote = tenPoints != null ? CountriesToGiveTenPointsTo.First(c => c.Id == tenPoints.ToCountryId) : null;
+                    TwelvePointsVote = twelvePoints != null ? CountriesToGiveTwelvePointsTo.First(c => c.Id == twelvePoints.ToCountryId) : null;
+                }
+            });
         }
 
         private void OnUpdateCountriesToGivePointsTo(UpdateCountriesToGivePointsToMessage message)

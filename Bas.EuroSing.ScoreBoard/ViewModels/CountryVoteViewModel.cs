@@ -63,7 +63,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
                 if (!isFirstTimeNumPointsIsSet)
                 {
-                    Messenger.Default.Send(new VoteCastMessage());
+                    Messenger.Default.Send(new VoteCastMessage(vote.FromCountryId));
 
                     var parsedPoints = int.TryParse(numPoints, out int points) ? points : 0;
                     if (parsedPoints == 0)
@@ -85,6 +85,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                     {
                         vote.NumPoints = parsedPoints;
                         this.dataService.SaveVote(vote);
+
                     }                    
                 }
             }

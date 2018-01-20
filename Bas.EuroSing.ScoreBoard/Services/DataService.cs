@@ -80,15 +80,27 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
 
-        public void SaveVote(Vote vote)
+        public void SaveVote(Vote vote, bool force = false)
         {
             if (vote.NumPoints > 0)
             {
                 if (vote.Id == 0)
                 {
+                    //if (force)
+                    //{
+                    //    var existingVote = db.Votes.FirstOrDefault(v => v.FromCountryId == vote.FromCountryId && v.NumPoints == vote.NumPoints);
+
+                    //    if (existingVote != null)
+                    //    {
+                    //        db.Votes.Remove(existingVote);
+                    //    }
+                    //}
+
                     db.Countries.Attach(vote.FromCountry);
                     db.Countries.Attach(vote.ToCountry);
                     db.Votes.Add(vote);
+
+
                 }
 
                 db.SaveChanges();

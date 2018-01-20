@@ -82,6 +82,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.RevealCountry;
 
+            if (this.state == ResultsState.SplashScreen)
+            {
+                Messenger.Default.Send(new ReadyForLateVotesMessage());
+            }
+
             if (this.state == ResultsState.RevealCountry)
             {
                 if (Countries.Count(c => c.IsInQueue) > 0)
