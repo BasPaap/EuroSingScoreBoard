@@ -10,6 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024"
              DataContext="{Binding ResultsControlPanel, Source={StaticResource Locator}}">
+    
     <UserControl.Resources>
         <Style x:Key="ShowResultsButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -70,6 +71,11 @@
         </DataTemplate>
 
     </UserControl.Resources>
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="J"  Command="{Binding NextCommand}" />
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
