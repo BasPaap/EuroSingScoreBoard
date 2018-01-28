@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:Bas.EuroSing.ScoreBoard"
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Bas.EuroSing.ScoreBoard.App"
              mc:Ignorable="d"
-             StartupUri="Views/MainView.xaml">
+             StartupUri="Views/MainView.xaml"
+             Startup="Application_Startup">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" />
         <Style x:Key="HeaderStyle" TargetType="{x:Type TextBlock}">
