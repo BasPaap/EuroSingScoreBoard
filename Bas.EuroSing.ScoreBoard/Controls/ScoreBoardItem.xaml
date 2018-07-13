@@ -39,15 +39,15 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    
-    <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="12" Margin="10">
+
+    <Border Background="#22FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1" CornerRadius="24" Margin="0">
         <Grid Margin="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
                 <ColumnDefinition />
-                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="40" />
             </Grid.ColumnDefinitions>
             <Grid x:Name="grid" Grid.Column="0" Margin="-10,0,0,0" Visibility="{Binding CurrentPoints, Converter={StaticResource ZeroPointsVisibilityValueConverter}}" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
@@ -59,8 +59,8 @@
                     </TransformGroup>
                 </Grid.RenderTransform>
 
-                <Ellipse Fill="White" Width="30" Height="30"/>
-                <TextBlock Grid.Column="1"  Text="{Binding CurrentPoints, NotifyOnTargetUpdated=True, FallbackValue=12}" TargetUpdated="CurrentPoints_TargetUpdated" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
+                <Ellipse Fill="White" Width="40" Height="40" Margin="10,0,0,0"/>
+                <TextBlock Grid.Column="1" Margin="10,0,0,0" Text="{Binding CurrentPoints, NotifyOnTargetUpdated=True, FallbackValue=12}" TargetUpdated="CurrentPoints_TargetUpdated" Style="{StaticResource CountryListItemTextStyle}" FontStyle="Normal" Foreground="Black" HorizontalAlignment="Center" />
 
             </Grid>
             <TextBlock Grid.Column="1" Margin="-10,0,0,0" Text="{Binding DisplayPoints, ElementName=userControl, Converter={StaticResource ZeroPointsValueConverter}}" Style="{StaticResource CountryListItemTextStyle}" FontWeight="Normal" FontStyle="Normal" HorizontalAlignment="Center" />
@@ -68,4 +68,5 @@
             <TextBlock Grid.Column="3" Text="{Binding Name}" Style="{StaticResource CountryListItemTextStyle}" />
         </Grid>
     </Border>
+
 </UserControl>

@@ -110,7 +110,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         }
 
         private int numAnimationsCompleted = 0;
-        private const double itemHeight = 40.0;
+        private const double itemHeight = 50.0;
         private double nextYOffset = 0;
         private TimeSpan nextTimeSpan = TimeSpan.FromSeconds(1);
 

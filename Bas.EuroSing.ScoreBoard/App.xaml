@@ -102,7 +102,7 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontStyle" Value="Italic" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontSize" Value="21" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
@@ -113,8 +113,8 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
             <Setter Property="Stroke" Value="White" />
             <Setter Property="StrokeThickness" Value="2" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="40" />
             <Setter Property="Margin" Value="0,0,5,0" />
             <Setter Property="Fill">
                 <Setter.Value>
