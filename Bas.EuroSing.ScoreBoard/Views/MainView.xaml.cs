@@ -37,23 +37,19 @@ namespace Bas.EuroSing.ScoreBoard.Views
             });
         }
 
+        // Workaround required to seamlessly loop an autoplaying video.
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Play();
         }
 
+        // Workaround required to seamlessly loop an autoplaying video.
         private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Position = TimeSpan.FromSeconds(0);
         }
         
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //this.resultsView.Owner = this;
-            //this.resultsView.Show();
-            //this.Activate();
-        }
-
+        // If the main window (this one) is closed, make sure the results window is closed as well.
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.resultsView.Close();

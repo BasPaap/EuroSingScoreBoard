@@ -27,42 +27,39 @@ namespace Bas.EuroSing.ScoreBoard.Views
         public ResultsView()
         {
             InitializeComponent();
-                        
+
+            // Handle any ChangeState messages coming from the main window.            
             Messenger.Default.Register<ChangeStateMessage>(this, (message) =>
             {
-                var FromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
+                var fromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
 
                 switch (message.State)
                 {
                     case ResultsState.SplashScreen:
                         VisualStateManager.GoToElementState(grid, SplashScreen.Name, true);
                         break;
+
+
                     case ResultsState.RevealCountry:
-                        foreach (var animation in scoreBoard.EntranceStoryboard.Children)
-                        {
-                            FromRevealCountryToRevealPointsStoryboard.Children.Remove(animation);
-                        }
-
-                        scoreBoard.ResetScoreBoardItemAnimations();
-
-                        foreach (var animation in scoreBoard.EntranceStoryboard.Children)
-                        {
-                            FromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
-                        }
-                        
+                        ResetAnimationsForNewCountry(fromRevealCountryToRevealPointsStoryboard);
                         VisualStateManager.GoToElementState(grid, RevealCountry.Name, true);
                         break;
+
+                    // When the first group of given points (everything up to eight) is to be shown, 
+                    // Transition the main grid to the RevealPoints state and start the fromRevealCountryToRevealPointsStoryboard.
                     case ResultsState.FirstGroupOfPoints:
                         VisualStateManager.GoToElementState(grid, RevealPoints.Name, false);
 
-                        FromRevealCountryToRevealPointsStoryboard.BeginTime = TimeSpan.Zero;
-                        //Storyboard.SetTarget(FromRevealCountryToRevealPointsStoryboard, grid);
-                        FromRevealCountryToRevealPointsStoryboard.Begin();
+                        fromRevealCountryToRevealPointsStoryboard.BeginTime = TimeSpan.Zero;
+                        fromRevealCountryToRevealPointsStoryboard.Begin();
 
                         break;
+
                     case ResultsState.RevealWinner:
                         VisualStateManager.GoToElementState(grid, RevealWinner.Name, true);
                         break;
+
+                    // No need for state transitions etc. for these actions, the ScoreBoard will handle any animations etc.
                     case ResultsState.EightPoints:
                     case ResultsState.TenPoints:
                     case ResultsState.TwelvePoints:
@@ -74,27 +71,52 @@ namespace Bas.EuroSing.ScoreBoard.Views
 
             foreach (var animation in scoreBoard.EntranceStoryboard.Children)
             {
-                var FromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
-                FromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
-            }            
+                var fromRevealCountryToRevealPointsStoryboard = Resources["FromRevealCountryToRevealPointsStoryboard"] as Storyboard;
+                fromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
+            }
         }
-        
+
+        private void ResetAnimationsForNewCountry(Storyboard fromRevealCountryToRevealPointsStoryboard)
+        {
+            foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+            {
+                fromRevealCountryToRevealPointsStoryboard.Children.Remove(animation);
+            }
+
+            scoreBoard.ResetScoreBoardItemAnimations();
+
+            foreach (var animation in scoreBoard.EntranceStoryboard.Children)
+            {
+                fromRevealCountryToRevealPointsStoryboard.Children.Add(animation);
+            }
+        }
+
+        // Workaround required to seamlessly loop an autoplaying video.
         private void backgroundVideo_Loaded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Play();            
         }
 
+        // Workaround required to seamlessly loop an autoplaying video.
         private void backgroundVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
             backgroundVideo.Position = TimeSpan.FromSeconds(0);
         }
 
+        // Enable the ability to move the resultsview by dragging it around with the mouse.
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
 
+
+        // Toggle fullscreen on doubleclick
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ToggleFullScreen();
+        }
+
+        private void ToggleFullScreen()
         {
             if (this.WindowState == WindowState.Maximized)
             {
@@ -105,18 +127,35 @@ namespace Bas.EuroSing.ScoreBoard.Views
                 this.WindowState = WindowState.Maximized;
             }
         }
-        
+
+        // Signal to the viewmodel that the entrance animation has completed.
         private void scoreBoard_EntranceAnimationCompleted(object sender, EventArgs e)
         {
             (DataContext as ResultsViewModel).EntranceAnimationCompletedCommand.Execute(null);
         }
 
-        private void scoreBoard_CurrentPointsUpdated(object sender, int e)
+        // When the scoreboard signals us that the current points for a country has been updated,
+        // the animation for the bottom "point tracking" row of dots should run for the dot that holds 
+        // the currently given amount of points.
+        private void scoreBoard_CurrentPointsUpdated(object sender, int pointAmount)
         {
             var storyboard = Resources["CurrentPointsUsedStoryboard"] as Storyboard;
 
+            var controlToAnimate = GetControlToAnimate(pointAmount);
+            RunPointsGivenAnimation(storyboard, controlToAnimate);
+        }
+
+        private static void RunPointsGivenAnimation(Storyboard storyboard, Grid controlToAnimate)
+        {
+            Storyboard.SetTarget(storyboard, controlToAnimate);
+            Storyboard.SetTargetProperty(storyboard, new PropertyPath("Opacity"));
+            storyboard.Begin();
+        }
+
+        private Grid GetControlToAnimate(int pointAmount)
+        {
             Grid grid;
-            switch (e)
+            switch (pointAmount)
             {
                 case 1:
                     grid = grid1;
@@ -153,12 +192,11 @@ namespace Bas.EuroSing.ScoreBoard.Views
                     break;
             }
 
-            Storyboard.SetTarget(storyboard, grid);
-            Storyboard.SetTargetProperty(storyboard, new PropertyPath("Opacity"));
-            storyboard.Begin();
+            return grid;
         }
-        
 
+
+        // Let subscribers know that the transition from splash screen to first country reveal has been completed.
         private void FromSplashScreenToRevealCountryStoryboard_Completed(object sender, EventArgs e)
         {
             Messenger.Default.Send(new RevealCountryCompletedMessage());
@@ -167,11 +205,6 @@ namespace Bas.EuroSing.ScoreBoard.Views
         private void FromRevealCountryToRevealPointsStoryboard_Completed(object sender, EventArgs e)
         {
             Debug.WriteLine($"FromRevCToRevP ({(sender as ClockGroup).Children.Count} children) completed.");
-        }
-
-        private void Storyboard_Completed(object sender, EventArgs e)
-        {
-
         }
     }
 }
