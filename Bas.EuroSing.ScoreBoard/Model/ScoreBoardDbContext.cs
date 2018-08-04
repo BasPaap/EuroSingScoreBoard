@@ -15,6 +15,7 @@ namespace Bas.EuroSing.ScoreBoard.Model
 
         public ScoreBoardDbContext() : base()
         {
+            // Ensure the database for this dbcontext is saved to %LocalAppData%\EuroSing
             var applicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "EuroSing");
             Directory.CreateDirectory(applicationPath);
             AppDomain.CurrentDomain.SetData("DataDirectory", applicationPath);
