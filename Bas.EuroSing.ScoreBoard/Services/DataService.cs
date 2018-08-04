@@ -49,18 +49,23 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return new Collection<Country>(db.Countries.ToList());
         }
 
+        // Returns a list of votes containing both votes that have been issued by this country 
+        // and votes that this country has yet to issue.
         public Collection<Vote> GetVotes(int countryIssuingVotesId)
         {
+            // Get the votes already issued by this country.
             var issuedVotes = (from v in db.Votes
                                where v.FromCountryId == countryIssuingVotesId
                                select v).ToList();
 
+            // Get the countries to which this country has not yet issued votes.
             var toCountryIds = issuedVotes.Select(i => i.ToCountryId).ToList();
             var countriesToIssueVotesFor = from c in db.Countries
                                            where c.Id != countryIssuingVotesId &&
                                                  !toCountryIds.Contains(c.Id)
                                            select c;
 
+            // Get a list of Votes for each country to which this country has not yet issued votes.
             var votesToIssue = (from c in countriesToIssueVotesFor.ToList()
                                 select new Vote()
                                 {
@@ -77,6 +82,7 @@ namespace Bas.EuroSing.ScoreBoard.Services
             Debug.Assert(votesToIssue.Count(i => i.ToCountryId == countryIssuingVotesId) == 0, "votesToIssue contains vote to wrong country");
             Debug.Assert(votesToIssue.Count() + issuedVotes.Count() == db.Countries.Count() - 1, "wrong amount of votes in total.");
 
+            // Return a list containing both cast votes and votes that are yet to be cast by this country.
             return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
 

@@ -9,6 +9,7 @@ using Bas.EuroSing.ScoreBoard.Model;
 
 namespace Bas.EuroSing.ScoreBoard.Services
 {
+    // Dataservice to be used at design time. Implements only what is necessary for the designer.
     internal sealed class DesignDataService : IDataService
     {
         public Task<int> AddCountryAsync(Country country)
