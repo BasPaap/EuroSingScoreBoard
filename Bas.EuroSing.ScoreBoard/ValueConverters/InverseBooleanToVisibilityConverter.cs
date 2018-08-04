@@ -9,6 +9,7 @@ using System.Windows.Data;
 
 namespace Bas.EuroSing.ScoreBoard.ValueConverters
 {
+    // Converts true to Collapsed and everything else to Visible
     internal class InverseBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -11,6 +11,7 @@ namespace Bas.EuroSing.ScoreBoard.ValueConverters
 {
     internal class ZeroPointsVisibilityValueConverter : IValueConverter
     {
+        // Converts an int to visibility, where a value of 0 is collapsed, and everything else is visible.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is int && 
