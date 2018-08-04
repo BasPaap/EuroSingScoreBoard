@@ -184,18 +184,19 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 }
             };
 
-            // Aan het eind van de animatie wordt de toppositie weer gereset, omdat fillbehavior op stop moet staan.
+            // Because FillBehavior has to be on stop, we have to manually reset the top position at the end of the animation.
             Debug.WriteLine("-------- Setting completed event");
             translateYAnimation.Completed += (sender, e) =>
             {
                 Debug.Write("Hold on enter");
                 HoldEndPosition(sender);
 
-                // We houden bij hoeveel ScoreboardItem-animaties er al geweest zijn. Als ze allemaal geweest zijn vuren we een event af
-                // zodat Scoreboard weet dat hij het signaal kan sturen dat de animatie voltooid is.
+                // Keep track of how many ScoreboardItem-animations we have had. When we've seen them all, fire an event so that 
+                // any subscribers know the entire animation is completed. 
                 numAnimationsCompleted++;
 
-                if (numAnimationsCompleted == EntranceStoryboard.Children.Count / 3) // Het aantal animaties moet door twee gedeeld worden omdat we voor elk storyboarditem zowel een opacity als een translate-animatie hebben.
+                const int numPropertiesSetInAnimation = 3;
+                if (numAnimationsCompleted == EntranceStoryboard.Children.Count / numPropertiesSetInAnimation) // Divide the number of animations by the number of properties we set in each animation to know the "real" number of animations.
                 {
                     EntranceAnimationCompleted?.Invoke(this, EventArgs.Empty);
                     numAnimationsCompleted = 0;
@@ -209,6 +210,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             Debug.WriteLine($"ENTERING {(item.DataContext as CountryResultsViewModel).Name}({((item.DataContext as CountryResultsViewModel)).TotalPoints} points, position {Canvas.GetTop(item)}) from {translateYAnimation.From} to {translateYAnimation.To}");
         }
 
+        // Makes sure the control's property values don't reset after the animation is over.
         private void HoldEndPosition(object sender)
         {
             var animation = (sender as AnimationClock).Timeline as DoubleAnimation;
