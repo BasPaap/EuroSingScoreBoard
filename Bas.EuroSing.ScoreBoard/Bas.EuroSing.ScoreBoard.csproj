@@ -90,11 +90,13 @@
     <Compile Include="Messages\ChangeStateMessage.cs" />
     <Compile Include="Messages\CountriesUpdatedMessage.cs" />
     <Compile Include="Messages\CountryResultClickedMessage.cs" />
+    <Compile Include="Messages\LateVoteCastMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\RemoveCountryMessage.cs" />
     <Compile Include="Messages\ReorderCountriesMessage.cs" />
     <Compile Include="Messages\RevealCountryCompletedMessage.cs" />
     <Compile Include="Messages\SetNextCountryMessage.cs" />
+    <Compile Include="Messages\UpdateCountriesToGivePointsToMessage.cs" />
     <Compile Include="Messages\VoteCastMessage.cs" />
     <Compile Include="Messages\VotesToCastUpdatedMessage.cs" />
     <Compile Include="Model\Migrations\201801101026116_CreateInitialSchema.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="ViewModels\CountryResultsViewModel.cs" />
     <Compile Include="ViewModels\CountryVoteViewModel.cs" />
     <Compile Include="Messages\ResultsState.cs" />
+    <Compile Include="ViewModels\ReadyForLateVotesMessage.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>

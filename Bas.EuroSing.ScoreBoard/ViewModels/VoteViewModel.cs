@@ -24,6 +24,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
     {
         private IDataService dataService;
         private List<int> validPointValues = new List<int>(new int[] { 12, 10, 8, 7, 6, 5, 4, 3, 2, 1 });
+        private List<int> requiredPoints = new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7 });
 
         public RelayCommand SettingsCommand { get; set; }
         public RelayCommand ShowResultsCommand { get; set; }
@@ -150,6 +151,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private bool AreAllCountriesComplete()
         {
+            return true;
+
             bool allCountriesAreComplete = true;
 
             foreach (var country in Countries)
@@ -169,7 +172,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             var allCountries = from c in dataService.GetAllCountries()
                                orderby c.Name
-                               select new CountryListItemViewModel(c, this.dataService, validPointValues.Count);
+                               select new CountryListItemViewModel(c, this.dataService, this.validPointValues.Count);
 
             foreach (var country in allCountries)
             {                

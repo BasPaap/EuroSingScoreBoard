@@ -117,6 +117,30 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 }
             });
 
+            Messenger.Default.Register<LateVoteCastMessage>(this, (message) =>
+            {
+                var fromCountryId = message.FromCountryId;
+
+                    var votesFromCountry = this.votesByIssuingCountry[fromCountryId].ToList();
+
+                var vote = votesFromCountry.FirstOrDefault(v => v.NumPoints == message.NumPoints);
+
+                if (vote != null)
+                {
+                    votesFromCountry.Remove(vote);
+                }
+
+                votesFromCountry.Add(new Vote()
+                {
+                    FromCountryId = message.FromCountryId,
+                    ToCountryId = message.ToCountryId,
+                    NumPoints = message.NumPoints
+                });
+
+                votesByIssuingCountry[fromCountryId] = votesFromCountry.AsEnumerable();
+                
+            });
+
             if (IsInDesignMode)
             {
                 var bitmapImage = new BitmapImage(new Uri(@"C:\Users\baspa\documents\visual studio 2017\Projects\Bas.EuroSing.ScoreBoard\Bas.EuroSing.ScoreBoard\Assets\Wyoming.png"));
@@ -172,8 +196,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 index = 9;
             }
 
-
-            return index >= 0 ? votesByIssuingCountry[currentCountryId.Value].OrderBy(v => v.NumPoints).ToArray()[index] : null;
+            var votes = votesByIssuingCountry[currentCountryId.Value];
+            var orderedVotes = votes.OrderBy(v => v.NumPoints);
+            var voteArray = orderedVotes.ToArray();
+            //return index >= 0 ? votesByIssuingCountry[currentCountryId.Value].OrderBy(v => v.NumPoints).ToArray()[index] : null;
+            return index >= 0 ? voteArray[index] : null;
         }
 
         private void OnChangeStateMessage(ChangeStateMessage message)

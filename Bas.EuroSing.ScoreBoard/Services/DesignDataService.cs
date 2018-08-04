@@ -72,7 +72,7 @@ namespace Bas.EuroSing.ScoreBoard.Services
             });
         }
 
-        public void SaveVote(Vote vote)
+        public void SaveVote(Vote vote, bool force = false)
         {
             throw new NotImplementedException();
         }
@@ -88,6 +88,21 @@ namespace Bas.EuroSing.ScoreBoard.Services
         }
 
         public Dictionary<int, IEnumerable<Vote>> GetAllVotes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Collection<Country> GetCountriesToGiveVotesTo(int id, int numPoints)
+        {
+            return new Collection<Country>(new[]
+            {
+                new Country() { Id = 1, Name = "Nederland" },
+                new Country() { Id = 2, Name = "Cyprus" },
+                new Country() { Id = 3, Name = "Hungary" }
+            });
+        }
+
+        public Collection<Vote> GetIssuedVotes(int countryIssuingVotesId)
         {
             throw new NotImplementedException();
         }

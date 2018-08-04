@@ -86,15 +86,27 @@ namespace Bas.EuroSing.ScoreBoard.Services
             return new Collection<Vote>(issuedVotes.Concat(votesToIssue).ToList());
         }
 
-        public void SaveVote(Vote vote)
+        public void SaveVote(Vote vote, bool force = false)
         {
             if (vote.NumPoints > 0)
             {
                 if (vote.Id == 0)
                 {
+                    //if (force)
+                    //{
+                    //    var existingVote = db.Votes.FirstOrDefault(v => v.FromCountryId == vote.FromCountryId && v.NumPoints == vote.NumPoints);
+
+                    //    if (existingVote != null)
+                    //    {
+                    //        db.Votes.Remove(existingVote);
+                    //    }
+                    //}
+
                     db.Countries.Attach(vote.FromCountry);
                     db.Countries.Attach(vote.ToCountry);
                     db.Votes.Add(vote);
+
+
                 }
 
                 db.SaveChanges();
@@ -127,6 +139,32 @@ namespace Bas.EuroSing.ScoreBoard.Services
             }
 
             return dictionary;
+        }
+
+        
+        public Collection<Country> GetCountriesToGiveVotesTo(int countryIssuingVotesId, int numPoints)
+        {
+            var issuedVotes = GetIssuedVotes(countryIssuingVotesId);
+
+            var votedForCountryIds = issuedVotes.Select(v => v.ToCountryId);
+            var currentVote = issuedVotes.SingleOrDefault(v => v.NumPoints == numPoints);
+            var countries = (from c in db.Countries
+                            where c.Id != countryIssuingVotesId &&
+                                  !votedForCountryIds.Contains(c.Id)                             
+                            orderby c.Name
+                            select c).ToList();
+
+            if (currentVote != null)
+            {
+                countries.Add(currentVote.ToCountry);
+            }
+
+            return new Collection<Country>(countries);
+        }
+
+        public Collection<Vote> GetIssuedVotes(int countryIssuingVotesId)
+        {
+            return new Collection<Vote>(db.Votes.Where(v => v.FromCountryId == countryIssuingVotesId).ToList());
         }
     }
 }

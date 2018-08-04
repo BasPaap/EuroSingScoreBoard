@@ -33,6 +33,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Countries = new ObservableCollection<CountryResultsControlViewModel>(from c in this.dataService.GetAllCountries()
                                                                           select new CountryResultsControlViewModel(c, this.dataService));
+
             NextCommand = new RelayCommand(OnNextCommand, CanNextCommandExecute);
             BackCommand = new RelayCommand(OnBackCommand);
 
@@ -81,6 +82,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             this.state = this.state != ResultsState.TwelvePoints ? this.state + 1 : ResultsState.RevealCountry;
 
+            if (this.state == ResultsState.SplashScreen)
+            {
+                Messenger.Default.Send(new ReadyForLateVotesMessage());
+            }
+
             if (this.state == ResultsState.RevealCountry)
             {
                 if (Countries.Count(c => c.IsInQueue) > 0)
@@ -94,10 +100,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             }
 
             if (this.state == ResultsState.TwelvePoints)
-            {
-                // Dit klopt dus niet, want je kan inmiddels een ander land geselecteerd hebben. Zodra je naar REvealcountry gaat 
-                // moet het onthulde land vastgelegd worden, en -die- moet hier verwijderd worden.
-                                
+            {                   
                 if (this.currentlyRevealedCountry != null)
                 {
                     this.currentlyRevealedCountry.IsSelected = false;

@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bas.EuroSing.ScoreBoard.Messages
 {
-    class VoteCastMessage
+    internal class UpdateCountriesToGivePointsToMessage
     {
-        public int? CountryId { get; set; }
-
-        public VoteCastMessage(int? countryId)
-        {
-            CountryId = countryId;
-        }
     }
 }
