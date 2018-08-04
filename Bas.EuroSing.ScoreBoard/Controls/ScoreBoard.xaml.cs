@@ -121,8 +121,6 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                                                      typeof(ScoreBoard), 1);
             item.SetBinding(ScoreBoardItem.WidthProperty, widthBinding);
 
-            //SetAnimationForScoreBoardItem(item, nextYOffset, nextTimeSpan);
-
             rootCanvas.Children.Add(item);
             Canvas.SetTop(item, nextYOffset);
             Debug.WriteLine($"AddItem: Canvas.SetTop({(item.DataContext as CountryResultsViewModel).Name}, {nextYOffset});");
@@ -178,7 +176,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 Duration = TimeSpan.FromSeconds(0.7),
                 From = yOffset + 180.0,
                 To = yOffset,
-                FillBehavior = FillBehavior.Stop, // Deze moet op stop staan omdat we anders na de animatie de Canvas.Top property niet meer kunnen setten
+                FillBehavior = FillBehavior.Stop, // This animation has to be on Stop because otherwise we can't set  Canvas.Top anymore after the animation.
                 EasingFunction = new ExponentialEase()
                 {
                     EasingMode = EasingMode.EaseOut,
