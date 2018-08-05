@@ -180,21 +180,15 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             // Add an animation that animates the opacity from 0 to 1
             AddDoubleAnimationToStoryboard(item, UIElement.OpacityProperty, EntranceStoryboard, beginTime, TimeSpan.FromSeconds(0), 0, 1);
 
-            var translateYAnimation = new DoubleAnimation()
+            var translateYAnimation = AddDoubleAnimationToStoryboard(item, Canvas.TopProperty, EntranceStoryboard, beginTime, TimeSpan.FromSeconds(0.7), yOffset + 180.0, yOffset);
+            translateYAnimation.FillBehavior = FillBehavior.Stop;, // This animation has to be on Stop because otherwise we can't set  Canvas.Top anymore after the animation.
+            translateYAnimation.EasingFunction = new ExponentialEase()
             {
-                BeginTime = beginTime,
-                Duration = TimeSpan.FromSeconds(0.7),
-                From = yOffset + 180.0,
-                To = yOffset,
-                FillBehavior = FillBehavior.Stop, // This animation has to be on Stop because otherwise we can't set  Canvas.Top anymore after the animation.
-                EasingFunction = new ExponentialEase()
-                {
-                    EasingMode = EasingMode.EaseOut,
-                    Exponent = 2.0
-                }
+                EasingMode = EasingMode.EaseOut,
+                Exponent = 2.0
             };
-
-            // Because FillBehavior has to be on stop, we have to manually reset the top position at the end of the animation.
+            
+            // Because FillBehavior has to be on stop, we have to manually reset the top position at the end of the animation. We do this in the Completed Event Handler.
             Debug.WriteLine("-------- Setting completed event");
             translateYAnimation.Completed += (sender, e) =>
             {
@@ -212,11 +206,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                     numAnimationsCompleted = 0;
                 }
             };
-
-            Storyboard.SetTarget(translateYAnimation, item);
-            Storyboard.SetTargetProperty(translateYAnimation, new PropertyPath(Canvas.TopProperty));
-            EntranceStoryboard.Children.Add(translateYAnimation);
-
+                        
             Debug.WriteLine($"ENTERING {(item.DataContext as CountryResultsViewModel).Name}({((item.DataContext as CountryResultsViewModel)).TotalPoints} points, position {Canvas.GetTop(item)}) from {translateYAnimation.From} to {translateYAnimation.To}");
         }
 
