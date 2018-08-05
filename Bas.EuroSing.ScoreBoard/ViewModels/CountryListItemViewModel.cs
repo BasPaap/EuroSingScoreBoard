@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Bas.EuroSing.ScoreBoard.Extensions;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
 {
@@ -64,13 +65,17 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             DeleteCommand = new RelayCommand(OnDeleteCommand);
             EditCommand = new RelayCommand(() => { IsInEditMode = true; });
+
             StopEditCommand = new RelayCommand(async () => 
             {
+                // Stop editing and change the country name if the StopEditCommand is executed.
                 IsInEditMode = false;
                 await this.dataService.ChangeCountryNameAsync(this.Id, this.Name);
             });
+
             KeyUpCommand = new RelayCommand<KeyEventArgs>((e) =>
             {
+                // Stop editing if the enter key was pressed.
                 if (e.Key == Key.Enter)
                 {
                     StopEditCommand.Execute(null);
@@ -79,25 +84,11 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
             Id = country.Id;
             Name = country.Name;
-
-            if (country.FlagImage != null)
-            {
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
-                bitmapImage.EndInit();
-
-                FlagImage = bitmapImage;
-            }
-
-            if (numValidPoints != null)
-            {
-                IsComplete = this.dataService.GetVotes(country.Id).Count(v => v.NumPoints > 0) == numValidPoints;
-            }
+            FlagImage = country.FlagImage?.ToBitmapImage();                
+            IsComplete = this.dataService.GetVotes(country.Id).Count(v => v.NumPoints > 0) == numValidPoints;            
         }
 
+        // Send Delete message and tell the dataservice to delete the country.
         private async void OnDeleteCommand()
         {
             Messenger.Default.Send(new RemoveCountryMessage(this.Id));

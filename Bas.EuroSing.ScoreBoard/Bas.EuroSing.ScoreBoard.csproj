@@ -86,6 +86,7 @@
     <Compile Include="Controls\ScoreBoardItem.xaml.cs">
       <DependentUpon>ScoreBoardItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ByteArrayExtensionMethods.cs" />
     <Compile Include="Messages\BackMessage.cs" />
     <Compile Include="Messages\ChangeStateMessage.cs" />
     <Compile Include="Messages\CountriesUpdatedMessage.cs" />
