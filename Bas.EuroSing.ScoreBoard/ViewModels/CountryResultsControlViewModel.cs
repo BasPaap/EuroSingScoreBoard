@@ -5,6 +5,7 @@ using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -64,38 +65,29 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         public ObservableCollection<CountryListItemViewModel> CountriesToGiveTwelvePointsTo { get; set; }
 
         private CountryListItemViewModel eightPointsVote;
-
-        
+                
         public CountryListItemViewModel EightPointsVote
         {
             get { return eightPointsVote; }
             set
             {
-                
-                var oldValue = eightPointsVote;
-                Set(ref eightPointsVote, value);
+                SetPointsVote(ref eightPointsVote, 8, value);                
+            }
+        }
 
-                if (oldValue == null)
-                {
-                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
-                }
-                else
-                { 
-                    
-                }
+        private void SetPointsVote(ref CountryListItemViewModel pointsVote, int numPoints, CountryListItemViewModel value)
+        {
+            var oldValue = pointsVote;
+            Set(ref pointsVote, value);
 
-                if (isReadyForLateVotes)
-                {
-                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 8));
-                }
-                //var vote = new Vote()
-                //{
-                //    FromCountryId = Id,
-                //    ToCountryId = eightPointsVote.Id,
-                //    NumPoints = 8
-                //};
+            if (oldValue == null)
+            {
+                Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id);
+            }
 
-                //dataService.SaveVote(vote, true);
+            if (isReadyForLateVotes)
+            {
+                Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, numPoints));
             }
         }
 
@@ -106,72 +98,18 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             get { return tenPointsVote; }
             set
             {
-
-                var oldValue = tenPointsVote;
-                Set(ref tenPointsVote, value);
-
-                if (oldValue == null)
-                {
-                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
-                }
-                else
-                {
-
-                }
-
-                if (isReadyForLateVotes)
-                {
-
-                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 10));
-                }
-
-                //var vote = new Vote()
-                //{
-                //    FromCountryId = Id,
-                //    ToCountryId = tenPointsVote.Id,
-                //    NumPoints = 10
-                //};
-
-                //dataService.SaveVote(vote, true);
+                SetPointsVote(ref tenPointsVote, 10, value);
             }
         }
 
-        private CountryListItemViewModel twelvePointsVote;
-        
+        private CountryListItemViewModel twelvePointsVote;        
 
         public CountryListItemViewModel TwelvePointsVote
         {
             get { return twelvePointsVote; }
             set
             {
-                
-
-                var oldValue = twelvePointsVote;
-                Set(ref twelvePointsVote, value);
-
-                if (oldValue == null)
-                {
-                    Messenger.Default.Send(new UpdateCountriesToGivePointsToMessage(), this.Id); 
-                }
-                else
-                {
-
-                }
-
-
-                if (isReadyForLateVotes)
-                {
-                    Messenger.Default.Send(new LateVoteCastMessage(Id, value.Id, 12));
-
-                }
-                //var vote = new Vote()
-                //{
-                //    FromCountryId = Id,
-                //    ToCountryId = twelvePointsVote.Id,
-                //    NumPoints = 12
-                //};
-
-                //dataService.SaveVote(vote, true);
+                SetPointsVote(ref twelvePointsVote, 10, value);
             }
         }
 
@@ -215,9 +153,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         private void OnUpdateCountriesToGivePointsTo(UpdateCountriesToGivePointsToMessage message)
         {
             CountriesToGiveEightPointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(8));
-
             CountriesToGiveTenPointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(10));
-
             CountriesToGiveTwelvePointsTo = new ObservableCollection<CountryListItemViewModel>(GetCountriesToGivePointsTo(12));
         }
 
