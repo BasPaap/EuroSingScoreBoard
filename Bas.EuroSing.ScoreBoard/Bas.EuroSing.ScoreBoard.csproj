@@ -112,7 +112,7 @@
     <Compile Include="ViewModels\CountryResultsViewModel.cs" />
     <Compile Include="ViewModels\CountryVoteViewModel.cs" />
     <Compile Include="Messages\ResultsState.cs" />
-    <Compile Include="ViewModels\ReadyForLateVotesMessage.cs" />
+    <Compile Include="Messages\ReadyForLateVotesMessage.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>

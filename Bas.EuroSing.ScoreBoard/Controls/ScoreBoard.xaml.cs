@@ -181,7 +181,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             AddDoubleAnimationToStoryboard(item, UIElement.OpacityProperty, EntranceStoryboard, beginTime, TimeSpan.FromSeconds(0), 0, 1);
 
             var translateYAnimation = AddDoubleAnimationToStoryboard(item, Canvas.TopProperty, EntranceStoryboard, beginTime, TimeSpan.FromSeconds(0.7), yOffset + 180.0, yOffset);
-            translateYAnimation.FillBehavior = FillBehavior.Stop;, // This animation has to be on Stop because otherwise we can't set  Canvas.Top anymore after the animation.
+            translateYAnimation.FillBehavior = FillBehavior.Stop; // This animation has to be on Stop because otherwise we can't set  Canvas.Top anymore after the animation.
             translateYAnimation.EasingFunction = new ExponentialEase()
             {
                 EasingMode = EasingMode.EaseOut,

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bas.EuroSing.ScoreBoard.ViewModels
+namespace Bas.EuroSing.ScoreBoard.Messages
 {
     internal class ReadyForLateVotesMessage
     {
