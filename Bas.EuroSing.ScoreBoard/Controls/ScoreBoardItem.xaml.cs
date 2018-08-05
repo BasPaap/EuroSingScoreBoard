@@ -18,6 +18,8 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 {
     /// <summary>
     /// Interaction logic for ScoreBoardItem.xaml
+    /// 
+    /// A ScoreboardItem is a row on the scoreboard containing the current and total points, flag icon and country name.
     /// </summary>
     public partial class ScoreBoardItem : UserControl
     {
@@ -28,27 +30,22 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         
         private void StartTotalPointsAnimation(int from, int to)
         {
-            var storyboard = new Storyboard();
-            var animation = new Int32Animation()
+            var totalPointsStoryboard = new Storyboard();
+            var totalPointsCountUpAnimation = new Int32Animation()
             {
                 BeginTime = TimeSpan.Zero,
                 From = from,
                 To = to,
                 Duration = TimeSpan.FromSeconds(0.7),
-                //EasingFunction = new ExponentialEase()
-                //{
-                //    EasingMode = EasingMode.EaseOut,
-                //    Exponent = 2
-                //}
             };
 
-            storyboard.Children.Add(animation);
+            totalPointsStoryboard.Children.Add(totalPointsCountUpAnimation);
 
             PropertyPath propertyPath = new PropertyPath(ScoreBoardItem.DisplayPointsProperty);
-            Storyboard.SetTarget(animation, this);
-            Storyboard.SetTargetProperty(animation, propertyPath);
+            Storyboard.SetTarget(totalPointsCountUpAnimation, this);
+            Storyboard.SetTargetProperty(totalPointsCountUpAnimation, propertyPath);
 
-            storyboard.Begin();
+            totalPointsStoryboard.Begin();
         }
 
         public int TotalPoints
@@ -61,6 +58,8 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         public static readonly DependencyProperty TotalPointsProperty =
             DependencyProperty.Register("TotalPoints", typeof(int), typeof(ScoreBoardItem), new PropertyMetadata(0, OnTotalPointsUpdated));
 
+
+        // When TotalPoints is updated, we start the count up animation for this item.
         private static void OnTotalPointsUpdated(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var scoreBoardItem = d as ScoreBoardItem;
@@ -77,6 +76,8 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         public static readonly DependencyProperty DisplayPointsProperty =
             DependencyProperty.Register("DisplayPoints", typeof(int), typeof(ScoreBoardItem), new PropertyMetadata(0));
         
+
+        // If CurrentPoints is updated, run the animation and notify any subscribers of the fact (for instance, so that the ScoreBoard can reorder the items.)
         private void CurrentPoints_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             var textBlock = e.Source as TextBlock;

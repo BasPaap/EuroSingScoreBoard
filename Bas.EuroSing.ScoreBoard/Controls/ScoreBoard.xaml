@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <Canvas x:Name="rootCanvas">
-        <!--<Button Canvas.Top="500" Canvas.Left="500" Width="50" Height="50" Click="Button_Click">Klik</Button>
-        -->
+        
     </Canvas>
 </UserControl>

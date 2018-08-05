@@ -37,15 +37,17 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
         private void ReorderCountries(bool skipAnimation = false)
         {
-            var orderedItems = Items.OrderByDescending(i => i.TotalPoints).ThenBy(i => i.Name).ToList();
+            var orderedItems = Items.OrderByDescending(i => i.TotalPoints).ThenBy(i => i.Name).ToList(); // Reorder all items so that we can look up their new indexes.
             var duration = skipAnimation ? TimeSpan.Zero : TimeSpan.FromSeconds(1.0);
 
             var reorderStoryboard = new Storyboard();
             foreach (var scoreBoardItem in rootCanvas.Children.OfType<ScoreBoardItem>())
             {
-                var viewModel = scoreBoardItem.DataContext as CountryResultsViewModel;
-                var newIndex = orderedItems.IndexOf(orderedItems.Single(i => i.Id == viewModel.Id));
+                var countryResultsViewModel = scoreBoardItem.DataContext as CountryResultsViewModel;
+                var newIndex = orderedItems.IndexOf(orderedItems.Single(i => i.Id == countryResultsViewModel.Id)); // Get the new index for this scoreBoardItem, from which we can calculate the new top position.
+                var newTopPosition = newIndex * itemHeight;
 
+                // Animate the item to its new position.
                 var reorderAnimation = new DoubleAnimation(Canvas.GetTop(scoreBoardItem), newIndex * itemHeight, duration)
                 {
                     BeginTime = duration,
@@ -59,7 +61,8 @@ namespace Bas.EuroSing.ScoreBoard.Controls
                 Storyboard.SetTarget(reorderAnimation, scoreBoardItem);
                 Storyboard.SetTargetProperty(reorderAnimation, new PropertyPath(Canvas.TopProperty));
                 reorderStoryboard.Children.Add(reorderAnimation);
-                Debug.WriteLine($"Reordering {viewModel.Name}({viewModel.TotalPoints} points, position {Canvas.GetTop(scoreBoardItem)}) from {reorderAnimation.From} to {reorderAnimation.To}");
+
+                Debug.WriteLine($"Reordering {countryResultsViewModel.Name}({countryResultsViewModel.TotalPoints} points, position {Canvas.GetTop(scoreBoardItem)}) from {reorderAnimation.From} to {reorderAnimation.To}");
             }
             reorderStoryboard.Begin();
         }
@@ -76,6 +79,7 @@ namespace Bas.EuroSing.ScoreBoard.Controls
 
         private static void OnItemsSet(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            // If the Items property is set, create new ScoreBoardItem controls for each item, bind the appropriate values, and subscribe to any events.
             var scoreBoard = d as ScoreBoard;
             if (e.NewValue != null)
             {
