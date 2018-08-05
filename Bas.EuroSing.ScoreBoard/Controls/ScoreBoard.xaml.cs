@@ -45,10 +45,10 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             {
                 var countryResultsViewModel = scoreBoardItem.DataContext as CountryResultsViewModel;
                 var newIndex = orderedItems.IndexOf(orderedItems.Single(i => i.Id == countryResultsViewModel.Id)); // Get the new index for this scoreBoardItem, from which we can calculate the new top position.
-                var newTopPosition = newIndex * itemHeight;
+                var newTopPosition = newIndex * scoreBoardItemHeight;
 
                 // Animate the item to its new position.
-                var reorderAnimation = new DoubleAnimation(Canvas.GetTop(scoreBoardItem), newIndex * itemHeight, duration)
+                var reorderAnimation = new DoubleAnimation(Canvas.GetTop(scoreBoardItem), newIndex * scoreBoardItemHeight, duration)
                 {
                     BeginTime = duration,
                     FillBehavior = FillBehavior.Stop,
@@ -114,22 +114,29 @@ namespace Bas.EuroSing.ScoreBoard.Controls
         }
 
         private int numAnimationsCompleted = 0;
-        private const double itemHeight = 50.0;
-        private double nextYOffset = 0;
-        private TimeSpan nextTimeSpan = TimeSpan.FromSeconds(1);
+        private const double scoreBoardItemHeight = 50.0;
+        private double nextScoreBoardItemTop = 0; 
+        private TimeSpan nextScoreBoardItemAnimationDelay = TimeSpan.FromSeconds(1);
 
-        private void AddScoreBoardItem(ScoreBoardItem item)
+        private void AddScoreBoardItem(ScoreBoardItem scoreBoardItem)
+        {
+            BindItemWidthToScoreBoardWidth(scoreBoardItem);
+
+            rootCanvas.Children.Add(scoreBoardItem);
+            Canvas.SetTop(scoreBoardItem, nextScoreBoardItemTop);
+            Debug.WriteLine($"AddItem: Canvas.SetTop({(scoreBoardItem.DataContext as CountryResultsViewModel).Name}, {nextScoreBoardItemTop});");
+
+            // Update the next top and animation delay values for any subsequently added ScoreBoardItems.
+            nextScoreBoardItemTop += scoreBoardItemHeight;
+            nextScoreBoardItemAnimationDelay = nextScoreBoardItemAnimationDelay + TimeSpan.FromSeconds(0.1);
+        }
+
+        private static void BindItemWidthToScoreBoardWidth(ScoreBoardItem scoreBoardItem)
         {
             Binding widthBinding = new Binding("ActualWidth");
             widthBinding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor,
                                                      typeof(ScoreBoard), 1);
-            item.SetBinding(ScoreBoardItem.WidthProperty, widthBinding);
-
-            rootCanvas.Children.Add(item);
-            Canvas.SetTop(item, nextYOffset);
-            Debug.WriteLine($"AddItem: Canvas.SetTop({(item.DataContext as CountryResultsViewModel).Name}, {nextYOffset});");
-            nextYOffset += itemHeight;
-            nextTimeSpan = nextTimeSpan + TimeSpan.FromSeconds(0.1);
+            scoreBoardItem.SetBinding(ScoreBoardItem.WidthProperty, widthBinding);
         }
 
         public void ResetScoreBoardItemAnimations()
@@ -143,40 +150,39 @@ namespace Bas.EuroSing.ScoreBoard.Controls
             {                
                 SetAnimationForScoreBoardItem(item, yOffset, timeSpan);
 
-                yOffset += itemHeight;
+                yOffset += scoreBoardItemHeight;
                 timeSpan += TimeSpan.FromSeconds(0.1);
             }
         }
 
-        private void SetAnimationForScoreBoardItem(ScoreBoardItem item, double yOffset, TimeSpan timeSpan)
+        private static DoubleAnimation AddDoubleAnimationToStoryboard(DependencyObject target, object property, Storyboard storyboard, TimeSpan? beginTime = null, TimeSpan? duration = null, double from = 0.0, double to = 0.0)
         {
-            var initialOpacityAnimation = new DoubleAnimation()
+            var animation = new DoubleAnimation()
             {
-                BeginTime = TimeSpan.Zero,
-                Duration = TimeSpan.Zero,
-                To = 0
+                BeginTime = beginTime ?? TimeSpan.Zero,
+                Duration = duration ?? TimeSpan.Zero,
+                From = from,
+                To = to
             };
 
-            Storyboard.SetTarget(initialOpacityAnimation, item);
-            Storyboard.SetTargetProperty(initialOpacityAnimation, new PropertyPath(UIElement.OpacityProperty));
-            EntranceStoryboard.Children.Add(initialOpacityAnimation);
+            Storyboard.SetTarget(animation, target);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(property));
+            storyboard.Children.Add(animation);
 
+            return animation;
+        }
 
-            var opacityAnimation = new DoubleAnimation()
-            {
-                BeginTime = timeSpan,
-                Duration = TimeSpan.FromSeconds(1.0),
-                From = 0,
-                To = 1
-            };
+        private void SetAnimationForScoreBoardItem(ScoreBoardItem item, double yOffset, TimeSpan beginTime)
+        {
+            // Add an animation that instantly sets this item's inital opacity to 0.
+            AddDoubleAnimationToStoryboard(item, UIElement.OpacityProperty, EntranceStoryboard);
 
-            Storyboard.SetTarget(opacityAnimation, item);
-            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
-            EntranceStoryboard.Children.Add(opacityAnimation);
+            // Add an animation that animates the opacity from 0 to 1
+            AddDoubleAnimationToStoryboard(item, UIElement.OpacityProperty, EntranceStoryboard, beginTime, TimeSpan.FromSeconds(0), 0, 1);
 
             var translateYAnimation = new DoubleAnimation()
             {
-                BeginTime = timeSpan,
+                BeginTime = beginTime,
                 Duration = TimeSpan.FromSeconds(0.7),
                 From = yOffset + 180.0,
                 To = yOffset,
