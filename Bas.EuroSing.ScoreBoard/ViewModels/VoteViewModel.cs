@@ -151,8 +151,6 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
 
         private bool AreAllCountriesComplete()
         {
-            return true;
-
             bool allCountriesAreComplete = true;
 
             foreach (var country in Countries)

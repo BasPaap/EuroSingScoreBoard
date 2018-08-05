@@ -1,4 +1,5 @@
-﻿using Bas.EuroSing.ScoreBoard.Messages;
+﻿using Bas.EuroSing.ScoreBoard.Extensions;
+using Bas.EuroSing.ScoreBoard.Messages;
 using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
@@ -215,18 +216,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
                 CurrentCountryNumber++;
                 currentCountryId = message.CurrentCountry.Id;
                 CurrentCountryName = message.CurrentCountry.Name;
-
-                if (message.CurrentCountry.FlagImage != null)
-                {
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = new MemoryStream(message.CurrentCountry.FlagImage);
-                    bitmapImage.EndInit();
-
-                    CurrentCountryFlagImage = bitmapImage;
-                }
+                CurrentCountryFlagImage = message.CurrentCountry.FlagImage?.ToBitmapImage();
 
                 foreach (var country in Countries)
                 {

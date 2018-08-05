@@ -1,4 +1,5 @@
-﻿using Bas.EuroSing.ScoreBoard.Model;
+﻿using Bas.EuroSing.ScoreBoard.Extensions;
+using Bas.EuroSing.ScoreBoard.Model;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -56,18 +57,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
         {
             Id = country.Id;
             Name = country.Name;
-
-            if (country.FlagImage != null)
-            {
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
-                bitmapImage.EndInit();
-
-                FlagImage = bitmapImage;
-            }
+            FlagImage = country.FlagImage?.ToBitmapImage();                        
         }
     }
 }

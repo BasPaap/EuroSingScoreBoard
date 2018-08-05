@@ -1,16 +1,13 @@
-﻿using Bas.EuroSing.ScoreBoard.Messages;
+﻿using Bas.EuroSing.ScoreBoard.Extensions;
+using Bas.EuroSing.ScoreBoard.Messages;
 using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace Bas.EuroSing.ScoreBoard.ViewModels
@@ -188,19 +185,8 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             IsInQueue = true;
 
             ClickCommand = new RelayCommand(() => IsSelected = true );
-
-            if (country.FlagImage != null)
-            {
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = new MemoryStream(country.FlagImage);
-                bitmapImage.EndInit();
-
-                FlagImage = bitmapImage;
-            }
-
+            FlagImage = country.FlagImage?.ToBitmapImage();
+            
             var votes = dataService.GetIssuedVotes(country.Id);
             var eightPoints = votes.FirstOrDefault(v => v.NumPoints == 8);
             var tenPoints = votes.FirstOrDefault(v => v.NumPoints == 10);

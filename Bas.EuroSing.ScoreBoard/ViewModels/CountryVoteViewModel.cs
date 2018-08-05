@@ -1,4 +1,5 @@
-﻿using Bas.EuroSing.ScoreBoard.Messages;
+﻿using Bas.EuroSing.ScoreBoard.Extensions;
+using Bas.EuroSing.ScoreBoard.Messages;
 using Bas.EuroSing.ScoreBoard.Model;
 using Bas.EuroSing.ScoreBoard.Services;
 using GalaSoft.MvvmLight;
@@ -102,18 +103,7 @@ namespace Bas.EuroSing.ScoreBoard.ViewModels
             Id = vote.Id;
             Name = vote.ToCountry.Name;
             NumPoints = vote.NumPoints == 0 ? string.Empty : vote.NumPoints.ToString();
-
-            if (vote.ToCountry.FlagImage != null)
-            {
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.CreateOptions = BitmapCreateOptions.None;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = new MemoryStream(vote.ToCountry.FlagImage);
-                bitmapImage.EndInit();
-
-                FlagImage = bitmapImage;
-            }
+            FlagImage = vote.ToCountry.FlagImage?.ToBitmapImage();
 
             Messenger.Default.Register<VotesToCastUpdatedMessage>(this, (message) =>
             {
